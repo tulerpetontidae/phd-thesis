@@ -1,0 +1,209 @@
+\usepackage{fontspec}
+\usepackage{lmodern} % Remove LaTeX Font Warnings
+\usepackage{etoolbox} % programming tools, e.g. newrobustcmd or ifstrequal
+\usepackage{csquotes} % fixes warning in polyglossia
+\usepackage{polyglossia} % replaces Babel
+\usepackage{setspace}
+\usepackage[l2tabu, orthodox]{nag} % better warnings
+\usepackage{graphicx}
+\usepackage{fontawesome5} % \faExternalLink
+\usepackage{eulervm}       % \AMS Euler math font
+\usepackage[normalem]{ulem} % strike-through \sout
+\usepackage{marginnote} % \marginpar
+\usepackage[natbib, backend=biber, style=authoryear, maxcitenames=1, uniquelist=minyear, maxbibnames=99, useprefix]{biblatex}
+\usepackage[table]{xcolor} % e.g. for black!50
+\usepackage[strict]{changepage}
+\usepackage[export]{adjustbox} % for chapter style. Need export for the "inner" option in \includegraphics
+\usepackage[section]{placeins}
+\usepackage{afterpage} % to force one figure on even page
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabu}
+\usepackage{caption}
+\usepackage{relsize}
+\usepackage{hyperref}
+\usepackage[bottom]{footmisc}
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\RequirePackage[nameinlink, noabbrev, capitalise]{cleveref} % load last !!!
+
+
+% Silencing output from xetex:
+\hfuzz=999pt    % reduce overfull hbox errors
+\hbadness=10000 % reduce underfull hbox errors
+\usepackage{silence}
+\WarningFilter{latex}{Marginpar on page}
+
+% Good style recommondations from here:
+% https://tex.stackexchange.com/questions/9533/what-best-combination-of-fonts-for-serif-sans-and-mono-do-you-recommend
+\setdefaultlanguage[variant=uk]{english}
+% https://sourceforge.net/projects/linuxlibertine/. Open Font License
+\setmainfont[Mapping=tex-text, Numbers=OldStyle]{Linux Libertine}
+% Calibri - looks nice on screen, but not free unfortunately.
+% Linux Biolinum O - nice, but it does not have a bold italic version
+% Open Sans - too dense (and line height seems smaller)
+% Source Sans Pro - my best choice so far. Open Font licence (fonts.google.com)
+\setsansfont[Mapping=tex-text, Numbers=OldStyle]{Source Sans Pro}
+% https://fonts.google.com/specimen/Inconsolata. Open Font License
+\setmonofont{Inconsolata}
+
+
+% Style of the references
+\definecolor{citecolor}{RGB}{173,216,230}
+\hypersetup{
+  citecolor=citecolor
+}
+
+\addbibresource{references.bib}
+
+% Set the line spread (height). Be careful here, use too small rather than too
+% large value. Also: double-spaced lines correspond to a value of ~1.3,
+% depending on the font, NOT to 2.0
+\setstretch{1.05}
+
+\graphicspath{{fig/}}
+
+% Chapter style
+\renewcommand*\chapterheadstartvskip{\vspace*{0\textheight}}
+\renewcommand*\chapterheadendvskip{\vspace*{.1\textheight}}
+\setkomafont{chapter}{\rmfamily\fontsize{28}{32}\mdseries}
+\makeatletter
+\renewcommand*{\@@makechapterhead}[1]{%
+    \chapterheadstartvskip
+    \noindent
+    \begingroup
+        \usekomafont{chapter}%
+        \makebox[\textwidth][l]{%
+            \begin{adjustbox}{minipage=\textwidth, valign=t}%
+                \hyphenpenalty=10000%
+                \exhyphenpenalty=10000%
+                \raggedright\noindent#1%
+
+            \end{adjustbox}%
+            \hspace{\marginparsep}%
+            \begin{adjustbox}{minipage=\marginparwidth, valign=t}
+                \ifnumbered{chapter}{\rmfamily%
+                 \color{black!60}%
+                 \addfontfeature{Numbers=Lining}%
+                 \fontsize{150}{150}%
+                 \mdseries%
+                 \thechapter}\fi%
+            \end{adjustbox}%
+        }%
+    \endgroup
+    \chapterheadendvskip
+}
+\makeatother
+
+%% Figures
+\newcommand*\marginfig[1]{\includegraphics[width=\marginparwidth]{#1}}
+\newlength{\textplusmargin}
+\setlength{\textplusmargin}{\textwidth}
+\addtolength{\textplusmargin}{\marginparwidth}
+\addtolength{\textplusmargin}{\marginparsep}
+% Environments \figure -textwidth -textplusmargin
+%     1 = file
+%     2 = label
+%     3 = caption title
+%     4 = caption text
+\newcommand*\figuretextwidth[5][ht]{%                       <- figuretextwidth [4]
+    \begin{figure}[#1]
+        \captionsetup{type=figure}
+        \includegraphics[width=\textwidth,center]{#2}%
+        \figcap{#3}{#4}{#5}
+    \end{figure}
+}
+\newcommand*\figurearbitrary[6][ht]{%                       <- figurearbitrary [5]
+    \begin{figure}[#1]
+        \captionsetup{type=figure}
+        \includegraphics[width=#2\textwidth,center]{#3}%
+        \figcap{#4}{#5}{#6}
+    \end{figure}
+}
+\newcommand*\figuretextplusmargin[5][thb]{%                  <- figuretextplusmargin [4]
+    \begin{figure}[#1]
+        \captionsetup{type=figure}
+        \includegraphics[width=\textplusmargin,inner]{#2}%
+        \figcap{#3}{#4}{#5}
+    \end{figure}
+}
+\newlength\tmplengthone
+\newlength\tmplengthtwo
+\newcommand*\figuretwocolumns[9][0.5]{%                 <- figuretwocolumns [8]
+    \begin{figure}[t]
+        \captionsetup{type=figure}
+        % tmplengthone := (#1-0.02)*\textwidth
+        \setlength\tmplengthone{\dimexpr#1\textplusmargin-0.02\textplusmargin\relax}
+        % tmplengthtwo := (1-#1-0.02)*\textwidth
+        \setlength\tmplengthtwo{\dimexpr\textplusmargin-#1\textplusmargin-0.02\textplusmargin\relax}
+        \begin{adjustbox}{inner,minipage=[b]{\textplusmargin}}
+            \begin{minipage}[b]{\tmplengthone}
+                \includegraphics[width=\tmplengthone]{#2}
+            \end{minipage}
+            \hspace{0.04\textplusmargin}
+            \begin{minipage}[b]{\tmplengthtwo}
+                \includegraphics[width=\tmplengthtwo]{#6}
+            \end{minipage}\\[-\baselineskip]%
+            \begin{minipage}[t]{\tmplengthone}
+                \centering
+                \figcap{#3}{#4}{#5}
+            \end{minipage}
+            \hspace{0.04\textplusmargin}
+            \begin{minipage}[t]{\tmplengthtwo}
+                \centering
+                \figcap{#7}{#8}{#9}
+            \end{minipage}
+        \end{adjustbox}
+    \end{figure}
+}
+\newcommand*\figuremargin[4]{%                          <- figuremargin [4]
+    \marginpar{%
+        \captionsetup{type=figure}
+        \marginfig{#1}%
+        \captionof{figure}[#3]{\label{fig:#2}\textbf{#3.\enspace} #4}}%
+}
+\newcommand*\figurepagewidth[5][ht]{%                   <- figurepagewidth [4]
+    \begin{figure}[#1]
+        \captionsetup{type=figure}
+        \checkoddpage
+        \hspace{\ifoddpage -\dimexpr\oddsidemargin+1in\relax \else -\dimexpr\evensidemargin+\hoffset+1in\relax \fi}%
+        \makebox[\textwidth][l]{\includegraphics[width=\paperwidth]{#2}}
+        \figcap{#3}{#4}{#5}
+    \end{figure}
+}
+\newcommand\subpanel[1]{\textbf{#1:}\enspace}
+
+%% Captions
+\captionsetup{%
+    format=plain,
+    font={sf,footnotesize},
+    labelfont={bf},
+    labelformat=simple,
+    labelsep=colon,
+    justification=justified}
+\newcommand*\figcap[3]{\caption[#2]{\label{fig:#1}\textbf{#2.\enspace} #3}}
+\newcommand*\tabcap[3]{\caption[#2]{\label{tab:#1}\textbf{#2.\enspace} #3}}
+
+% Macros
+
+\newcommand*\captitle[1]{\textbf{#1}}
+\newcommand\margintext[1]{%
+    \ifstrequal{#1}{}{}{{\marginpar{\raggedright\footnotesize\itshape #1}}}}
+\newcommand\explain[2]{#1%
+    \margintext{\textbf{#1}\quad #2}}
+\newcommand\todo[1]{%
+    \marginpar{\footnotesize\color{red}\textbf{TO\ DO:}\\#1}}
+
+
+\newcommand*\gene[1]{\textit{#1}}
+\newcommand*\ko[1]{\textit{#1\textsuperscript{\(-/-\)}}}
+\newcommand*\protein[1]{#1}
+\newcommand*\species[1]{\textit{#1}}
+
+% Math
+
+\DeclareMathOperator*{\argmax}{\arg\!\max}
+\DeclareMathOperator*{\argmin}{\arg\!\min}

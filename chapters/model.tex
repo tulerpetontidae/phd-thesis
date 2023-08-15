@@ -1,0 +1,100 @@
+\chapter{Bayesian Model of In situ Sequencing Data}
+
+\section{Introduction}
+
+Lineage tracing through somatic mutations can reveal ancestral connections between cancer subclones. Yet, current methods fall short in preserved human tissue studies \citep{Yates2015-eg,Jamal-Hanjani2017-ed,Jones2008-tg,Shah2009-lx,Casasent2018-gx,Tarabichi2021-xx}. Techniques like laser capture microdissection (LCM) combined with limited nucleic acid library sequencing, including single-cell sequencing, help to some extent in delineating subclone spatial structures \citep{Shen2000-xj,Casasent2018-gx}. However, they don't effectively capture the diversity of cancer clones across entire tumour sections. While recent spatial genomics techniques can identify cancer clones based on distinct copy number profiles \citep{Zhao2022-dp,Erickson2022-mq}, they fall short in detecting point mutations or quantifying mixed clones.
+
+Though in situ hybridization \citep{Janiszewska2015-kb} and mutation-specific padlock probes \citep{Larsson2010-bp,Grundberg2013-te,Ke2013-km,Baker2017-jz} can detect individual mutations in situ, their potential is limited by the number of available fluorophores, allowing them to trace only a few mutations at once. Considering the genetic uniqueness of each cancer and its subclones, tracing multiple specific somatic mutations is crucial to decipher spatial and temporal ancestral relationships \citep{Nik-Zainal2012-tt}. The solution lies in encoding in situ sequencing probes combinatorially, allowing them to be captured with a multi-round imaging strategy, thus enabling multiplex Base Specific In Situ Sequencing (BaSISS).
+
+The BaSISS protocol uses fresh frozen tissue blocks, which are serially cryosectioned. This produces tissue for both bulk Whole Genome Sequencing (WGS) and z-stacked sections for spatial clone mapping. After identifying subclones from bulk WGS, BaSISS employs two main steps. First, it uses padlock probes designed for both mutant and wild-type alleles, marked with a unique 4–5 nucleotide barcode for multiplexing \citep{Ke2013-km}. These probes can target any expressed somatic mutation, including rearrangement breakpoints, and can be supplemented with copy number alterations. Next, BaSISS uses a cyclical microscopy approach, akin to gene expression in situ sequencing protocol \citep{Ke2013-km,Svedlund2019-xb}.
+
+The procedures described, along with initial data processing, produce two primary sets of information. WGS reveals anticipated clonal expansions, identifies point mutations and copy number variations specific to each clone. The spatial component locates alleles identified by the WGS in the tissue section. We also obtain a proxy to determine cell locations through segmented nuclei locations. Nevertheless, the interpretation of subclone locations becomes complicated due to the inherent complexity of the cancer genome, tissue heterogeneity, and potential systematic errors in the technology. These challenges drive the need for a robust statistical approach.
+
+\section{Popular approaches in modelling spatial transcriptomics data}
+
+Spatial inference is a common challenge spanning various research fields such as economics, geology, and ecology. Consequently, the field of spatial statistics has become rich in tools and methodologies, often finding applications well beyond their original purpose. Gaussian Processes, for instance, once used solely in geostatistics, now find use in diverse areas such as optimization problems, finance, and astronomy. This cross-applicability of tools is indicative of the universal nature of spatial problems. Even in spatial genomics, a relatively recent field, there exists a wide array of existing mathematical tools that can be applied to solve its unique challenges.
+
+While this overarching framework of spatial statistics provides many general tools, each field inevitably cultivates its own preferred methodologies. These are often dictated by the specific nature of the data and the underlying scientific understanding. In spatial genomics, the uniqueness arises from both the type of data generated and the biological comprehension that guides the analysis. This leads to inquiries that concern mapping and characterising cells using specific markers and observed spatial distributions. Such tasks are often carried out using latent variable modelling, where observations (expression) are explained by unobserved common factors (cell types/programs), as represented by:
+
+\begin{equation}
+D_i \sim f(k_i)
+\end{equation}
+
+
+When dealing with spatial experimental approaches that have low spatial resolution, such as spatial transcriptomics, data is commonly presented as an expression matrix (location x gene). However, for methods with higher signal density and resolution, the initial spots are often aggregated into cells. This can be done directly using segmentation masks obtained from nuclei or visualised cell membranes (when the experimental setting permits), or by inferring cell borders directly from the signal distribution.
+
+One crucial consideration is that if the factors are unconstrained, there is no guarantee that the lower-dimensional representation  $\mathbb{R}^k$ will resemble the actual cell types. This leads to the use of constraints, applied either singly or in combination. These constraints might be spatial, employing tools like Gaussian processes, Markov random fields, or conditional autoregression. Alternatively, the latent space can be constrained by harnessing the complementary nature of scRNAseq data. This involves learning a joint latent space representation from both scRNAseq and spatial data, or extracting signatures from scRNAseq data to guide the spatial model. The latter approach, commonly referred as cell type deconvolution\footnote{In my opinion a more apropriate name is cell type decomposition, since there are no explicit convolution operation involved}, where data is decomposed into a set of predefined factors has been especially popular recently, which brought to existence a zoo of methods utilising many possible architectures.
+
+Among the various models, recent benchmarking has revealed that generative Bayesian models perform well in the task of cell type decomposition. Considering additional favourable properties such as interpretability and direct uncertainty estimation, this class of models often becomes an appealing choice for modelling tasks within the field.
+
+\section{Bayesian statistical modelling}
+
+In many practical contexts, we find ourselves in situations where the underlying mechanisms governing the system are hidden or only partially observed, and the observations are noisy and limited. Such scarcity of information introduces inherent uncertainty in our understanding of the system. It is within this landscape of uncertainty that the Bayesian understanding of probabilities emerges as a natural tool. Rather than mere frequencies, probabilities are construed as representations of the degree of belief, capturing the epistemic uncertainty about the system parameters. A statistical model, crafted within this Bayesian paradigm, acts as a bridge between the observed data and the underlying phenomena, translating our assumptions and knowledge about the problem into a coherent probabilistic framework. This in turn allows us to make predictions, perform inference, and understand more deeply the structure of the data.
+
+Given a set of observations ${D} = \{t_1, t_2, … t_n\}$, a statistical model aims to describe how these observations are generated. One can consider these observations a realisation of a random variable $T$ which is controlled by a set of parameters $\theta$. Therefore, a statistical model could formally be defined by specifying the joint probability distribution $p({D}, \theta)$, describing the stochastic relationship between the observations and the controlling parameters. We can rewrite the joined probability using conditional probability, leading us to the Bayes' theorem equation:
+
+\begin{equation}
+p(\theta | {D}) = \frac{p({D} | \theta) p(\theta)}{p({D})} = \frac{p({D} | \theta) p(\theta)}{\int p({D} | \theta) p(\theta) d\theta}
+\end{equation}
+
+Here $p({D}|\theta)$ is the likelihood, representing the probability of the observations given the parameters; $p(\theta)$ is the prior distribution over the parameters, reflecting our beliefs about $\theta$ before observing the data; $({D}| \theta)$ is the posterior distribution after observing the data; and $p({D})$ is the evidence, obtained by marginalising $\theta$ out of the joined distribution. It is essentially a normalising constant, ensuring that posterior is a valid probability distribution and integrates to one. 
+Both frequentist and Bayesian models rely on the likelihood $p({D}|\theta)$, but they interpret the parameters $\theta$ differently. In the frequentist perspective, $\theta$ is fixed and its confidence intervals are estimated by considering multiple repeated samples of ${D}$. In the Bayesian view, $\theta$ varies for each observation set of ${D}$ and uncertainty in its estimation is expressed as a probability distribution. With this understanding, we can view statistical inference as an update on our prior belief of the distribution of hidden parameters based on additional evidence.
+
+\begin{equation}
+\text{posterior} \propto \text{likelihood} \times \text{prior}
+\end{equation}
+
+To demonstrate, let’s consider a simple gamma-poisson model of the gene expression, with the gene expression rate as a hidden variable. Consider an observation $D_n$  of observed counts in $n$ cells. I will model the gene expression count for each cell $i$ as a $\text{Poisson}$ random variable with the rate parameter $\lambda$ which has a $\text{Gamma}$ prior, where $\alpha$ and $\beta$ are the hyperparameters shaping our initial belief about expression rate.
+
+\begin{align}
+    D_i & \sim \text{Poisson}(\lambda) = \frac{\lambda^{D_i} e^{-\lambda}}{D_i!} \\
+    \lambda & \sim \text{Gamma}(\alpha, \beta) = \frac{\beta^\alpha}{\Gamma(\alpha)} \lambda^{\alpha - 1} e^{-\beta \lambda}
+\end{align}
+    
+Using the fact that the likelihood is independent Poisson distributions and the prior is a Gamma distribution it is trivial to derive the analytical form of the posterior $p(\lambda|D)$:
+
+\begin{align}
+        p(\lambda|D) & \propto p(D|\lambda) p(\lambda) \\
+         & \propto \prod_{i=1}^N \frac{\lambda^{D_i} e^{-\lambda}}{D_i!} \frac{\beta^\alpha}{\Gamma(\alpha)} \lambda^{\alpha - 1} e^{-\beta \lambda} \\ 
+        & \propto  \frac{\beta^\alpha}{\Gamma(\alpha)} \lambda^{\left(\sum_{i=1}^N D_i\right) + \alpha - 1} e^{-\lambda(n+\beta)} \\
+         & = \text{Gamma}(\alpha + \sum_i^n D_i, \beta + n)
+\end{align}
+
+The graphical depiction of the components is shown on \textbf{FIGURE N}.
+
+
+The process of inference, while appearing simple in principle, presents substantial difficulties in actual computation. A major obstacle lies in the denominator of the Bayesian formulation, the integral often becomes intractable  thus rendering even moderately complex Bayesian models intractable, apart from a few cases with carefully selected \explain{ \emph{conjugate priors}}{Write a simple explanation} like shown in the previous example. This issue is a significant constraint in the applicability of Bayesian models, which must be carefully considered in their practical implementation and model formulation.
+
+The solution to the problems came through a sequence of developments in Markov Chain Monte Carlo (MCMC) methods, including the Metropolis algorithm \citep{Rosenbluth1953-gu}, Metropolis-Hastings algorithm \citep{Hastings1970-mb}, Gibbs sampling \citep{Geman1984-nk}, and Hybrid Monte Carlo (HMC) \citep{Duane1987-gu}. These methods permit the generation of samples from the posterior probability distribution by forming an invertible Markov chain. The equilibrium distribution of this chain corresponds to the targeted posterior distribution \citep{Roberts2004-op}. Consequently, if one were to compute the constructed Markov chain, a guarantee exists for the convergence to the genuine posterior distribution of the model, given that the number of sampling steps approaches infinity. In practical terms, provided the model is appropriately specified, convergence tends to occur in a sensible duration. The samples derived from the converged chain may then be utilised to estimate the requisite summary statistics. 
+
+MCMC has revolutionised the field of Bayesian inference, segregating the procedures of model formulation and inference. It must be noted, however, that these methods do not scale with ease when faced with the dimensions and complexity of the model. They often either demand an extensive number of steps or involve calculations that, although fewer in number, are considerably computationally demanding. In scenarios where the analytical posterior is inaccessible, and the computational cost of MCMC is substantial, it is common to use alternative approximation schemes such as variational inference (VI).
+
+Variational Infernce is framed as an optimization problem, where the objective is to identify a distribution within a constrained family of tractable distributions that most closely approximates the target distribution \citep{Blei2017-dm}. This technique can be seen as an optimization problem, where the goal is to find a distribution that is most similar to the target distribution, within a constrained family of tractable distributions. Mathematically, the problem of VI can be formulated as finding the distribution $q(\theta)$ of the variational family $\mathcal{Q}$ that is following the true posterior $p(\theta | D)$ as closely as possible. The common distance measure that is used is the Kullback-Leibler (KL) divergence, thus the goal is:
+
+\begin{equation}
+q(\theta) = \argmin_{q \in \mathcal{Q}} \text{KL}(q(\theta) || p(\theta | D))  
+\end{equation}
+
+After expanding KL divergence and rewriting conditional probability:
+
+\begin{align}
+q(\theta) &= \argmin_{q \in \mathcal{Q}} \int q(\theta) \log \frac{q(\theta) p(D)}{p(\theta, D)} d\theta \\
+&= \argmin_{q \in \mathcal{Q}} \int q(\theta) [\log q(\theta) + \log p(D) - \log p(\theta, D)] d\theta \\
+&= \argmin_{q \in \mathcal{Q}} \mathbb{E}_q [\log q(\theta) -  \log p(\theta, D)] + \log p(D)
+\end{align}
+
+Notice that $\log p(x)$ is constant with respect to $q$, so we can ignore it when minimising KL divergence. Now we can define the optimisation objective, which is the inverse expectation term, referred as the \explain{Evidence Lower Bound}{Compose a simple illustration on why this is the Evidence LOWER bound} (ELBO). Hence, the original problem of minimising KL divergence between approximation distribution and posterior becomes equivalent to the maximisation of ELBO. 
+
+One significant development in VI is Automatic Differentiation Variational Inference (ADVI) \citep{Kucukelbir2016-gn}. ADVI generalises the approach by employing the normal family of distributions as the guide, thereby enabling the application of gradient-based optimisation techniques, via \explain{reparameterization trick}{Explain what is the reparameterization trick}.
+
+In ADVI, the variational distribution is assumed to be multivariate normal with an appropriate transformation.
+\begin{equation}
+q(\theta) = f(\mathcal{N}(\mu, \Sigma))
+\end{equation}
+
+Here, $\mu$ and $\sigma$ are the optimised mean and covariance parameters, and $f$ is a transformation function that maps the normal distribution to the desired distribution. The transformation function is chosen such that the support of the transformed distribution is the same as the support of the target distribution. For example, if the target distribution is a Gamma distribution, then the transformation function is the Exponential function. 
+
+In practice, additional constraints are imposed on the covariance matrix, considering it either low-rank or simply diagonal (mean-field) \citep{Blei2017-dm}. Although these assumptions may overlook a probable covariance structure between model parameters, and frequently underestimate the variance, they dramatically decrease the number of parameters that can be optimised. This makes the inference of even larger models feasible.
+
+In addition to advancements in inference algorithms, contemporary machine learning frameworks like Theano\footnote{A discontinued python framework that I had a misfortune to use as a backand for model optimisation defined in PyMC3 package. Currently a fork is maintained under the name Aesara} \citep{The_Theano_Development_Team2016-pj}, PyTorch \citep{Paszke2019-kg}, TensorFlow \citep{Abadi2016-ex}, and JAX \citep{Bradbury2018-qv}, have notably improved the efficiency of Bayesian inference. This is particularly true for methods that utilise automatic differentiation, such as the Hamiltonian Monte Carlo MCMC family techniques and ADVI. Probabilistic frameworks, including PyMC \citep{Salvatier2016-uy}, Pyro \citep{Bingham2019-tx}, and NumPyro \citep{Phan2019-ku}, are simplifying the Bayesian model development process. By managing most of the underlying calculations, these frameworks allow researchers to concentrate more on conceptual model development and spend less time on numerical details.
+
