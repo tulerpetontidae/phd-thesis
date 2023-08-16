@@ -1,14 +1,18 @@
 \documentclass[english, twoside, titlepage, DIV=8, BCOR=8.5mm, open=right, chapterprefix=false]{scrbook}
 
 \input{config}
+\input{abbreviations}
 
-\title{On the importance of being tRNA}
+\title{Mapping cancer evoltion in space}
 \author{Lomakin Artem Igorevich}
 
 \begin{document}
 \emergencystretch 3em % prevent overfull lines, sloppy though
 
 \maketitle
+\frontmatter
+\tableofcontents
+\listofabbrev
 
 % Main content
 \mainmatter
@@ -20,8 +24,8 @@
 \input{chapters/discussion}
 
 
-\backmatter
-
-\printbibliography
+% Appendix
+\appendix
+\listofreferences
 
 \end{document}

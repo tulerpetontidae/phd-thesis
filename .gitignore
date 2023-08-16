@@ -1,4 +1,34 @@
-./*.bbl
-./thesis.pdf
-./thesis.synctex.gz
-./*.xml
+# Ignore TeX auxiliary files
+*.aux
+*.log
+*.out
+*.lof
+*.lot
+*.toc
+*.bbl
+*.blg
+*.synctex.gz
+*.run.xml
+*.bcf
+*.fls
+*.fdb_latexmk
+*.xdv
+# Ignore compiled PDF
+*.pdf
+
+# Ignore temporary files created by editors
+*~
+*.bak
+*.swp
+*.swo
+
+# Ignore other generated files
+*.idx
+*.ilg
+*.ind
+*.glo
+*.gls
+*.ist
+
+# Ignore specific directories (e.g., build directory)
+/build/

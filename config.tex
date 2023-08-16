@@ -27,6 +27,11 @@
 \usepackage[bottom]{footmisc}
 \usepackage{amssymb}
 \usepackage{amsmath}
+\usepackage{acro}
+\acsetup{
+    cite/cmd = \citep,
+    list/sort = true,
+}
 
 \RequirePackage[nameinlink, noabbrev, capitalise]{cleveref} % load last !!!
 
@@ -36,6 +41,20 @@
 \hbadness=10000 % reduce underfull hbox errors
 \usepackage{silence}
 \WarningFilter{latex}{Marginpar on page}
+
+% acro styles
+% preamble:
+\newcommand*\addcolon[1]{#1:}
+\newlist{acronyms}{description}{1}
+\setlist[acronyms]{
+    labelwidth = 4em,
+    leftmargin = 4.5em,
+    noitemsep,
+    itemindent = 0pt,
+    font=\addcolon}
+\newlist{software}{description}{1}
+\setlist[software]{
+    font=\addcolon}
 
 % Good style recommondations from here:
 % https://tex.stackexchange.com/questions/9533/what-best-combination-of-fonts-for-serif-sans-and-mono-do-you-recommend
@@ -49,13 +68,6 @@
 \setsansfont[Mapping=tex-text, Numbers=OldStyle]{Source Sans Pro}
 % https://fonts.google.com/specimen/Inconsolata. Open Font License
 \setmonofont{Inconsolata}
-
-
-% Style of the references
-\definecolor{citecolor}{RGB}{173,216,230}
-\hypersetup{
-  citecolor=citecolor
-}
 
 \addbibresource{references.bib}
 
@@ -186,6 +198,43 @@
     justification=justified}
 \newcommand*\figcap[3]{\caption[#2]{\label{fig:#1}\textbf{#2.\enspace} #3}}
 \newcommand*\tabcap[3]{\caption[#2]{\label{tab:#1}\textbf{#2.\enspace} #3}}
+
+%% Lists in the front/back matter
+\newcommand*\listofabbrev{%
+    \cleardoublepage
+    \phantomsection
+    \chapter*{List of Abbreviations}%
+    \addcontentsline{toc}{chapter}{List of Abbreviations}%
+    % \acsetup{ list-style = acronyms_style }%
+    \printacronyms[heading=none,exclude={noprint,tools,people},name={List of Abbreviations}]%
+}
+\newcommand*\listofsoftware{%
+    \cleardoublepage
+    \phantomsection
+    \chapter{List of Software Tools}%
+    %\addcontentsline{toc}{chapter}{List of Software Tools}%
+    \acsetup{ list-style = software_style }
+    \printacronyms[heading=none,include={tools},name={List of Software Tools}]%
+}
+\renewcommand*{\bibfont}{\small} % make bibliography smaller !
+\newcommand*\listofreferences{%
+    \cleardoublepage
+    \phantomsection
+    \addcontentsline{toc}{chapter}{Bibliography}%
+    \printbibliography%
+}
+\newcommand*\listoffigs{%
+    \cleardoublepage
+    \phantomsection
+    \addcontentsline{toc}{chapter}{\listfigurename}
+    \listoffigures
+}
+\newcommand*\listoftabs{%
+    \cleardoublepage
+    \phantomsection
+    \addcontentsline{toc}{chapter}{\listtablename}
+    \listoftables
+}
 
 % Macros
 
