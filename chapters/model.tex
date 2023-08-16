@@ -92,22 +92,178 @@ In \ac{ADVI}, the variational distribution is assumed to be multivariate normal 
 q(\theta) = f(\mathcal{N}(\mu, \Sigma))
 \end{equation}
 
-Here, $\mu$ and $\sigma$ are the optimised mean and covariance parameters, and $f$ is a transformation function that maps the normal distribution to the desired distribution. The transformation function is chosen such that the support of the transformed distribution is the same as the support of the target distribution. For example, if the target distribution is a Gamma distribution, then the transformation function is the Exponential function. 
+Here, $\mu$ and $\sigma$ are the optimised mean and covariance parameters, and $f$ is a \explain{transformation function}{Consider giving an example} that maps the normal distribution to the desired distribution. The transformation function is chosen such that the support of the transformed distribution is the same as the support of the target distribution. For example, if the target distribution is a Gamma distribution, then the transformation function is the Exponential function. 
 
 In practice, additional constraints are imposed on the covariance matrix, considering it either low-rank or simply diagonal (mean-field) \citep{Blei2017-dm}. Although these assumptions may overlook a probable covariance structure between model parameters, and frequently underestimate the variance, they dramatically decrease the number of parameters that can be optimised. This makes the inference of even larger models feasible.
 
 In addition to advancements in inference algorithms, contemporary machine learning frameworks like \ac{Theano}\footnote{A discontinued python framework that I had a misfortune to use as a backand for model optimisation defined in PyMC package. Currently a fork is maintained under the name Aesara}, \ac{PyTorch}, \ac{TensorFlow}, and \ac{JAX}, have notably improved the efficiency of Bayesian inference. This is particularly true for methods that utilise automatic differentiation, such as the Hamiltonian Monte Carlo \ac{MCMC} family techniques and \ac{ADVI}. Probabilistic frameworks, including \ac{PyMC}, \ac{Pyro}, and \ac{NumPyro}, are simplifying the Bayesian model development process. By managing most of the underlying calculations, these frameworks allow researchers to concentrate more on conceptual model development and spend less time on numerical details.
 
-\section{Methods}
+\ac{BaSISS} profiles extensive areas of tissue, encompassing hundreds of thousands of cells. The underlying processes that generate the final data are complex. Therefore, defining a statistical approach becomes unfeasible without the utilisation of cutting-edge inference approaches and frameworks capable of handling this complexity.
 
-\subsection{Bayesian non negative matrix factorisation}
+\section{Methods}
+\subsection{BaSISS data characterisation}
+Before diving into the model design, let's first examine the raw \ac{BaSISS} data for three samples from P1 (P1-ER1, P1-ER2, and P1-D1). A comprehensive description of the samples and the experimental procedure is discussed in \ref{sec:basiss_data}. In brief, the multi-region \ac{WGS} identified six clonal expansions, and 51 padlock probes were designed to track them on tissue slides targeting mutant and wildtype allelic variants. In total, these three samples contain approximately 1,000,000 cells, spanning 245 mm\(^2\) of tissue (Table \ref{tab:basiss_data_raw}), and roughly 1,000,000 detected \ac{BaSISS} signals, 25\% of which target mutant variants.
+
+If one is to colour allelic variants by their clonal origin, it is easy to note that the data has hierarchical structure (Figure \ref{fig:basiss_data_raw}). For example private mutations of \green{green} and \blue{blue} clones tend to colocalise, while avoiding \orange{orange} clone private mutations. This is consistent with the clonal phylogeny, where \green{green} is a descendent of \blue{blue}, and therefore possesses all \blue{blue} mutations, while \orange{orange} clone is a separate lineage. When it comes to the corresponding wild type allels the situation is reversed, in the suspected location of \green{green} clone, wild type variants of the genes where it has a mutation is depleted, which makes sense as the copy number of the wild type variant is decreased once mutation happens. An even more obvious relation between copy number and singal density is observed for the copy number variable locus of \gene{FGFR1}. Since \orange{orange} clone possesses a greater copy number gain of 12 in this locus, the signal density is increased in the corresponding region  (Figure \ref{fig:basiss_data_raw_zoom}). 
+
+These observations motivate two key model design decisions. First of all, it is obvious that we won't be able to extract single cell level information from the data, as the signal density is too low. Therefore, we will be working with aggregated data, where the unit of observation is a region, not a cell. Cells inside these regions can belong to different clonal lineages and each should contribute to the observed signal count. Secondly, there is a clear relation between the copy number and signal density, which suggests that we should incorporate copy number information into the model.
+
+\subsection{Non-negative matrix factorisation}
+As discussed previously, the \ac{BaSISS} protocol involves recording a series of fluorescent spots, each of which corresponds to a targeted allele. These spots are decoded into a class of different barcodes $A$, resulting in a table of tuples $(a_i, x_i, y_i)$, where $a_i$ represents the allele of spot $i$, and $x_i$ and $y_i$ denote its respective two-dimensional coordinates on a grid.
+
+This grid can be visualised as a three-dimensional array $\mathbf{D} \in \mathbb{N}^{|a| \times |x| \times |y|}$, where $a$ refers to the specific allele, and $x$ and $y$ correspond to coarse-grained coordinates on a regular grid of dimensions $|x| \times |y|$. The grid size was selected to be 108.8 $\mu$ m, a choice that takes into consideration a balance between data sparsity, precision, and computational cost.
+
+The essential concept behind this approach is that the expected number of \ac{BaSISS} signals can be decomposed into maps of $|s|$ distinct clones $s$, each represented as $\mathbf{M} \in \mathbb{R}^{|s| \times |x| \times |y|}$, and a genotype $\mathbf{G} \in \mathbb{N}^{|a| \times |s|}$,
+
+\begin{equation}
+    \mathbb{E}[\mathbf{D}] \approx \mathbf{G} \times \mathbf{M} = \sum_{s} \mathbf{G}_{a, s} \mathbf{M}_{s, x, y}
+    \label{eq:ED}
+\end{equation}
+
+The genotype matrix $\mathbf{G}$ encapsulates the information about the number of each allelic copy present in each clone $s$. Essentially, $\mathbf{G}$ serves as a matrix representation of the underlying phylogenetic tree, providing a detailed guide to the allelic configuration at each branch of the tree. 
+
+The maps $\mathbf{M}$, on the other hand, offer insight into the relative prevalence of each clone in a specific area of the grid. The maps are modelled as non-negative matrices, as the number of cells in a given region cannot be negative. The non-negativity constraint is also biologically relevant, as it is impossible for a clone to have a negative prevalence in a given region.
+
+Since all three matrices are non-negative, the problem can be categorised as a \emph{non-negative matrix factorisation} problem. It is a known characteristic of such problems that they typically do not have unique solutions. Therefore, additional constraints, guided by biological reasoning, are required to ensure the identifiability of the solution. While the matrix $\mathbf{G}$ possesses a clear biological interpretation and is essentially fixed, the spatual nature of matrix $\mathbf{M}$, being a latent variable, must be carefully defined.
+
 \subsection{Laten Gaussian Process}
-\subsection{Sources of noise}
+
+Since the matrix $\mathbf{M}$ is designed to represent a spatially continuous map, we can utilise the inherent assumptions about spatial locality present within the data. Specifically, it is logically consistent to anticipate that points that are spatially closer to one another should display higher similarity than those further apart. This expectation not only arises from a general consideration of spatial smoothness but also finds roots in biological rationale. Considering the process of \explain{cancer growth}{Maybe ad a cartoon}, for example, dividing cells are typically situated near their parent cells, which further accentuates local similarity. This concept of spatial locality can be mathematically articulated using a Radial Basis kernel function:
+
+\begin{equation}
+    K_x(x,x') = \exp\left[ -\dfrac{(x-x')^2}{2l^2}\right]
+\end{equation}
+
+Here, $x$ and $x'$ denote spatial coordinates, and $l$ is a length scale hyperparameter that governs the smoothness.
+
+We can naturally express a generative process constrained by the kernel function through the \acf{GP}. The \ac{GP} represents a stochastic process where any finite set of random variables exhibits a joint Gaussian distribution. Put simply, a \ac{GP} serves as a distribution over functions which shape is constrained by the kernel. 
+
+The \ac{GP} relies on two main components for its specification: a mean function $m(x)$ and a covariance function. Since we are dealing with a two-dimensional spatial map, where $x$ and $y$ dimensions are independent, the covariance function is defined as the product of two one-dimensional kernels, $K_{xy} = K_x \times K_y$. As there is no prior knowledge about the expected prevalence of clones in the region, the mean function is set to zero:
+
+\begin{equation}
+    m_s(x,y) \sim \mathcal{GP}(0, K_x \otimes K_y)
+\end{equation}
+
+The \ac{GP} is a distribution over functions that belong to the $\mathbb{R}$ domain. However, 
+we want $\mathbf{M}$ to be non-negative, and even more specifically, to be a probability simplex. To achieve this, we apply a \emph{softmax transformation} to the \ac{GP} output, which maps the real-valued function to a probability simplex. The softmax transformation is defined as follows:
+
+\begin{equation}
+    \mathbf{M} = \left[ \dfrac{e^{\tau m_0}}{1 + \sum_{i=0}^{|s|-1}{e^{\tau m_i}}}, \dots, \dfrac{e^{\tau m_{|s|-1}}}{1 + \sum_{i=0}^{|s|-1}{e^{\tau m_i}}} \right]
+\end{equation}
+
+Here, $\tau$ is a temperature hyperparameter that controls the prior expectation of clone intermixing as shown on the (Figure \ref{fig:softmax_GP}). By setting high \explain{$\tau$ values}{Explain that for different number of components, tau should be chosen independently}, we express our beliefe that clones are likely to be spatially separated, while higher values of $\tau$ indicate a higher degree of intermixing. Since I didn't have a strong expectation about the degree of intermixing, I set $\tau$ = 2 for the case with 6 clones, which corresponds to a weak belief that clones tend to intermix.
+
+The use of \ac{GP} as a prior for the spatial maps $\mathbf{M}$ is a convinient way to deal with the sparcity of the data observed in the \ac{BaSISS} data. It allows to propagate information over the spatial dimensions in a \explain{non-parametric}{GP considered non parametric, explain why} way, stabilising the solution and reducing the impact of sampling fluctuations. Nevertheless, the model would benefit from excplicit parametrisation of the known sources of variation.
+
+\subsection{Sources of variation}
+
+I model the expected number of \ac{BaSISS} signals, denoted by $\mathbb{E}[\mathbf{D}]$, within a specific region. This calculation involves two components: the genotype matrix $\mathbf{G}$ and the spatial map $\mathbf{M}$. The matrix $\mathbf{G}$ encodes integer values representing the allelic copy number within each cell of a particular clone, while the spatial map $\mathbf{M}$ shows the relative prevalence of each clone in the region.
+
+The product of $\mathbf{G}$ and $\mathbf{M}$ provides a value that one might interpret as the average allelic copy number in the given region. However, this interpretation differs significantly from the expected number of BaSISS signals: the fluarophores observed as a product of sequencing by ligation of the amplified padlock probes hybridised with cDNA reads synthesised from the mRNA expressed by cells in the region. Hence, in order to rescale the product of $\mathbf{G}$ and $\mathbf{M}$ to the expected number of BaSISS signals, we need to account for the following sources of variation:
+
+\begin{enumerate}
+    \item Cellular density $\nu$
+    \item Differential probe specificity $\iota$
+    \item Allelic confusion $\tau$
+    \item Clone expression variations $\gamma$
+    \item Homogeneous and inhomogeneous background adjustments $\beta$
+    \item Overdispersed sampling fluctuations $\alpha$
+\end{enumerate}
+
+Accounting for these, the equation for the expected number of BaSISS signals \eqref{eq:ED} becomes:
+
+\begin{equation} 
+\mathbf{M}_{a, x,y} = \underbrace{\nu_{x,y}}_{\text{cell density}} \cdot \overbrace{\iota}_a^{\mathclap{\text{detection rate}}} \cdot \underbrace{\sum_{a'} \tau_{a,a'}}_{\text{probe confusion}} \sum_s  \overbrace{\gamma_{s,a}}^{\mathclap{\text{clone-specific expression}}} \underbrace{\mathbf{G}_{a,s} \mathbf{M}_{s,x,y}}_{\text{clone contribution}} + \overbrace{\beta_a}^{\mathclap{\text{background}}}
+\label{eq:ED_full}\\
+\end{equation} 
+
+Let's discuss each of these components in more detail.
+
 \subsubsection*{Cellular density}
+The cellular density $\nu_{x,y}$ directly influences the number of observed signals in a given region. While this density represents the expected number of cells, directly observing it poses a challenge. Some tools attempt to infer cellular density from transcriptional signals alone \citep{Kleshchevnikov2022-ch}. However, this method is unreliable due to \explain{confounding expression}{same singal level could be explained by higher global expression, or more dense cell populations} specific factors.
+
+Fortunately, the number of nuclei in the region provides necessery information to disentangle the effect of cellular density from the other sources of variation. We obtain this data during the \ac{BaSISS} signal acquisition process. Using a neural network model, we segment the DAPI stained image of nuclei, saving the nuclei counts in a two-dimensional array $\mathbf{N} \in \mathbb{N}^{|x| \times |y|}$. These counts may not always accurately reflect cell densities. This inaccuracy can result from segmentation errors or because the slide captures only a fraction of the cells. As a result, we model the nuclei counts $\mathbb{N}_{x,y}$ as Poisson distributed values. Their mean, $\nu_{x,y}$, represents cell densities and follows a weak Gamma prior.
+
+\begin{equation}
+    \mathbf{N}_{x,y} \sim \text{Poisson}({\nu}_{x,y})
+\end{equation}
+\begin{equation}
+    {\nu}_{x,y} \sim \text{Gamma}(\mu, \sigma)
+\end{equation}
+
+The prior parameters $\mu$ and $\sigma$ are set to a weekly informative distribution center around the expected number of cells in the region.
+
 \subsubsection*{Differential probe specificity}
+
+\ac{BaSISS} ability to detect allelic variants relies on a multistage process of reverse transcription, padlock probes annealing, amplification and fluorophore detection \citep{Svedlund2019-xb}. As it is hard to model each of the steps explicitly, we model the overall detection rate $\iota \in \mathbb{R}^{|a|}_{+}$ for each allele $a$ as a Gamma distributed random variable.
+
+\begin{equation}
+    {\iota}_{a} \sim \text{Gamma}(\mu, \sigma)
+\end{equation}
+
+The prior parameters $\mu$ and $\sigma$ are set to a weekly informative distribution with the probability density shifterd towards zero, as we do not know the average probe specific detection rate, but it is likely to be low given that we observe < 1 \ac{BaSISS} signal per cell.
+
+\subsubsection*{Allelic confusion}
+
+The difference between wild type and mutated allelic variants often amounts to a single nucleotide. This elevates the chances for the padlock probe to anneal to the off-target allelic variant, resulting in \explain{allelic confusion}{Draw how it looks}. Though DNA ligases are optimised for fidelity, they can make mistakes, particularly under suboptimal conditions \citep{Lohman2016-ec}. This mistake-prone behaviour particularly contaminates mutated alleles. Since most cells contain at least two wild type copies, this creates spurious noise, as seen in \ref{fig:allelic_confusion}.
+
+To model this effect, I design a sparse transition matrix ${\tau} \in \mathbb{R}^{|a|, |a|}_{(0,1)} $, populating it with transition probabilities $ \{ {\tau}_{a,a'}\} $ for each allele. I impose a strong regularising Beta prior on $ \tau_{a,a'} $, shifting the probability density close to 1 and preventing it from dropping below 0.75. This restriction avoids non-identifiabilities and is a reasonable constraint, given that this effect is selected against during protocol optimisation.
+
+\begin{equation}
+ {\tau} = \left(\begin{array}{c|cccc}
+       & \ldots & \text{wt} & \text{mut} & \ldots \\ 
+\hline
+ \vdots &  &        &        & \\
+\text{wt}      &  & \tau_{11} & 1-\tau_{11} &  \\
+\text{mut}     &  & 1-\tau_{22} & \tau_{22} &  \\
+\vdots  &  &        &        & 
+\end{array}\right), {\tau}_{a,a'} \sim 1-\text{Beta}(\alpha, \beta)/4
+\end{equation}
+
+I set the values corresponding to different loci to zero, as off-target probe hybridisation is unlikely to result in a signal.
+
 \subsubsection*{Clone specific allelic variations}
+
+The detection rate matrix, $\iota$, registers the mean clonal expression level. However, we can reasonably assume that different clones exhibit some level of diversity in gene expression. To model this deviation, I use a matrix $\gamma \in \mathbb{R}_{+}^{|s|\times|a|}$, with a LogNormal distributed prior such that $\mathbb{E}[\gamma]$ = 1.
+
+\begin{equation} 
+\gamma_{s,a} \sim \text{LogNormal}(\mu, \sigma)
+\end{equation}
+
+Regularising this prior is crucial to ensure that most of the probability density surrounds 1 by choosing a small $\sigma$. Since the matrix $\gamma$ has the same shape as the genotype matrix $\mathbf{G}$, failing to control this parameter could lead to non-identifiabilities.
+
 \subsubsection*{Homogeneous and inhomogeneous background adjustments}
+
+Raw BaSISS data are derived from biological images that include additional sources of pixel-level variability. The first source is a homogeneous additive shift $\beta \in \mathbb{R}_{+}^{|a|}$, which globally increases the expected value of a particular probe detection on the slide. This is consistent with a potential global background autofluoresence which differs in the wavelength, thus affecting each probe independently, as they are combinatorically encoded by fluorophores. In combination with the failed probe detection, this effect can lead to a global shift in the signal density. I model this effect as a Gamma distributed random variable.
+
+\begin{equation} 
+\beta_{a} \sim \text{Gamma}(\mu=0.5, \sigma=1) 
+\end{equation}
+
+The second source is an inhomogeneous background shift that adjusts for the variability in local base signal detection. Such factor should help the model explaining changes in signal composition that are not explainable by the linear combination of a known clonal genotypes. In practice, besides unknown clones, this factor tend to help with the technical noise, when some of the tissue areas are not properly registered, or in the necrotic areas, where nulcei count is high, but the \ac{BaSISS} signal is low.
+
+Modelling the variance of this type without imposing harsh regularisation presents a challenge due to its flexibility. To represent the inhomogeneous background shift, I introduce additional pseudo-clones, denoted by $\psi$, with corresponding relative prevalence $\mathbf{M}$ and pseudo-genotype $\Gamma \in \mathbb{R}^{|p|\times|a|}_{+}$. The prevalence in this context mirrors that modelled for the actual clones. The pseudo-genotype is inferred from a Beta prior, which is manipulated to stretch the support to match the median copy number $k$ among the loci. Although I use $|\psi| = 1$, this value can be increased to allow for a more flexible background shift.
+
+\begin{equation} 
+    {\Gamma}_{p,a} \sim \text{Beta}(\alpha, \beta) \times k \\
+\end{equation}
+
+The Beta distirubtion parameters are chosen to shift the probability density towards zero, which should prevent the pseudo-genotype from being overestimated and overused by the model.
+
 \subsubsection*{Sampling fluctuations}
+
+I model BaSISS counts as being Negative Binomial distributed given an unobserved mean detection level $\mathbf{M}_{x,y,a}$ and over-dispersion parameter ${\alpha}_a$ which accounts for unexplained variance:
+
+\begin{equation} 
+\mathbf{D}_{x,y,a} \sim \text{NB}(\mu_{x,y,a}, \alpha_a)
+\end{equation}
+
+Over-dispersion $\alpha_a$ is sampled from Gamma distribution where distribution density is shifted towards larger value, which 
+
+\begin{equation} 
+{\alpha}_a \sim \mathrm{Gamma}(\mu, \sigma)
+\end{equation} 
+
 
 \subsection{Regularisation with auxiliary constraints}
 \subsection{Multi-sample extensions}
@@ -118,5 +274,3 @@ In addition to advancements in inference algorithms, contemporary machine learni
 \section{Model limitations and future directions}
 
 \section{Discussion}
-
-

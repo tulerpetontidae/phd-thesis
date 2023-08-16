@@ -27,14 +27,20 @@
 \usepackage[bottom]{footmisc}
 \usepackage{amssymb}
 \usepackage{amsmath}
+\usepackage{mathtools}
 \usepackage{acro}
 \acsetup{
     cite/cmd = \citep,
     list/sort = true,
 }
 
-\RequirePackage[nameinlink, noabbrev, capitalise]{cleveref} % load last !!!
+\definecolor{darkorange}{RGB}{255,140,0}
+\definecolor{orangered}{RGB}{255,69,0}
+\definecolor{dodgerblue}{RGB}{30,144,255}
+\definecolor{forestgreen}{RGB}{34,139,34}
+\definecolor{darkviolet}{RGB}{148,0,211}
 
+\RequirePackage[nameinlink, noabbrev, capitalise]{cleveref} % load last !!!
 
 % Silencing output from xetex:
 \hfuzz=999pt    % reduce overfull hbox errors
@@ -251,6 +257,12 @@
 \newcommand*\ko[1]{\textit{#1\textsuperscript{\(-/-\)}}}
 \newcommand*\protein[1]{#1}
 \newcommand*\species[1]{\textit{#1}}
+
+\newcommand*\orange[1]{\textcolor{darkorange}{#1}}
+\newcommand*\red[1]{\textcolor{orangered}{#1}}
+\newcommand*\blue[1]{\textcolor{dodgerblue}{#1}}
+\newcommand*\green[1]{\textcolor{forestgreen}{#1}}
+\newcommand*\purple[1]{\textcolor{darkviolet}{#1}}
 
 % Math
 
