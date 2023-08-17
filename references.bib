@@ -1,4 +1,520 @@
 
+@ARTICLE{Li2023-ik,
+  title    = "A comprehensive benchmarking with practical guidelines for
+              cellular deconvolution of spatial transcriptomics",
+  author   = "Li, Haoyang and Zhou, Juexiao and Li, Zhongxiao and Chen, Siyuan
+              and Liao, Xingyu and Zhang, Bin and Zhang, Ruochi and Wang, Yu
+              and Sun, Shiwei and Gao, Xin",
+  abstract = "Spatial transcriptomics technologies are used to profile
+              transcriptomes while preserving spatial information, which
+              enables high-resolution characterization of transcriptional
+              patterns and reconstruction of tissue architecture. Due to the
+              existence of low-resolution spots in recent spatial
+              transcriptomics technologies, uncovering cellular heterogeneity
+              is crucial for disentangling the spatial patterns of cell types,
+              and many related methods have been proposed. Here, we benchmark
+              18 existing methods resolving a cellular deconvolution task with
+              50 real-world and simulated datasets by evaluating the accuracy,
+              robustness, and usability of the methods. We compare these
+              methods comprehensively using different metrics, resolutions,
+              spatial transcriptomics technologies, spot numbers, and gene
+              numbers. In terms of performance, CARD, Cell2location, and
+              Tangram are the best methods for conducting the cellular
+              deconvolution task. To refine our comparative results, we provide
+              decision-tree-style guidelines and recommendations for method
+              selection and their additional features, which will help users
+              easily choose the best method for fulfilling their concerns.",
+  journal  = "Nat. Commun.",
+  volume   =  14,
+  number   =  1,
+  pages    = "1548",
+  month    =  mar,
+  year     =  2023,
+  language = "en"
+}
+
+@ARTICLE{Kingma2014-um,
+  title         = "Adam: A Method for Stochastic Optimization",
+  author        = "Kingma, Diederik P and Ba, Jimmy",
+  abstract      = "We introduce Adam, an algorithm for first-order
+                   gradient-based optimization of stochastic objective
+                   functions, based on adaptive estimates of lower-order
+                   moments. The method is straightforward to implement, is
+                   computationally efficient, has little memory requirements,
+                   is invariant to diagonal rescaling of the gradients, and is
+                   well suited for problems that are large in terms of data
+                   and/or parameters. The method is also appropriate for
+                   non-stationary objectives and problems with very noisy
+                   and/or sparse gradients. The hyper-parameters have intuitive
+                   interpretations and typically require little tuning. Some
+                   connections to related algorithms, on which Adam was
+                   inspired, are discussed. We also analyze the theoretical
+                   convergence properties of the algorithm and provide a regret
+                   bound on the convergence rate that is comparable to the best
+                   known results under the online convex optimization
+                   framework. Empirical results demonstrate that Adam works
+                   well in practice and compares favorably to other stochastic
+                   optimization methods. Finally, we discuss AdaMax, a variant
+                   of Adam based on the infinity norm.",
+  month         =  dec,
+  year          =  2014,
+  archivePrefix = "arXiv",
+  primaryClass  = "cs.LG",
+  eprint        = "1412.6980"
+}
+
+@ARTICLE{Townes2023-uj,
+  title    = "Nonnegative spatial factorization applied to spatial genomics",
+  author   = "Townes, F William and Engelhardt, Barbara E",
+  abstract = "Nonnegative matrix factorization (NMF) is widely used to analyze
+              high-dimensional count data because, in contrast to real-valued
+              alternatives such as factor analysis, it produces an
+              interpretable parts-based representation. However, in
+              applications such as spatial transcriptomics, NMF fails to
+              incorporate known structure between observations. Here, we
+              present nonnegative spatial factorization (NSF), a
+              spatially-aware probabilistic dimension reduction model based on
+              transformed Gaussian processes that naturally encourages sparsity
+              and scales to tens of thousands of observations. NSF recovers
+              ground truth factors more accurately than real-valued
+              alternatives such as MEFISTO in simulations, and has lower
+              out-of-sample prediction error than probabilistic NMF on three
+              spatial transcriptomics datasets from mouse brain and liver.
+              Since not all patterns of gene expression have spatial
+              correlations, we also propose a hybrid extension of NSF that
+              combines spatial and nonspatial components, enabling
+              quantification of spatial importance for both observations and
+              features. A TensorFlow implementation of NSF is available from
+              https://github.com/willtownes/nsf-paper .",
+  journal  = "Nat. Methods",
+  volume   =  20,
+  number   =  2,
+  pages    = "229--238",
+  month    =  feb,
+  year     =  2023,
+  language = "en"
+}
+
+@ARTICLE{Lohman2016-ec,
+  title    = "A high-throughput assay for the comprehensive profiling of {DNA}
+              ligase fidelity",
+  author   = "Lohman, Gregory J S and Bauer, Robert J and Nichols, Nicole M and
+              Mazzola, Laurie and Bybee, Joanna and Rivizzigno, Danielle and
+              Cantin, Elizabeth and Evans, Jr, Thomas C",
+  abstract = "DNA ligases have broad application in molecular biology, from
+              traditional cloning methods to modern synthetic biology and
+              molecular diagnostics protocols. Ligation-based detection of
+              polynucleotide sequences can be achieved by the ligation of probe
+              oligonucleotides when annealed to a complementary target
+              sequence. In order to achieve a high sensitivity and low
+              background, the ligase must efficiently join correctly
+              base-paired substrates, while discriminating against the ligation
+              of substrates containing even one mismatched base pair. In the
+              current study, we report the use of capillary electrophoresis to
+              rapidly generate mismatch fidelity profiles that interrogate all
+              256 possible base-pair combinations at a ligation junction in a
+              single experiment. Rapid screening of ligase fidelity in a
+              96-well plate format has allowed the study of ligase fidelity in
+              unprecedented depth. As an example of this new method, herein we
+              report the ligation fidelity of Thermus thermophilus DNA ligase
+              at a range of temperatures, buffer pH and monovalent cation
+              strength. This screen allows the selection of reaction conditions
+              that maximize fidelity without sacrificing activity, while
+              generating a profile of specific mismatches that ligate
+              detectably under each set of conditions.",
+  journal  = "Nucleic Acids Res.",
+  volume   =  44,
+  number   =  2,
+  pages    = "e14",
+  month    =  jan,
+  year     =  2016,
+  language = "en"
+}
+
+@ARTICLE{Bingham2019-tx,
+  title    = "Pyro: Deep Universal Probabilistic Programming",
+  author   = "Bingham, Eli and Chen, Jonathan P and Jankowiak, Martin and
+              Obermeyer, Fritz and Pradhan, Neeraj and Karaletsos, Theofanis
+              and Singh, Rohit and Szerlip, Paul and Horsfall, Paul and
+              Goodman, Noah D",
+  journal  = "J. Mach. Learn. Res.",
+  volume   =  20,
+  number   =  28,
+  pages    = "1--6",
+  year     =  2019
+}
+
+@ARTICLE{Bradbury2018-qv,
+  title  = "{JAX}: composable transformations of Python+ {NumPy} programs",
+  author = "Bradbury, James and Frostig, Roy and Hawkins, Peter and Johnson,
+            Matthew James and Leary, Chris and Maclaurin, Dougal and Necula,
+            George and Paszke, Adam and VanderPlas, Jake and Wanderman-Milne,
+            Skye and {Others}",
+  year   =  2018
+}
+
+@ARTICLE{Abadi2016-ex,
+  title         = "{TensorFlow}: A system for large-scale machine learning",
+  author        = "Abadi, Mart{\'\i}n and Barham, Paul and Chen, Jianmin and
+                   Chen, Zhifeng and Davis, Andy and Dean, Jeffrey and Devin,
+                   Matthieu and Ghemawat, Sanjay and Irving, Geoffrey and
+                   Isard, Michael and Kudlur, Manjunath and Levenberg, Josh and
+                   Monga, Rajat and Moore, Sherry and Murray, Derek G and
+                   Steiner, Benoit and Tucker, Paul and Vasudevan, Vijay and
+                   Warden, Pete and Wicke, Martin and Yu, Yuan and Zheng,
+                   Xiaoqiang",
+  abstract      = "TensorFlow is a machine learning system that operates at
+                   large scale and in heterogeneous environments. TensorFlow
+                   uses dataflow graphs to represent computation, shared state,
+                   and the operations that mutate that state. It maps the nodes
+                   of a dataflow graph across many machines in a cluster, and
+                   within a machine across multiple computational devices,
+                   including multicore CPUs, general-purpose GPUs, and custom
+                   designed ASICs known as Tensor Processing Units (TPUs). This
+                   architecture gives flexibility to the application developer:
+                   whereas in previous ``parameter server'' designs the
+                   management of shared state is built into the system,
+                   TensorFlow enables developers to experiment with novel
+                   optimizations and training algorithms. TensorFlow supports a
+                   variety of applications, with particularly strong support
+                   for training and inference on deep neural networks. Several
+                   Google services use TensorFlow in production, we have
+                   released it as an open-source project, and it has become
+                   widely used for machine learning research. In this paper, we
+                   describe the TensorFlow dataflow model in contrast to
+                   existing systems, and demonstrate the compelling performance
+                   that TensorFlow achieves for several real-world
+                   applications.",
+  month         =  may,
+  year          =  2016,
+  archivePrefix = "arXiv",
+  primaryClass  = "cs.DC",
+  eprint        = "1605.08695"
+}
+
+@ARTICLE{Paszke2019-kg,
+  title         = "{PyTorch}: An Imperative Style, {High-Performance} Deep
+                   Learning Library",
+  author        = "Paszke, Adam and Gross, Sam and Massa, Francisco and Lerer,
+                   Adam and Bradbury, James and Chanan, Gregory and Killeen,
+                   Trevor and Lin, Zeming and Gimelshein, Natalia and Antiga,
+                   Luca and Desmaison, Alban and K{\"o}pf, Andreas and Yang,
+                   Edward and DeVito, Zach and Raison, Martin and Tejani,
+                   Alykhan and Chilamkurthy, Sasank and Steiner, Benoit and
+                   Fang, Lu and Bai, Junjie and Chintala, Soumith",
+  abstract      = "Deep learning frameworks have often focused on either
+                   usability or speed, but not both. PyTorch is a machine
+                   learning library that shows that these two goals are in fact
+                   compatible: it provides an imperative and Pythonic
+                   programming style that supports code as a model, makes
+                   debugging easy and is consistent with other popular
+                   scientific computing libraries, while remaining efficient
+                   and supporting hardware accelerators such as GPUs. In this
+                   paper, we detail the principles that drove the
+                   implementation of PyTorch and how they are reflected in its
+                   architecture. We emphasize that every aspect of PyTorch is a
+                   regular Python program under the full control of its user.
+                   We also explain how the careful and pragmatic implementation
+                   of the key components of its runtime enables them to work
+                   together to achieve compelling performance. We demonstrate
+                   the efficiency of individual subsystems, as well as the
+                   overall speed of PyTorch on several common benchmarks.",
+  month         =  dec,
+  year          =  2019,
+  archivePrefix = "arXiv",
+  primaryClass  = "cs.LG",
+  eprint        = "1912.01703"
+}
+
+@ARTICLE{The_Theano_Development_Team2016-pj,
+  title         = "Theano: A Python framework for fast computation of
+                   mathematical expressions",
+  author        = "{The Theano Development Team} and Al-Rfou, Rami and Alain,
+                   Guillaume and Almahairi, Amjad and Angermueller, Christof
+                   and Bahdanau, Dzmitry and Ballas, Nicolas and Bastien,
+                   Fr{\'e}d{\'e}ric and Bayer, Justin and Belikov, Anatoly and
+                   Belopolsky, Alexander and Bengio, Yoshua and Bergeron,
+                   Arnaud and Bergstra, James and Bisson, Valentin and Snyder,
+                   Josh Bleecher and Bouchard, Nicolas and
+                   Boulanger-Lewandowski, Nicolas and Bouthillier, Xavier and
+                   de Br{\'e}bisson, Alexandre and Breuleux, Olivier and
+                   Carrier, Pierre-Luc and Cho, Kyunghyun and Chorowski, Jan
+                   and Christiano, Paul and Cooijmans, Tim and C{\^o}t{\'e},
+                   Marc-Alexandre and C{\^o}t{\'e}, Myriam and Courville, Aaron
+                   and Dauphin, Yann N and Delalleau, Olivier and Demouth,
+                   Julien and Desjardins, Guillaume and Dieleman, Sander and
+                   Dinh, Laurent and Ducoffe, M{\'e}lanie and Dumoulin, Vincent
+                   and Kahou, Samira Ebrahimi and Erhan, Dumitru and Fan, Ziye
+                   and Firat, Orhan and Germain, Mathieu and Glorot, Xavier and
+                   Goodfellow, Ian and Graham, Matt and Gulcehre, Caglar and
+                   Hamel, Philippe and Harlouchet, Iban and Heng, Jean-Philippe
+                   and Hidasi, Bal{\'a}zs and Honari, Sina and Jain, Arjun and
+                   Jean, S{\'e}bastien and Jia, Kai and Korobov, Mikhail and
+                   Kulkarni, Vivek and Lamb, Alex and Lamblin, Pascal and
+                   Larsen, Eric and Laurent, C{\'e}sar and Lee, Sean and
+                   Lefrancois, Simon and Lemieux, Simon and L{\'e}onard,
+                   Nicholas and Lin, Zhouhan and Livezey, Jesse A and Lorenz,
+                   Cory and Lowin, Jeremiah and Ma, Qianli and Manzagol,
+                   Pierre-Antoine and Mastropietro, Olivier and McGibbon,
+                   Robert T and Memisevic, Roland and van Merri{\"e}nboer, Bart
+                   and Michalski, Vincent and Mirza, Mehdi and Orlandi, Alberto
+                   and Pal, Christopher and Pascanu, Razvan and Pezeshki,
+                   Mohammad and Raffel, Colin and Renshaw, Daniel and Rocklin,
+                   Matthew and Romero, Adriana and Roth, Markus and Sadowski,
+                   Peter and Salvatier, John and Savard, Fran{\c c}ois and
+                   Schl{\"u}ter, Jan and Schulman, John and Schwartz, Gabriel
+                   and Serban, Iulian Vlad and Serdyuk, Dmitriy and Shabanian,
+                   Samira and Simon, {\'E}tienne and Spieckermann, Sigurd and
+                   Ramana Subramanyam, S and Sygnowski, Jakub and Tanguay,
+                   J{\'e}r{\'e}mie and van Tulder, Gijs and Turian, Joseph and
+                   Urban, Sebastian and Vincent, Pascal and Visin, Francesco
+                   and de Vries, Harm and Warde-Farley, David and Webb, Dustin
+                   J and Willson, Matthew and Xu, Kelvin and Xue, Lijun and
+                   Yao, Li and Zhang, Saizheng and Zhang, Ying",
+  abstract      = "Theano is a Python library that allows to define, optimize,
+                   and evaluate mathematical expressions involving
+                   multi-dimensional arrays efficiently. Since its
+                   introduction, it has been one of the most used CPU and GPU
+                   mathematical compilers - especially in the machine learning
+                   community - and has shown steady performance improvements.
+                   Theano is being actively and continuously developed since
+                   2008, multiple frameworks have been built on top of it and
+                   it has been used to produce many state-of-the-art machine
+                   learning models. The present article is structured as
+                   follows. Section I provides an overview of the Theano
+                   software and its community. Section II presents the
+                   principal features of Theano and how to use them, and
+                   compares them with other similar projects. Section III
+                   focuses on recently-introduced functionalities and
+                   improvements. Section IV compares the performance of Theano
+                   against Torch7 and TensorFlow on several machine learning
+                   models. Section V discusses current limitations of Theano
+                   and potential ways of improving it.",
+  month         =  may,
+  year          =  2016,
+  archivePrefix = "arXiv",
+  primaryClass  = "cs.SC",
+  eprint        = "1605.02688"
+}
+
+@MISC{Tran_undated-zb,
+  title        = "Automatic Differentiation Variational Inference",
+  author       = "Tran, Dustin and Ranganath, Rajesh and Gelman, Andrew and
+                  Blei, David M",
+  howpublished = "\url{https://www.jmlr.org/papers/volume18/16-107/16-107.pdf}",
+  note         = "Accessed: 2023-8-15"
+}
+
+@ARTICLE{Blei2017-dm,
+  title     = "Variational Inference: A Review for Statisticians",
+  author    = "Blei, David M and Kucukelbir, Alp and McAuliffe, Jon D",
+  abstract  = "ABSTRACTOne of the core problems of modern statistics is to
+               approximate difficult-to-compute probability densities. This
+               problem is especially important in Bayesian statistics, which
+               frames all inference about unknown quantities as a calculation
+               involving the posterior density. In this article, we review
+               variational inference (VI), a method from machine learning that
+               approximates probability densities through optimization. VI has
+               been used in many applications and tends to be faster than
+               classical methods, such as Markov chain Monte Carlo sampling.
+               The idea behind VI is to first posit a family of densities and
+               then to find a member of that family which is close to the
+               target density. Closeness is measured by Kullback?Leibler
+               divergence. We review the ideas behind mean-field variational
+               inference, discuss the special case of VI applied to exponential
+               family models, present a full example with a Bayesian mixture of
+               Gaussians, and derive a variant that uses stochastic
+               optimization to scale up to massive data. We discuss modern
+               research in VI and highlight important open problems. VI is
+               powerful, but it is not yet well understood. Our hope in writing
+               this article is to catalyze statistical research on this class
+               of algorithms. Supplementary materials for this article are
+               available online.",
+  journal   = "J. Am. Stat. Assoc.",
+  publisher = "Taylor \& Francis",
+  volume    =  112,
+  number    =  518,
+  pages     = "859--877",
+  month     =  apr,
+  year      =  2017
+}
+
+@ARTICLE{Roberts2004-op,
+  title     = "General state space Markov chains and {MCMC} algorithms",
+  author    = "Roberts, Gareth O and Rosenthal, Jeffrey S",
+  abstract  = "This paper surveys various results about Markov chains on gen-
+               eral (non-countable) state spaces. It begins with an
+               introduction to Markov chain Monte Carlo (MCMC) algorithms,
+               which provide the motivation and context for the theory which
+               follows. Then, sucient conditions for geomet- ric and uniform
+               ergodicity are presented, along with quantitative bounds on the
+               rate of convergence to stationarity. Many of these results are
+               proved using direct coupling constructions based on minorisation
+               and drift con- ditions. Necessary and sucient conditions for
+               Central Limit Theorems (CLTs) are also presented, in some cases
+               proved via the Poisson Equa- tion or direct regeneration
+               constructions. Finally, optimal scaling and weak convergence
+               results for Metropolis-Hastings algorithms are discussed. None
+               of the results presented is new, though many of the proofs are.
+               We also describe some Open Problems.",
+  journal   = "Probab. Surv.",
+  publisher = "Institute of Mathematical Statistics",
+  volume    =  1,
+  number    = "none",
+  pages     = "20--71",
+  month     =  jan,
+  year      =  2004
+}
+
+@ARTICLE{Duane1987-gu,
+  title    = "Hybrid Monte Carlo",
+  author   = "Duane, Simon and Kennedy, A D and Pendleton, Brian J and Roweth,
+              Duncan",
+  abstract = "We present a new method for the numerical simulation of lattice
+              field theory. A hybrid (molecular dynamics/Langevin) algorithm is
+              used to guide a Monte Carlo simulation. There are no
+              discretization errors even for large step sizes. The method is
+              especially efficient for systems such as quantum chromodynamics
+              which contain fermionic degrees of freedom. Detailed results are
+              presented for four-dimensional compact quantum electrodynamics
+              including the dynamical effects of electrons.",
+  journal  = "Phys. Lett. B",
+  volume   =  195,
+  number   =  2,
+  pages    = "216--222",
+  month    =  sep,
+  year     =  1987
+}
+
+@ARTICLE{Geman1984-nk,
+  title    = "Stochastic Relaxation, Gibbs Distributions, and the Bayesian
+              Restoration of Images",
+  author   = "Geman, Stuart and Geman, Donald",
+  abstract = "We make an analogy between images and statistical mechanics
+              systems. Pixel gray levels and the presence and orientation of
+              edges are viewed as states of atoms or molecules in a
+              lattice-like physical system. The assignment of an energy
+              function in the physical system determines its Gibbs
+              distribution. Because of the Gibbs distribution, Markov random
+              field (MRF) equivalence, this assignment also determines an MRF
+              image model. The energy function is a more convenient and natural
+              mechanism for embodying picture attributes than are the local
+              characteristics of the MRF. For a range of degradation
+              mechanisms, including blurring, nonlinear deformations, and
+              multiplicative or additive noise, the posterior distribution is
+              an MRF with a structure akin to the image model. By the analogy,
+              the posterior distribution defines another (imaginary) physical
+              system. Gradual temperature reduction in the physical system
+              isolates low energy states (``annealing''), or what is the same
+              thing, the most probable states under the Gibbs distribution. The
+              analogous operation under the posterior distribution yields the
+              maximum a posteriori (MAP) estimate of the image given the
+              degraded observations. The result is a highly parallel
+              ``relaxation'' algorithm for MAP estimation. We establish
+              convergence properties of the algorithm and we experiment with
+              some simple pictures, for which good restorations are obtained at
+              low signal-to-noise ratios.",
+  journal  = "IEEE Trans. Pattern Anal. Mach. Intell.",
+  volume   = "PAMI-6",
+  number   =  6,
+  pages    = "721--741",
+  month    =  nov,
+  year     =  1984,
+  keywords = "Stochastic processes;Bayesian methods;Image
+              restoration;Degradation;Markov random fields;Additive
+              noise;Deformable models;Temperature distribution;Energy
+              states;Annealing;Annealing;Gibbs distribution;image
+              restoration;line process;MAP estimate;Markov random
+              field;relaxation;scene modeling;spatial degradation"
+}
+
+@ARTICLE{Hastings1970-mb,
+  title     = "Monte Carlo Sampling Methods Using Markov Chains and Their
+               Applications",
+  author    = "Hastings, W K",
+  abstract  = "[A generalization of the sampling method introduced by
+               Metropolis et al. (1953) is presented along with an exposition
+               of the relevant theory, techniques of application and methods
+               and difficulties of assessing the error in Monte Carlo
+               estimates. Examples of the methods, including the generation of
+               random orthogonal matrices and potential applications of the
+               methods to numerical problems arising in statistics, are
+               discussed.]",
+  journal   = "Biometrika",
+  publisher = "[Oxford University Press, Biometrika Trust]",
+  volume    =  57,
+  number    =  1,
+  pages     = "97--109",
+  year      =  1970
+}
+
+% The entry below contains non-ASCII chars that could not be converted
+% to a LaTeX equivalent.
+@ARTICLE{Rosenbluth1953-gu,
+  title     = "Equation of state calculations by fast computing machines",
+  author    = "Rosenbluth, A W and Rosenbluth, M N and Teller, A H and {others}",
+  abstract  = "A general method, suitable for fast computing machines, for
+               investigating such properties as equations of state for
+               substances consisting of interacting individual molecules is
+               described. The method consists of a modified Monte Carlo
+               integration over configuration space. Results for the
+               two‐dimensional rigid‐sphere system have been obtained on the
+               Los Alamos MANIAC and are presented here. These results are
+               compared to the free volume equation of state and to a four‐term
+               virial coefficient expansion.",
+  journal   = "The journal of",
+  publisher = "pubs.aip.org",
+  year      =  1953
+}
+
+@ARTICLE{Svedlund2019-xb,
+  title    = "Generation of in situ sequencing based {OncoMaps} to spatially
+              resolve gene expression profiles of diagnostic and prognostic
+              markers in breast cancer",
+  author   = "Svedlund, Jessica and Strell, Carina and Qian, Xiaoyan and
+              Zilkens, Kilian J C and Tobin, Nicholas P and Bergh, Jonas and
+              Sieuwerts, Anieta M and Nilsson, Mats",
+  abstract = "BACKGROUND: Gene expression analysis of breast cancer largely
+              relies on homogenized tissue samples. Due to the high degree of
+              cellular and molecular heterogeneity of tumor tissues, bulk
+              tissue-based analytical approaches can only provide very limited
+              system-level information about different signaling mechanisms and
+              cellular interactions within the complex tissue context. METHODS:
+              We describe an analytical approach using in situ sequencing
+              (ISS), enabling highly multiplexed, spatially and morphologically
+              resolved gene expression profiling. Ninety-one genes including
+              prognostic and predictive marker profiles, as well as genes
+              involved in specific cellular pathways were mapped within whole
+              breast cancer tissue sections, covering luminal A/B-like,
+              HER2-positive and triple negative tumors. Finally, all these
+              features were combined and assembled into a
+              molecular-morphological OncoMap for each tumor tissue. FINDINGS:
+              Our in situ approach spatially revealed intratumoral
+              heterogeneity with regard to tumor subtype as well as to the
+              OncotypeDX recurrence score and even uncovered areas of minor
+              cellular subpopulations. Since ISS-resolved molecular profiles
+              are linked to their histological context, a deeper analysis of
+              the core and periphery of tumor foci enabled identification of
+              specific gene expression patterns associated with these
+              morphologically relevant regions. INTERPRETATION: ISS generated
+              OncoMaps represent useful tools to extend our general
+              understanding of the biological processes behind tumor
+              progression and can further support the identification of novel
+              therapeutical targets as well as refine tumor diagnostics. FUND:
+              Swedish Cancerfonden, UCAN, Vetenskapsr{\aa}det, Cancer Genomics
+              Netherlands, Iris, Stig och Gerry Castenb{\"a}cks Stiftelse,
+              BRECT, PCM Program, King Gustaf V Jubilee Fund, BRO, KI and
+              Stockholm County Council, Alice Wallenberg Foundation.",
+  journal  = "EBioMedicine",
+  volume   =  48,
+  pages    = "212--223",
+  month    =  oct,
+  year     =  2019,
+  keywords = "Breast cancer; Diagnostic; Gene expression analysis; Prognostic;
+              Tumor heterogeneity",
+  language = "en"
+}
+
 @ARTICLE{Janiszewska2015-kb,
   title    = "In situ single-cell analysis identifies heterogeneity for
               {PIK3CA} mutation and {HER2} amplification in {HER2-positive}
@@ -224,6 +740,31 @@
   language = "en"
 }
 
+@ARTICLE{Tarabichi2021-xx,
+  title    = "A practical guide to cancer subclonal reconstruction from {DNA}
+              sequencing",
+  author   = "Tarabichi, Maxime and Salcedo, Adriana and Deshwar, Amit G and Ni
+              Leathlobhair, M{\'a}ire and Wintersinger, Jeff and Wedge, David C
+              and Van Loo, Peter and Morris, Quaid D and Boutros, Paul C",
+  abstract = "Subclonal reconstruction from bulk tumor DNA sequencing has
+              become a pillar of cancer evolution studies, providing insight
+              into the clonality and relative ordering of mutations and
+              mutational processes. We provide an outline of the complex
+              computational approaches used for subclonal reconstruction from
+              single and multiple tumor samples. We identify the underlying
+              assumptions and uncertainties in each step and suggest best
+              practices for analysis and quality assessment. This guide
+              provides a pragmatic resource for the growing user community of
+              subclonal reconstruction methods.",
+  journal  = "Nat. Methods",
+  volume   =  18,
+  number   =  2,
+  pages    = "144--155",
+  month    =  feb,
+  year     =  2021,
+  language = "en"
+}
+
 @ARTICLE{Shah2009-lx,
   title    = "Mutational evolution in a lobular breast tumour profiled at
               single nucleotide resolution",
@@ -369,6 +910,61 @@
   language = "en"
 }
 
+@ARTICLE{Phan2019-ku,
+  title         = "Composable Effects for Flexible and Accelerated
+                   Probabilistic Programming in {NumPyro}",
+  author        = "Phan, Du and Pradhan, Neeraj and Jankowiak, Martin",
+  abstract      = "NumPyro is a lightweight library that provides an alternate
+                   NumPy backend to the Pyro probabilistic programming language
+                   with the same modeling interface, language primitives and
+                   effect handling abstractions. Effect handlers allow Pyro's
+                   modeling API to be extended to NumPyro despite its being
+                   built atop a fundamentally different JAX-based functional
+                   backend. In this work, we demonstrate the power of composing
+                   Pyro's effect handlers with the program transformations that
+                   enable hardware acceleration, automatic differentiation, and
+                   vectorization in JAX. In particular, NumPyro provides an
+                   iterative formulation of the No-U-Turn Sampler (NUTS) that
+                   can be end-to-end JIT compiled, yielding an implementation
+                   that is much faster than existing alternatives in both the
+                   small and large dataset regimes.",
+  month         =  dec,
+  year          =  2019,
+  archivePrefix = "arXiv",
+  primaryClass  = "stat.ML",
+  eprint        = "1912.11554"
+}
+
+@ARTICLE{Handsaker2015-jx,
+  title    = "Large multiallelic copy number variations in humans",
+  author   = "Handsaker, Robert E and Van Doren, Vanessa and Berman, Jennifer R
+              and Genovese, Giulio and Kashin, Seva and Boettger, Linda M and
+              McCarroll, Steven A",
+  abstract = "Thousands of genomic segments appear to be present in widely
+              varying copy numbers in different human genomes. We developed
+              ways to use increasingly abundant whole-genome sequence data to
+              identify the copy numbers, alleles and haplotypes present at most
+              large multiallelic CNVs (mCNVs). We analyzed 849 genomes
+              sequenced by the 1000 Genomes Project to identify most large
+              (>5-kb) mCNVs, including 3,878 duplications, of which 1,356
+              appear to have 3 or more segregating alleles. We find that mCNVs
+              give rise to most human variation in gene dosage-seven times the
+              combined contribution of deletions and biallelic duplications-and
+              that this variation in gene dosage generates abundant variation
+              in gene expression. We describe 'runaway duplication haplotypes'
+              in which genes, including HPR and ORM1, have mutated to high copy
+              number on specific haplotypes. We also describe partially
+              successful initial strategies for analyzing mCNVs via imputation
+              and provide an initial data resource to support such analyses.",
+  journal  = "Nat. Genet.",
+  volume   =  47,
+  number   =  3,
+  pages    = "296--303",
+  month    =  mar,
+  year     =  2015,
+  language = "en"
+}
+
 @ARTICLE{Nik-Zainal2012-tt,
   title    = "The life history of 21 breast cancers",
   author   = "Nik-Zainal, Serena and Van Loo, Peter and Wedge, David C and
@@ -449,6 +1045,43 @@
   volume   =  601,
   number   =  7891,
   pages    = "85--91",
+  month    =  jan,
+  year     =  2022,
+  language = "en"
+}
+
+% The entry below contains non-ASCII chars that could not be converted
+% to a LaTeX equivalent.
+@ARTICLE{Kleshchevnikov2022-ch,
+  title    = "Cell2location maps fine-grained cell types in spatial
+              transcriptomics",
+  author   = "Kleshchevnikov, Vitalii and Shmatko, Artem and Dann, Emma and
+              Aivazidis, Alexander and King, Hamish W and Li, Tong and
+              Elmentaite, Rasa and Lomakin, Artem and Kedlian, Veronika and
+              Gayoso, Adam and Jain, Mika Sarkin and Park, Jun Sung and Ramona,
+              Lauma and Tuck, Elizabeth and Arutyunyan, Anna and Vento-Tormo,
+              Roser and Gerstung, Moritz and James, Louisa and Stegle, Oliver
+              and Bayraktar, Omer Ali",
+  abstract = "Spatial transcriptomic technologies promise to resolve cellular
+              wiring diagrams of tissues in health and disease, but
+              comprehensive mapping of cell types in situ remains a challenge.
+              Here we present сell2location, a Bayesian model that can resolve
+              fine-grained cell types in spatial transcriptomic data and create
+              comprehensive cellular maps of diverse tissues. Cell2location
+              accounts for technical sources of variation and borrows
+              statistical strength across locations, thereby enabling the
+              integration of single-cell and spatial transcriptomics with
+              higher sensitivity and resolution than existing tools. We
+              assessed cell2location in three different tissues and show
+              improved mapping of fine-grained cell types. In the mouse brain,
+              we discovered fine regional astrocyte subtypes across the
+              thalamus and hypothalamus. In the human lymph node, we spatially
+              mapped a rare pre-germinal center B cell population. In the human
+              gut, we resolved fine immune cell populations in lymphoid
+              follicles. Collectively, our results present сell2location as a
+              versatile analysis tool for mapping tissue architectures in a
+              comprehensive manner.",
+  journal  = "Nat. Biotechnol.",
   month    =  jan,
   year     =  2022,
   language = "en"
@@ -539,6 +1172,105 @@
   language  = "en"
 }
 
+@ARTICLE{Salvatier2016-uy,
+  title     = "Probabilistic programming in Python using {PyMC3}",
+  author    = "Salvatier, John and Wiecki, Thomas V and Fonnesbeck, Christopher",
+  abstract  = "Probabilistic programming allows for automatic Bayesian
+               inference on user-defined probabilistic models. Recent advances
+               in Markov chain Monte Carlo (MCMC) sampling allow inference on
+               increasingly complex models. This class of MCMC, known as
+               Hamiltonian Monte Carlo, requires gradient information which is
+               often not readily available. PyMC3 is a new open source
+               probabilistic programming framework written in Python that uses
+               Theano to compute gradients via automatic differentiation as
+               well as compile probabilistic programs on-the-fly to C for
+               increased speed. Contrary to other probabilistic programming
+               languages, PyMC3 allows model specification directly in Python
+               code. The lack of a domain specific language allows for great
+               flexibility and direct interaction with the model. This paper is
+               a tutorial-style introduction to this software package.",
+  journal   = "PeerJ Comput. Sci.",
+  publisher = "PeerJ Inc.",
+  volume    =  2,
+  pages     = "e55",
+  month     =  apr,
+  year      =  2016,
+  keywords  = "Bayesian statistic; Probabilistic Programming; Python; Markov
+               chain Monte Carlo; Statistical modeling",
+  language  = "en"
+}
+
+@ARTICLE{Kucukelbir2016-gn,
+  title         = "Automatic Differentiation Variational Inference",
+  author        = "Kucukelbir, Alp and Tran, Dustin and Ranganath, Rajesh and
+                   Gelman, Andrew and Blei, David M",
+  abstract      = "Probabilistic modeling is iterative. A scientist posits a
+                   simple model, fits it to her data, refines it according to
+                   her analysis, and repeats. However, fitting complex models
+                   to large data is a bottleneck in this process. Deriving
+                   algorithms for new models can be both mathematically and
+                   computationally challenging, which makes it difficult to
+                   efficiently cycle through the steps. To this end, we develop
+                   automatic differentiation variational inference (ADVI).
+                   Using our method, the scientist only provides a
+                   probabilistic model and a dataset, nothing else. ADVI
+                   automatically derives an efficient variational inference
+                   algorithm, freeing the scientist to refine and explore many
+                   models. ADVI supports a broad class of models-no conjugacy
+                   assumptions are required. We study ADVI across ten different
+                   models and apply it to a dataset with millions of
+                   observations. ADVI is integrated into Stan, a probabilistic
+                   programming system; it is available for immediate use.",
+  month         =  mar,
+  year          =  2016,
+  archivePrefix = "arXiv",
+  primaryClass  = "stat.ML",
+  eprint        = "1603.00788"
+}
+
+@ARTICLE{Shao2019-vq,
+  title    = "Copy number variation is highly correlated with differential gene
+              expression: a pan-cancer study",
+  author   = "Shao, Xin and Lv, Ning and Liao, Jie and Long, Jinbo and Xue, Rui
+              and Ai, Ni and Xu, Donghang and Fan, Xiaohui",
+  abstract = "BACKGROUND: Cancer is a heterogeneous disease with many genetic
+              variations. Lines of evidence have shown copy number variations
+              (CNVs) of certain genes are involved in development and
+              progression of many cancers through the alterations of their gene
+              expression levels on individual or several cancer types. However,
+              it is not quite clear whether the correlation will be a general
+              phenomenon across multiple cancer types. METHODS: In this study
+              we applied a bioinformatics approach integrating CNV and
+              differential gene expression mathematically across 1025 cell
+              lines and 9159 patient samples to detect their potential
+              relationship. RESULTS: Our results showed there is a close
+              correlation between CNV and differential gene expression and the
+              copy number displayed a positive linear influence on gene
+              expression for the majority of genes, indicating that genetic
+              variation generated a direct effect on gene transcriptional
+              level. Another independent dataset is utilized to revalidate the
+              relationship between copy number and expression level. Further
+              analysis show genes with general positive linear influence on
+              gene expression are clustered in certain disease-related
+              pathways, which suggests the involvement of CNV in
+              pathophysiology of diseases. CONCLUSIONS: This study shows the
+              close correlation between CNV and differential gene expression
+              revealing the qualitative relationship between genetic variation
+              and its downstream effect, especially for oncogenes and tumor
+              suppressor genes. It is of a critical importance to elucidate the
+              relationship between copy number variation and gene expression
+              for prevention, diagnosis and treatment of cancer.",
+  journal  = "BMC Med. Genet.",
+  volume   =  20,
+  number   =  1,
+  pages    = "175",
+  month    =  nov,
+  year     =  2019,
+  keywords = "Concordance; Copy number variation; Differential gene expression;
+              Pan-cancer",
+  language = "en"
+}
+
 @ARTICLE{Ke2013-km,
   title    = "In situ sequencing for {RNA} analysis in preserved tissue and
               cells",
@@ -559,6 +1291,41 @@
   pages    = "857--860",
   month    =  sep,
   year     =  2013,
+  language = "en"
+}
+
+@ARTICLE{Casasent2018-gx,
+  title    = "Multiclonal Invasion in Breast Tumors Identified by Topographic
+              Single Cell Sequencing",
+  author   = "Casasent, Anna K and Schalck, Aislyn and Gao, Ruli and Sei, Emi
+              and Long, Annalyssa and Pangburn, William and Casasent, Tod and
+              Meric-Bernstam, Funda and Edgerton, Mary E and Navin, Nicholas E",
+  abstract = "Ductal carcinoma in situ (DCIS) is an early-stage breast cancer
+              that infrequently progresses to invasive ductal carcinoma (IDC).
+              Genomic evolution has been difficult to delineate during invasion
+              due to intratumor heterogeneity and the low number of tumor cells
+              in the ducts. To overcome these challenges, we developed
+              Topographic Single Cell Sequencing (TSCS) to measure genomic copy
+              number profiles of single tumor cells while preserving their
+              spatial context in tissue sections. We applied TSCS to 1,293
+              single cells from 10 synchronous patients with both DCIS and IDC
+              regions in addition to exome sequencing. Our data reveal a direct
+              genomic lineage between in situ and invasive tumor subpopulations
+              and further show that most mutations and copy number aberrations
+              evolved within the ducts prior to invasion. These results support
+              a multiclonal invasion model, in which one or more clones escape
+              the ducts and migrate into the adjacent tissues to establish the
+              invasive carcinomas.",
+  journal  = "Cell",
+  volume   =  172,
+  number   = "1-2",
+  pages    = "205--217.e12",
+  month    =  jan,
+  year     =  2018,
+  keywords = "breast cancer; breast cancer progression; cancer genomics; clonal
+              evolution; copy number evolution; ductal carcinoma in situ;
+              genome evolution; intratumor heterogeneity; invasion; single-cell
+              sequencing",
   language = "en"
 }
 
@@ -610,706 +1377,3 @@
   year     =  2020,
   language = "en"
 }
-
-
-@ARTICLE{Casasent2018-gx,
-  title    = "Multiclonal Invasion in Breast Tumors Identified by Topographic
-              Single Cell Sequencing",
-  author   = "Casasent, Anna K and Schalck, Aislyn and Gao, Ruli and Sei, Emi
-              and Long, Annalyssa and Pangburn, William and Casasent, Tod and
-              Meric-Bernstam, Funda and Edgerton, Mary E and Navin, Nicholas E",
-  abstract = "Ductal carcinoma in situ (DCIS) is an early-stage breast cancer
-              that infrequently progresses to invasive ductal carcinoma (IDC).
-              Genomic evolution has been difficult to delineate during invasion
-              due to intratumor heterogeneity and the low number of tumor cells
-              in the ducts. To overcome these challenges, we developed
-              Topographic Single Cell Sequencing (TSCS) to measure genomic copy
-              number profiles of single tumor cells while preserving their
-              spatial context in tissue sections. We applied TSCS to 1,293
-              single cells from 10 synchronous patients with both DCIS and IDC
-              regions in addition to exome sequencing. Our data reveal a direct
-              genomic lineage between in situ and invasive tumor subpopulations
-              and further show that most mutations and copy number aberrations
-              evolved within the ducts prior to invasion. These results support
-              a multiclonal invasion model, in which one or more clones escape
-              the ducts and migrate into the adjacent tissues to establish the
-              invasive carcinomas.",
-  journal  = "Cell",
-  volume   =  172,
-  number   = "1-2",
-  pages    = "205--217.e12",
-  month    =  jan,
-  year     =  2018,
-  keywords = "breast cancer; breast cancer progression; cancer genomics; clonal
-              evolution; copy number evolution; ductal carcinoma in situ;
-              genome evolution; intratumor heterogeneity; invasion; single-cell
-              sequencing",
-  language = "en"
-}
-
-
-@ARTICLE{Tarabichi2021-xx,
-  title    = "A practical guide to cancer subclonal reconstruction from {DNA}
-              sequencing",
-  author   = "Tarabichi, Maxime and Salcedo, Adriana and Deshwar, Amit G and Ni
-              Leathlobhair, M{\'a}ire and Wintersinger, Jeff and Wedge, David C
-              and Van Loo, Peter and Morris, Quaid D and Boutros, Paul C",
-  abstract = "Subclonal reconstruction from bulk tumor DNA sequencing has
-              become a pillar of cancer evolution studies, providing insight
-              into the clonality and relative ordering of mutations and
-              mutational processes. We provide an outline of the complex
-              computational approaches used for subclonal reconstruction from
-              single and multiple tumor samples. We identify the underlying
-              assumptions and uncertainties in each step and suggest best
-              practices for analysis and quality assessment. This guide
-              provides a pragmatic resource for the growing user community of
-              subclonal reconstruction methods.",
-  journal  = "Nat. Methods",
-  volume   =  18,
-  number   =  2,
-  pages    = "144--155",
-  month    =  feb,
-  year     =  2021,
-  language = "en"
-}
-
-
-@ARTICLE{Svedlund2019-xb,
-  title    = "Generation of in situ sequencing based {OncoMaps} to spatially
-              resolve gene expression profiles of diagnostic and prognostic
-              markers in breast cancer",
-  author   = "Svedlund, Jessica and Strell, Carina and Qian, Xiaoyan and
-              Zilkens, Kilian J C and Tobin, Nicholas P and Bergh, Jonas and
-              Sieuwerts, Anieta M and Nilsson, Mats",
-  abstract = "BACKGROUND: Gene expression analysis of breast cancer largely
-              relies on homogenized tissue samples. Due to the high degree of
-              cellular and molecular heterogeneity of tumor tissues, bulk
-              tissue-based analytical approaches can only provide very limited
-              system-level information about different signaling mechanisms and
-              cellular interactions within the complex tissue context. METHODS:
-              We describe an analytical approach using in situ sequencing
-              (ISS), enabling highly multiplexed, spatially and morphologically
-              resolved gene expression profiling. Ninety-one genes including
-              prognostic and predictive marker profiles, as well as genes
-              involved in specific cellular pathways were mapped within whole
-              breast cancer tissue sections, covering luminal A/B-like,
-              HER2-positive and triple negative tumors. Finally, all these
-              features were combined and assembled into a
-              molecular-morphological OncoMap for each tumor tissue. FINDINGS:
-              Our in situ approach spatially revealed intratumoral
-              heterogeneity with regard to tumor subtype as well as to the
-              OncotypeDX recurrence score and even uncovered areas of minor
-              cellular subpopulations. Since ISS-resolved molecular profiles
-              are linked to their histological context, a deeper analysis of
-              the core and periphery of tumor foci enabled identification of
-              specific gene expression patterns associated with these
-              morphologically relevant regions. INTERPRETATION: ISS generated
-              OncoMaps represent useful tools to extend our general
-              understanding of the biological processes behind tumor
-              progression and can further support the identification of novel
-              therapeutical targets as well as refine tumor diagnostics. FUND:
-              Swedish Cancerfonden, UCAN, Vetenskapsr{\aa}det, Cancer Genomics
-              Netherlands, Iris, Stig och Gerry Castenb{\"a}cks Stiftelse,
-              BRECT, PCM Program, King Gustaf V Jubilee Fund, BRO, KI and
-              Stockholm County Council, Alice Wallenberg Foundation.",
-  journal  = "EBioMedicine",
-  volume   =  48,
-  pages    = "212--223",
-  month    =  oct,
-  year     =  2019,
-  keywords = "Breast cancer; Diagnostic; Gene expression analysis; Prognostic;
-              Tumor heterogeneity",
-  language = "en"
-}
-
-
-@ARTICLE{Duane1987-gu,
-  title    = "Hybrid Monte Carlo",
-  author   = "Duane, Simon and Kennedy, A D and Pendleton, Brian J and Roweth,
-              Duncan",
-  abstract = "We present a new method for the numerical simulation of lattice
-              field theory. A hybrid (molecular dynamics/Langevin) algorithm is
-              used to guide a Monte Carlo simulation. There are no
-              discretization errors even for large step sizes. The method is
-              especially efficient for systems such as quantum chromodynamics
-              which contain fermionic degrees of freedom. Detailed results are
-              presented for four-dimensional compact quantum electrodynamics
-              including the dynamical effects of electrons.",
-  journal  = "Phys. Lett. B",
-  volume   =  195,
-  number   =  2,
-  pages    = "216--222",
-  month    =  sep,
-  year     =  1987
-}
-
-@ARTICLE{Geman1984-nk,
-  title    = "Stochastic Relaxation, Gibbs Distributions, and the Bayesian
-              Restoration of Images",
-  author   = "Geman, Stuart and Geman, Donald",
-  abstract = "We make an analogy between images and statistical mechanics
-              systems. Pixel gray levels and the presence and orientation of
-              edges are viewed as states of atoms or molecules in a
-              lattice-like physical system. The assignment of an energy
-              function in the physical system determines its Gibbs
-              distribution. Because of the Gibbs distribution, Markov random
-              field (MRF) equivalence, this assignment also determines an MRF
-              image model. The energy function is a more convenient and natural
-              mechanism for embodying picture attributes than are the local
-              characteristics of the MRF. For a range of degradation
-              mechanisms, including blurring, nonlinear deformations, and
-              multiplicative or additive noise, the posterior distribution is
-              an MRF with a structure akin to the image model. By the analogy,
-              the posterior distribution defines another (imaginary) physical
-              system. Gradual temperature reduction in the physical system
-              isolates low energy states (``annealing''), or what is the same
-              thing, the most probable states under the Gibbs distribution. The
-              analogous operation under the posterior distribution yields the
-              maximum a posteriori (MAP) estimate of the image given the
-              degraded observations. The result is a highly parallel
-              ``relaxation'' algorithm for MAP estimation. We establish
-              convergence properties of the algorithm and we experiment with
-              some simple pictures, for which good restorations are obtained at
-              low signal-to-noise ratios.",
-  journal  = "IEEE Trans. Pattern Anal. Mach. Intell.",
-  volume   = "PAMI-6",
-  number   =  6,
-  pages    = "721--741",
-  month    =  nov,
-  year     =  1984,
-  keywords = "Stochastic processes;Bayesian methods;Image
-              restoration;Degradation;Markov random fields;Additive
-              noise;Deformable models;Temperature distribution;Energy
-              states;Annealing;Annealing;Gibbs distribution;image
-              restoration;line process;MAP estimate;Markov random
-              field;relaxation;scene modeling;spatial degradation"
-}
-
-@ARTICLE{Hastings1970-mb,
-  title     = "Monte Carlo Sampling Methods Using Markov Chains and Their
-               Applications",
-  author    = "Hastings, W K",
-  abstract  = "[A generalization of the sampling method introduced by
-               Metropolis et al. (1953) is presented along with an exposition
-               of the relevant theory, techniques of application and methods
-               and difficulties of assessing the error in Monte Carlo
-               estimates. Examples of the methods, including the generation of
-               random orthogonal matrices and potential applications of the
-               methods to numerical problems arising in statistics, are
-               discussed.]",
-  journal   = "Biometrika",
-  publisher = "[Oxford University Press, Biometrika Trust]",
-  volume    =  57,
-  number    =  1,
-  pages     = "97--109",
-  year      =  1970
-}
-
-% The entry below contains non-ASCII chars that could not be converted
-% to a LaTeX equivalent.
-@ARTICLE{Rosenbluth1953-gu,
-  title     = "Equation of state calculations by fast computing machines",
-  author    = "Rosenbluth, A W and Rosenbluth, M N and Teller, A H and {others}",
-  abstract  = "A general method, suitable for fast computing machines, for
-               investigating such properties as equations of state for
-               substances consisting of interacting individual molecules is
-               described. The method consists of a modified Monte Carlo
-               integration over configuration space. Results for the
-               two‐dimensional rigid‐sphere system have been obtained on the
-               Los Alamos MANIAC and are presented here. These results are
-               compared to the free volume equation of state and to a four‐term
-               virial coefficient expansion.",
-  journal   = "The journal of",
-  publisher = "pubs.aip.org",
-  year      =  1953
-}
-
-
-@ARTICLE{Roberts2004-op,
-  title     = "General state space Markov chains and {MCMC} algorithms",
-  author    = "Roberts, Gareth O and Rosenthal, Jeffrey S",
-  abstract  = "This paper surveys various results about Markov chains on gen-
-               eral (non-countable) state spaces. It begins with an
-               introduction to Markov chain Monte Carlo (MCMC) algorithms,
-               which provide the motivation and context for the theory which
-               follows. Then, sucient conditions for geomet- ric and uniform
-               ergodicity are presented, along with quantitative bounds on the
-               rate of convergence to stationarity. Many of these results are
-               proved using direct coupling constructions based on minorisation
-               and drift con- ditions. Necessary and sucient conditions for
-               Central Limit Theorems (CLTs) are also presented, in some cases
-               proved via the Poisson Equa- tion or direct regeneration
-               constructions. Finally, optimal scaling and weak convergence
-               results for Metropolis-Hastings algorithms are discussed. None
-               of the results presented is new, though many of the proofs are.
-               We also describe some Open Problems.",
-  journal   = "Probab. Surv.",
-  publisher = "Institute of Mathematical Statistics",
-  volume    =  1,
-  number    = "none",
-  pages     = "20--71",
-  month     =  jan,
-  year      =  2004
-}
-
-
-@ARTICLE{Blei2017-dm,
-  title     = "Variational Inference: A Review for Statisticians",
-  author    = "Blei, David M and Kucukelbir, Alp and McAuliffe, Jon D",
-  abstract  = "ABSTRACTOne of the core problems of modern statistics is to
-               approximate difficult-to-compute probability densities. This
-               problem is especially important in Bayesian statistics, which
-               frames all inference about unknown quantities as a calculation
-               involving the posterior density. In this article, we review
-               variational inference (VI), a method from machine learning that
-               approximates probability densities through optimization. VI has
-               been used in many applications and tends to be faster than
-               classical methods, such as Markov chain Monte Carlo sampling.
-               The idea behind VI is to first posit a family of densities and
-               then to find a member of that family which is close to the
-               target density. Closeness is measured by Kullback?Leibler
-               divergence. We review the ideas behind mean-field variational
-               inference, discuss the special case of VI applied to exponential
-               family models, present a full example with a Bayesian mixture of
-               Gaussians, and derive a variant that uses stochastic
-               optimization to scale up to massive data. We discuss modern
-               research in VI and highlight important open problems. VI is
-               powerful, but it is not yet well understood. Our hope in writing
-               this article is to catalyze statistical research on this class
-               of algorithms. Supplementary materials for this article are
-               available online.",
-  journal   = "J. Am. Stat. Assoc.",
-  publisher = "Taylor \& Francis",
-  volume    =  112,
-  number    =  518,
-  pages     = "859--877",
-  month     =  apr,
-  year      =  2017
-}
-
-
-@ARTICLE{Kucukelbir2016-gn,
-  title         = "Automatic Differentiation Variational Inference",
-  author        = "Kucukelbir, Alp and Tran, Dustin and Ranganath, Rajesh and
-                   Gelman, Andrew and Blei, David M",
-  abstract      = "Probabilistic modeling is iterative. A scientist posits a
-                   simple model, fits it to her data, refines it according to
-                   her analysis, and repeats. However, fitting complex models
-                   to large data is a bottleneck in this process. Deriving
-                   algorithms for new models can be both mathematically and
-                   computationally challenging, which makes it difficult to
-                   efficiently cycle through the steps. To this end, we develop
-                   automatic differentiation variational inference (ADVI).
-                   Using our method, the scientist only provides a
-                   probabilistic model and a dataset, nothing else. ADVI
-                   automatically derives an efficient variational inference
-                   algorithm, freeing the scientist to refine and explore many
-                   models. ADVI supports a broad class of models-no conjugacy
-                   assumptions are required. We study ADVI across ten different
-                   models and apply it to a dataset with millions of
-                   observations. ADVI is integrated into Stan, a probabilistic
-                   programming system; it is available for immediate use.",
-  month         =  mar,
-  year          =  2016,
-  archivePrefix = "arXiv",
-  primaryClass  = "stat.ML",
-  eprint        = "1603.00788"
-}
-
-
-@ARTICLE{Bingham2019-tx,
-  title    = "Pyro: Deep Universal Probabilistic Programming",
-  author   = "Bingham, Eli and Chen, Jonathan P and Jankowiak, Martin and
-              Obermeyer, Fritz and Pradhan, Neeraj and Karaletsos, Theofanis
-              and Singh, Rohit and Szerlip, Paul and Horsfall, Paul and
-              Goodman, Noah D",
-  journal  = "J. Mach. Learn. Res.",
-  volume   =  20,
-  number   =  28,
-  pages    = "1--6",
-  year     =  2019
-}
-
-@ARTICLE{Bradbury2018-qv,
-  title  = "{JAX}: composable transformations of Python+ {NumPy} programs",
-  author = "Bradbury, James and Frostig, Roy and Hawkins, Peter and Johnson,
-            Matthew James and Leary, Chris and Maclaurin, Dougal and Necula,
-            George and Paszke, Adam and VanderPlas, Jake and Wanderman-Milne,
-            Skye and {Others}",
-  year   =  2018
-}
-
-@ARTICLE{Abadi2016-ex,
-  title         = "{TensorFlow}: A system for large-scale machine learning",
-  author        = "Abadi, Mart{\'\i}n and Barham, Paul and Chen, Jianmin and
-                   Chen, Zhifeng and Davis, Andy and Dean, Jeffrey and Devin,
-                   Matthieu and Ghemawat, Sanjay and Irving, Geoffrey and
-                   Isard, Michael and Kudlur, Manjunath and Levenberg, Josh and
-                   Monga, Rajat and Moore, Sherry and Murray, Derek G and
-                   Steiner, Benoit and Tucker, Paul and Vasudevan, Vijay and
-                   Warden, Pete and Wicke, Martin and Yu, Yuan and Zheng,
-                   Xiaoqiang",
-  abstract      = "TensorFlow is a machine learning system that operates at
-                   large scale and in heterogeneous environments. TensorFlow
-                   uses dataflow graphs to represent computation, shared state,
-                   and the operations that mutate that state. It maps the nodes
-                   of a dataflow graph across many machines in a cluster, and
-                   within a machine across multiple computational devices,
-                   including multicore CPUs, general-purpose GPUs, and custom
-                   designed ASICs known as Tensor Processing Units (TPUs). This
-                   architecture gives flexibility to the application developer:
-                   whereas in previous ``parameter server'' designs the
-                   management of shared state is built into the system,
-                   TensorFlow enables developers to experiment with novel
-                   optimizations and training algorithms. TensorFlow supports a
-                   variety of applications, with particularly strong support
-                   for training and inference on deep neural networks. Several
-                   Google services use TensorFlow in production, we have
-                   released it as an open-source project, and it has become
-                   widely used for machine learning research. In this paper, we
-                   describe the TensorFlow dataflow model in contrast to
-                   existing systems, and demonstrate the compelling performance
-                   that TensorFlow achieves for several real-world
-                   applications.",
-  month         =  may,
-  year          =  2016,
-  archivePrefix = "arXiv",
-  primaryClass  = "cs.DC",
-  eprint        = "1605.08695"
-}
-
-@ARTICLE{Paszke2019-kg,
-  title         = "{PyTorch}: An Imperative Style, {High-Performance} Deep
-                   Learning Library",
-  author        = "Paszke, Adam and Gross, Sam and Massa, Francisco and Lerer,
-                   Adam and Bradbury, James and Chanan, Gregory and Killeen,
-                   Trevor and Lin, Zeming and Gimelshein, Natalia and Antiga,
-                   Luca and Desmaison, Alban and K{\"o}pf, Andreas and Yang,
-                   Edward and DeVito, Zach and Raison, Martin and Tejani,
-                   Alykhan and Chilamkurthy, Sasank and Steiner, Benoit and
-                   Fang, Lu and Bai, Junjie and Chintala, Soumith",
-  abstract      = "Deep learning frameworks have often focused on either
-                   usability or speed, but not both. PyTorch is a machine
-                   learning library that shows that these two goals are in fact
-                   compatible: it provides an imperative and Pythonic
-                   programming style that supports code as a model, makes
-                   debugging easy and is consistent with other popular
-                   scientific computing libraries, while remaining efficient
-                   and supporting hardware accelerators such as GPUs. In this
-                   paper, we detail the principles that drove the
-                   implementation of PyTorch and how they are reflected in its
-                   architecture. We emphasize that every aspect of PyTorch is a
-                   regular Python program under the full control of its user.
-                   We also explain how the careful and pragmatic implementation
-                   of the key components of its runtime enables them to work
-                   together to achieve compelling performance. We demonstrate
-                   the efficiency of individual subsystems, as well as the
-                   overall speed of PyTorch on several common benchmarks.",
-  month         =  dec,
-  year          =  2019,
-  archivePrefix = "arXiv",
-  primaryClass  = "cs.LG",
-  eprint        = "1912.01703"
-}
-
-@ARTICLE{The_Theano_Development_Team2016-pj,
-  title         = "Theano: A Python framework for fast computation of
-                   mathematical expressions",
-  author        = "{The Theano Development Team} and Al-Rfou, Rami and Alain,
-                   Guillaume and Almahairi, Amjad and Angermueller, Christof
-                   and Bahdanau, Dzmitry and Ballas, Nicolas and Bastien,
-                   Fr{\'e}d{\'e}ric and Bayer, Justin and Belikov, Anatoly and
-                   Belopolsky, Alexander and Bengio, Yoshua and Bergeron,
-                   Arnaud and Bergstra, James and Bisson, Valentin and Snyder,
-                   Josh Bleecher and Bouchard, Nicolas and
-                   Boulanger-Lewandowski, Nicolas and Bouthillier, Xavier and
-                   de Br{\'e}bisson, Alexandre and Breuleux, Olivier and
-                   Carrier, Pierre-Luc and Cho, Kyunghyun and Chorowski, Jan
-                   and Christiano, Paul and Cooijmans, Tim and C{\^o}t{\'e},
-                   Marc-Alexandre and C{\^o}t{\'e}, Myriam and Courville, Aaron
-                   and Dauphin, Yann N and Delalleau, Olivier and Demouth,
-                   Julien and Desjardins, Guillaume and Dieleman, Sander and
-                   Dinh, Laurent and Ducoffe, M{\'e}lanie and Dumoulin, Vincent
-                   and Kahou, Samira Ebrahimi and Erhan, Dumitru and Fan, Ziye
-                   and Firat, Orhan and Germain, Mathieu and Glorot, Xavier and
-                   Goodfellow, Ian and Graham, Matt and Gulcehre, Caglar and
-                   Hamel, Philippe and Harlouchet, Iban and Heng, Jean-Philippe
-                   and Hidasi, Bal{\'a}zs and Honari, Sina and Jain, Arjun and
-                   Jean, S{\'e}bastien and Jia, Kai and Korobov, Mikhail and
-                   Kulkarni, Vivek and Lamb, Alex and Lamblin, Pascal and
-                   Larsen, Eric and Laurent, C{\'e}sar and Lee, Sean and
-                   Lefrancois, Simon and Lemieux, Simon and L{\'e}onard,
-                   Nicholas and Lin, Zhouhan and Livezey, Jesse A and Lorenz,
-                   Cory and Lowin, Jeremiah and Ma, Qianli and Manzagol,
-                   Pierre-Antoine and Mastropietro, Olivier and McGibbon,
-                   Robert T and Memisevic, Roland and van Merri{\"e}nboer, Bart
-                   and Michalski, Vincent and Mirza, Mehdi and Orlandi, Alberto
-                   and Pal, Christopher and Pascanu, Razvan and Pezeshki,
-                   Mohammad and Raffel, Colin and Renshaw, Daniel and Rocklin,
-                   Matthew and Romero, Adriana and Roth, Markus and Sadowski,
-                   Peter and Salvatier, John and Savard, Fran{\c c}ois and
-                   Schl{\"u}ter, Jan and Schulman, John and Schwartz, Gabriel
-                   and Serban, Iulian Vlad and Serdyuk, Dmitriy and Shabanian,
-                   Samira and Simon, {\'E}tienne and Spieckermann, Sigurd and
-                   Ramana Subramanyam, S and Sygnowski, Jakub and Tanguay,
-                   J{\'e}r{\'e}mie and van Tulder, Gijs and Turian, Joseph and
-                   Urban, Sebastian and Vincent, Pascal and Visin, Francesco
-                   and de Vries, Harm and Warde-Farley, David and Webb, Dustin
-                   J and Willson, Matthew and Xu, Kelvin and Xue, Lijun and
-                   Yao, Li and Zhang, Saizheng and Zhang, Ying",
-  abstract      = "Theano is a Python library that allows to define, optimize,
-                   and evaluate mathematical expressions involving
-                   multi-dimensional arrays efficiently. Since its
-                   introduction, it has been one of the most used CPU and GPU
-                   mathematical compilers - especially in the machine learning
-                   community - and has shown steady performance improvements.
-                   Theano is being actively and continuously developed since
-                   2008, multiple frameworks have been built on top of it and
-                   it has been used to produce many state-of-the-art machine
-                   learning models. The present article is structured as
-                   follows. Section I provides an overview of the Theano
-                   software and its community. Section II presents the
-                   principal features of Theano and how to use them, and
-                   compares them with other similar projects. Section III
-                   focuses on recently-introduced functionalities and
-                   improvements. Section IV compares the performance of Theano
-                   against Torch7 and TensorFlow on several machine learning
-                   models. Section V discusses current limitations of Theano
-                   and potential ways of improving it.",
-  month         =  may,
-  year          =  2016,
-  archivePrefix = "arXiv",
-  primaryClass  = "cs.SC",
-  eprint        = "1605.02688"
-}
-
-
-@ARTICLE{Salvatier2016-uy,
-  title     = "Probabilistic programming in Python using {PyMC3}",
-  author    = "Salvatier, John and Wiecki, Thomas V and Fonnesbeck, Christopher",
-  abstract  = "Probabilistic programming allows for automatic Bayesian
-               inference on user-defined probabilistic models. Recent advances
-               in Markov chain Monte Carlo (MCMC) sampling allow inference on
-               increasingly complex models. This class of MCMC, known as
-               Hamiltonian Monte Carlo, requires gradient information which is
-               often not readily available. PyMC3 is a new open source
-               probabilistic programming framework written in Python that uses
-               Theano to compute gradients via automatic differentiation as
-               well as compile probabilistic programs on-the-fly to C for
-               increased speed. Contrary to other probabilistic programming
-               languages, PyMC3 allows model specification directly in Python
-               code. The lack of a domain specific language allows for great
-               flexibility and direct interaction with the model. This paper is
-               a tutorial-style introduction to this software package.",
-  journal   = "PeerJ Comput. Sci.",
-  publisher = "PeerJ Inc.",
-  volume    =  2,
-  pages     = "e55",
-  month     =  apr,
-  year      =  2016,
-  keywords  = "Bayesian statistic; Probabilistic Programming; Python; Markov
-               chain Monte Carlo; Statistical modeling",
-  language  = "en"
-}
-
-
-@ARTICLE{Phan2019-ku,
-  title         = "Composable Effects for Flexible and Accelerated
-                   Probabilistic Programming in {NumPyro}",
-  author        = "Phan, Du and Pradhan, Neeraj and Jankowiak, Martin",
-  abstract      = "NumPyro is a lightweight library that provides an alternate
-                   NumPy backend to the Pyro probabilistic programming language
-                   with the same modeling interface, language primitives and
-                   effect handling abstractions. Effect handlers allow Pyro's
-                   modeling API to be extended to NumPyro despite its being
-                   built atop a fundamentally different JAX-based functional
-                   backend. In this work, we demonstrate the power of composing
-                   Pyro's effect handlers with the program transformations that
-                   enable hardware acceleration, automatic differentiation, and
-                   vectorization in JAX. In particular, NumPyro provides an
-                   iterative formulation of the No-U-Turn Sampler (NUTS) that
-                   can be end-to-end JIT compiled, yielding an implementation
-                   that is much faster than existing alternatives in both the
-                   small and large dataset regimes.",
-  month         =  dec,
-  year          =  2019,
-  archivePrefix = "arXiv",
-  primaryClass  = "stat.ML",
-  eprint        = "1912.11554"
-}
-
-
-% The entry below contains non-ASCII chars that could not be converted
-% to a LaTeX equivalent.
-@ARTICLE{Kleshchevnikov2022-ch,
-  title    = "Cell2location maps fine-grained cell types in spatial
-              transcriptomics",
-  author   = "Kleshchevnikov, Vitalii and Shmatko, Artem and Dann, Emma and
-              Aivazidis, Alexander and King, Hamish W and Li, Tong and
-              Elmentaite, Rasa and Lomakin, Artem and Kedlian, Veronika and
-              Gayoso, Adam and Jain, Mika Sarkin and Park, Jun Sung and Ramona,
-              Lauma and Tuck, Elizabeth and Arutyunyan, Anna and Vento-Tormo,
-              Roser and Gerstung, Moritz and James, Louisa and Stegle, Oliver
-              and Bayraktar, Omer Ali",
-  abstract = "Spatial transcriptomic technologies promise to resolve cellular
-              wiring diagrams of tissues in health and disease, but
-              comprehensive mapping of cell types in situ remains a challenge.
-              Here we present сell2location, a Bayesian model that can resolve
-              fine-grained cell types in spatial transcriptomic data and create
-              comprehensive cellular maps of diverse tissues. Cell2location
-              accounts for technical sources of variation and borrows
-              statistical strength across locations, thereby enabling the
-              integration of single-cell and spatial transcriptomics with
-              higher sensitivity and resolution than existing tools. We
-              assessed cell2location in three different tissues and show
-              improved mapping of fine-grained cell types. In the mouse brain,
-              we discovered fine regional astrocyte subtypes across the
-              thalamus and hypothalamus. In the human lymph node, we spatially
-              mapped a rare pre-germinal center B cell population. In the human
-              gut, we resolved fine immune cell populations in lymphoid
-              follicles. Collectively, our results present сell2location as a
-              versatile analysis tool for mapping tissue architectures in a
-              comprehensive manner.",
-  journal  = "Nat. Biotechnol.",
-  month    =  jan,
-  year     =  2022,
-  language = "en"
-}
-
-
-@ARTICLE{Lohman2016-ec,
-  title    = "A high-throughput assay for the comprehensive profiling of {DNA}
-              ligase fidelity",
-  author   = "Lohman, Gregory J S and Bauer, Robert J and Nichols, Nicole M and
-              Mazzola, Laurie and Bybee, Joanna and Rivizzigno, Danielle and
-              Cantin, Elizabeth and Evans, Jr, Thomas C",
-  abstract = "DNA ligases have broad application in molecular biology, from
-              traditional cloning methods to modern synthetic biology and
-              molecular diagnostics protocols. Ligation-based detection of
-              polynucleotide sequences can be achieved by the ligation of probe
-              oligonucleotides when annealed to a complementary target
-              sequence. In order to achieve a high sensitivity and low
-              background, the ligase must efficiently join correctly
-              base-paired substrates, while discriminating against the ligation
-              of substrates containing even one mismatched base pair. In the
-              current study, we report the use of capillary electrophoresis to
-              rapidly generate mismatch fidelity profiles that interrogate all
-              256 possible base-pair combinations at a ligation junction in a
-              single experiment. Rapid screening of ligase fidelity in a
-              96-well plate format has allowed the study of ligase fidelity in
-              unprecedented depth. As an example of this new method, herein we
-              report the ligation fidelity of Thermus thermophilus DNA ligase
-              at a range of temperatures, buffer pH and monovalent cation
-              strength. This screen allows the selection of reaction conditions
-              that maximize fidelity without sacrificing activity, while
-              generating a profile of specific mismatches that ligate
-              detectably under each set of conditions.",
-  journal  = "Nucleic Acids Res.",
-  volume   =  44,
-  number   =  2,
-  pages    = "e14",
-  month    =  jan,
-  year     =  2016,
-  language = "en"
-}
-
-
-
-@ARTICLE{Townes2023-uj,
-  title    = "Nonnegative spatial factorization applied to spatial genomics",
-  author   = "Townes, F William and Engelhardt, Barbara E",
-  abstract = "Nonnegative matrix factorization (NMF) is widely used to analyze
-              high-dimensional count data because, in contrast to real-valued
-              alternatives such as factor analysis, it produces an
-              interpretable parts-based representation. However, in
-              applications such as spatial transcriptomics, NMF fails to
-              incorporate known structure between observations. Here, we
-              present nonnegative spatial factorization (NSF), a
-              spatially-aware probabilistic dimension reduction model based on
-              transformed Gaussian processes that naturally encourages sparsity
-              and scales to tens of thousands of observations. NSF recovers
-              ground truth factors more accurately than real-valued
-              alternatives such as MEFISTO in simulations, and has lower
-              out-of-sample prediction error than probabilistic NMF on three
-              spatial transcriptomics datasets from mouse brain and liver.
-              Since not all patterns of gene expression have spatial
-              correlations, we also propose a hybrid extension of NSF that
-              combines spatial and nonspatial components, enabling
-              quantification of spatial importance for both observations and
-              features. A TensorFlow implementation of NSF is available from
-              https://github.com/willtownes/nsf-paper .",
-  journal  = "Nat. Methods",
-  volume   =  20,
-  number   =  2,
-  pages    = "229--238",
-  month    =  feb,
-  year     =  2023,
-  language = "en"
-}
-
-
-@ARTICLE{Kingma2014-um,
-  title         = "Adam: A Method for Stochastic Optimization",
-  author        = "Kingma, Diederik P and Ba, Jimmy",
-  abstract      = "We introduce Adam, an algorithm for first-order
-                   gradient-based optimization of stochastic objective
-                   functions, based on adaptive estimates of lower-order
-                   moments. The method is straightforward to implement, is
-                   computationally efficient, has little memory requirements,
-                   is invariant to diagonal rescaling of the gradients, and is
-                   well suited for problems that are large in terms of data
-                   and/or parameters. The method is also appropriate for
-                   non-stationary objectives and problems with very noisy
-                   and/or sparse gradients. The hyper-parameters have intuitive
-                   interpretations and typically require little tuning. Some
-                   connections to related algorithms, on which Adam was
-                   inspired, are discussed. We also analyze the theoretical
-                   convergence properties of the algorithm and provide a regret
-                   bound on the convergence rate that is comparable to the best
-                   known results under the online convex optimization
-                   framework. Empirical results demonstrate that Adam works
-                   well in practice and compares favorably to other stochastic
-                   optimization methods. Finally, we discuss AdaMax, a variant
-                   of Adam based on the infinity norm.",
-  month         =  dec,
-  year          =  2014,
-  archivePrefix = "arXiv",
-  primaryClass  = "cs.LG",
-  eprint        = "1412.6980"
-}
-
-
-@ARTICLE{Li2023-ik,
-  title    = "A comprehensive benchmarking with practical guidelines for
-              cellular deconvolution of spatial transcriptomics",
-  author   = "Li, Haoyang and Zhou, Juexiao and Li, Zhongxiao and Chen, Siyuan
-              and Liao, Xingyu and Zhang, Bin and Zhang, Ruochi and Wang, Yu
-              and Sun, Shiwei and Gao, Xin",
-  abstract = "Spatial transcriptomics technologies are used to profile
-              transcriptomes while preserving spatial information, which
-              enables high-resolution characterization of transcriptional
-              patterns and reconstruction of tissue architecture. Due to the
-              existence of low-resolution spots in recent spatial
-              transcriptomics technologies, uncovering cellular heterogeneity
-              is crucial for disentangling the spatial patterns of cell types,
-              and many related methods have been proposed. Here, we benchmark
-              18 existing methods resolving a cellular deconvolution task with
-              50 real-world and simulated datasets by evaluating the accuracy,
-              robustness, and usability of the methods. We compare these
-              methods comprehensively using different metrics, resolutions,
-              spatial transcriptomics technologies, spot numbers, and gene
-              numbers. In terms of performance, CARD, Cell2location, and
-              Tangram are the best methods for conducting the cellular
-              deconvolution task. To refine our comparative results, we provide
-              decision-tree-style guidelines and recommendations for method
-              selection and their additional features, which will help users
-              easily choose the best method for fulfilling their concerns.",
-  journal  = "Nat. Commun.",
-  volume   =  14,
-  number   =  1,
-  pages    = "1548",
-  month    =  mar,
-  year     =  2023,
-  language = "en"
-}
-
