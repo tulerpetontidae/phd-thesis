@@ -1212,3 +1212,104 @@
   year     =  2016,
   language = "en"
 }
+
+
+
+@ARTICLE{Townes2023-uj,
+  title    = "Nonnegative spatial factorization applied to spatial genomics",
+  author   = "Townes, F William and Engelhardt, Barbara E",
+  abstract = "Nonnegative matrix factorization (NMF) is widely used to analyze
+              high-dimensional count data because, in contrast to real-valued
+              alternatives such as factor analysis, it produces an
+              interpretable parts-based representation. However, in
+              applications such as spatial transcriptomics, NMF fails to
+              incorporate known structure between observations. Here, we
+              present nonnegative spatial factorization (NSF), a
+              spatially-aware probabilistic dimension reduction model based on
+              transformed Gaussian processes that naturally encourages sparsity
+              and scales to tens of thousands of observations. NSF recovers
+              ground truth factors more accurately than real-valued
+              alternatives such as MEFISTO in simulations, and has lower
+              out-of-sample prediction error than probabilistic NMF on three
+              spatial transcriptomics datasets from mouse brain and liver.
+              Since not all patterns of gene expression have spatial
+              correlations, we also propose a hybrid extension of NSF that
+              combines spatial and nonspatial components, enabling
+              quantification of spatial importance for both observations and
+              features. A TensorFlow implementation of NSF is available from
+              https://github.com/willtownes/nsf-paper .",
+  journal  = "Nat. Methods",
+  volume   =  20,
+  number   =  2,
+  pages    = "229--238",
+  month    =  feb,
+  year     =  2023,
+  language = "en"
+}
+
+
+@ARTICLE{Kingma2014-um,
+  title         = "Adam: A Method for Stochastic Optimization",
+  author        = "Kingma, Diederik P and Ba, Jimmy",
+  abstract      = "We introduce Adam, an algorithm for first-order
+                   gradient-based optimization of stochastic objective
+                   functions, based on adaptive estimates of lower-order
+                   moments. The method is straightforward to implement, is
+                   computationally efficient, has little memory requirements,
+                   is invariant to diagonal rescaling of the gradients, and is
+                   well suited for problems that are large in terms of data
+                   and/or parameters. The method is also appropriate for
+                   non-stationary objectives and problems with very noisy
+                   and/or sparse gradients. The hyper-parameters have intuitive
+                   interpretations and typically require little tuning. Some
+                   connections to related algorithms, on which Adam was
+                   inspired, are discussed. We also analyze the theoretical
+                   convergence properties of the algorithm and provide a regret
+                   bound on the convergence rate that is comparable to the best
+                   known results under the online convex optimization
+                   framework. Empirical results demonstrate that Adam works
+                   well in practice and compares favorably to other stochastic
+                   optimization methods. Finally, we discuss AdaMax, a variant
+                   of Adam based on the infinity norm.",
+  month         =  dec,
+  year          =  2014,
+  archivePrefix = "arXiv",
+  primaryClass  = "cs.LG",
+  eprint        = "1412.6980"
+}
+
+
+@ARTICLE{Li2023-ik,
+  title    = "A comprehensive benchmarking with practical guidelines for
+              cellular deconvolution of spatial transcriptomics",
+  author   = "Li, Haoyang and Zhou, Juexiao and Li, Zhongxiao and Chen, Siyuan
+              and Liao, Xingyu and Zhang, Bin and Zhang, Ruochi and Wang, Yu
+              and Sun, Shiwei and Gao, Xin",
+  abstract = "Spatial transcriptomics technologies are used to profile
+              transcriptomes while preserving spatial information, which
+              enables high-resolution characterization of transcriptional
+              patterns and reconstruction of tissue architecture. Due to the
+              existence of low-resolution spots in recent spatial
+              transcriptomics technologies, uncovering cellular heterogeneity
+              is crucial for disentangling the spatial patterns of cell types,
+              and many related methods have been proposed. Here, we benchmark
+              18 existing methods resolving a cellular deconvolution task with
+              50 real-world and simulated datasets by evaluating the accuracy,
+              robustness, and usability of the methods. We compare these
+              methods comprehensively using different metrics, resolutions,
+              spatial transcriptomics technologies, spot numbers, and gene
+              numbers. In terms of performance, CARD, Cell2location, and
+              Tangram are the best methods for conducting the cellular
+              deconvolution task. To refine our comparative results, we provide
+              decision-tree-style guidelines and recommendations for method
+              selection and their additional features, which will help users
+              easily choose the best method for fulfilling their concerns.",
+  journal  = "Nat. Commun.",
+  volume   =  14,
+  number   =  1,
+  pages    = "1548",
+  month    =  mar,
+  year     =  2023,
+  language = "en"
+}
+

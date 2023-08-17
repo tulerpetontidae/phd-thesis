@@ -2,11 +2,11 @@
 
 \section{Introduction}
 
-Lineage tracing through somatic mutations can reveal ancestral connections between cancer subclones. Yet, current methods fall short in preserved human tissue studies \citep{Yates2015-eg,Jamal-Hanjani2017-ed,Jones2008-tg,Shah2009-lx,Casasent2018-gx,Tarabichi2021-xx}. Techniques like laser capture microdissection (LCM) combined with limited nucleic acid library sequencing, including single-cell sequencing, help to some extent in delineating subclone spatial structures \citep{Shen2000-xj,Casasent2018-gx}. However, they don't effectively capture the diversity of cancer clones across entire tumour sections. While recent spatial genomics techniques can identify cancer clones based on distinct copy number profiles \citep{Zhao2022-dp,Erickson2022-mq}, they fall short in detecting point mutations or quantifying mixed clones.
+Lineage tracing through somatic mutations can reveal ancestral connections between cancer subclones. Yet, current methods fall short in preserved human tissue studies \parencite{Yates2015-eg,Jamal-Hanjani2017-ed,Jones2008-tg,Shah2009-lx,Casasent2018-gx,Tarabichi2021-xx}. Techniques like laser capture microdissection (LCM) combined with limited nucleic acid library sequencing, including single-cell sequencing, help to some extent in delineating subclone spatial structures \parencite{Shen2000-xj,Casasent2018-gx}. However, they don't effectively capture the diversity of cancer clones across entire tumour sections. While recent spatial genomics techniques can identify cancer clones based on distinct copy number profiles \parencite{Zhao2022-dp,Erickson2022-mq}, they fall short in detecting point mutations or quantifying mixed clones.
 
-Though in situ hybridization \citep{Janiszewska2015-kb} and mutation-specific padlock probes \citep{Larsson2010-bp,Grundberg2013-te,Ke2013-km,Baker2017-jz} can detect individual mutations in situ, their potential is limited by the number of available fluorophores, allowing them to trace only a few mutations at once. Considering the genetic uniqueness of each cancer and its subclones, tracing multiple specific somatic mutations is crucial to decipher spatial and temporal ancestral relationships \citep{Nik-Zainal2012-tt}. The solution lies in encoding in situ sequencing probes combinatorially, allowing them to be captured with a multi-round imaging strategy, thus enabling multiplex \ac{BaSISS}.
+Though in situ hybridization \parencite{Janiszewska2015-kb} and mutation-specific padlock probes \parencite{Larsson2010-bp,Grundberg2013-te,Ke2013-km,Baker2017-jz} can detect individual mutations in situ, their potential is limited by the number of available fluorophores, allowing them to trace only a few mutations at once. Considering the genetic uniqueness of each cancer and its subclones, tracing multiple specific somatic mutations is crucial to decipher spatial and temporal ancestral relationships \parencite{Nik-Zainal2012-tt}. The solution lies in encoding in situ sequencing probes combinatorially, allowing them to be captured with a multi-round imaging strategy, thus enabling multiplex \ac{BaSISS}.
 
-The \ac{BaSISS} protocol uses fresh frozen tissue blocks, which are serially cryosectioned. This produces tissue for both bulk \ac{WGS} and z-stacked sections for spatial clone mapping. After identifying subclones from bulk WGS, \ac{BaSISS} employs two main steps. First, it uses padlock probes designed for both mutant and wild-type alleles, marked with a unique 4–5 nucleotide barcode for multiplexing \citep{Ke2013-km}. These probes can target any expressed somatic mutation, including rearrangement breakpoints, and can be supplemented with copy number alterations. Next, \ac{BaSISS}  uses a cyclical microscopy approach, akin to gene expression in situ sequencing protocol \citep{Ke2013-km,Svedlund2019-xb}.
+The \ac{BaSISS} protocol uses fresh frozen tissue blocks, which are serially cryosectioned. This produces tissue for both bulk \ac{WGS} and z-stacked sections for spatial clone mapping. After identifying subclones from bulk WGS, \ac{BaSISS} employs two main steps. First, it uses padlock probes designed for both mutant and wild-type alleles, marked with a unique 4–5 nucleotide barcode for multiplexing \parencite{Ke2013-km}. These probes can target any expressed somatic mutation, including rearrangement breakpoints, and can be supplemented with copy number alterations. Next, \ac{BaSISS}  uses a cyclical microscopy approach, akin to gene expression in situ sequencing protocol \parencite{Ke2013-km,Svedlund2019-xb}.
 
 The procedures described, along with initial data processing, produce two primary sets of information. \ac{WGS} reveals anticipated clonal expansions, identifies point mutations and copy number variations specific to each clone. The spatial component locates alleles identified by the \ac{WGS} in the tissue section. We also obtain a proxy to determine cell locations through segmented nuclei locations. Nevertheless, the interpretation of subclone locations becomes complicated due to the inherent complexity of the cancer genome, tissue heterogeneity, and potential systematic errors in the technology. These challenges drive the need for a robust statistical approach.
 
@@ -23,11 +23,12 @@ D_i \sim f(k_i)
 
 When dealing with spatial experimental approaches that have low spatial resolution, such as spatial transcriptomics, data is commonly presented as an expression matrix (location x gene). However, for methods with higher signal density and resolution, the initial spots are often aggregated into cells. This can be done directly using segmentation masks obtained from nuclei or visualised cell membranes (when the experimental setting permits), or by inferring cell borders directly from the signal distribution.
 
-One crucial consideration is that if the factors are unconstrained, there is no guarantee that the lower-dimensional representation  $\mathbb{R}^k$ will resemble the actual cell types. This leads to the use of constraints, applied either singly or in combination. These constraints might be spatial, employing tools like \ac{GP}, Markov random fields, or conditional autoregression. Alternatively, the latent space can be constrained by harnessing the complementary nature of \ac{scRNAseq} data. This involves learning a joint latent space representation from both scRNAseq and spatial data, or extracting signatures from \ac{scRNAseq} data to guide the spatial model. The latter approach, commonly referred as cell type deconvolution\footnote{In my opinion a more apropriate name is cell type decomposition, since there are no explicit convolution operation involved}, where data is decomposed into a set of predefined factors has been especially popular recently, which brought to existence a zoo of methods utilising many possible architectures.
+One crucial consideration is that if the factors are unconstrained, there is no guarantee that the lower-dimensional representation  $\mathbb{R}^k$ will resemble the actual cell types. This leads to the use of constraints, applied either singly or in combination. These constraints might be spatial, employing tools like \ac{GP}, Markov random fields, or conditional autoregression. Alternatively, the latent space can be constrained by harnessing the complementary nature of \ac{scRNAseq} data. This involves learning a joint latent space representation from both scRNAseq and spatial data, or extracting signatures from \ac{scRNAseq} data to guide the spatial model. The latter approach, commonly referred as \emph{cell-type deconvolution}\footnote{In my opinion, a more apropriate name is the alternative term \emph{сell-type decomposition}. While I can see the metaphorical value, it is confusing that the term deconvolution is used on the data where no explicit convolution operations were modelled.}, where data is decomposed into a set of predefined factors has been especially popular recently, which brought to existence a zoo of methods utilising many possible architectures.
 
 Among the various models, recent benchmarking has revealed that generative Bayesian models perform well in the task of cell type decomposition. Considering additional favourable properties such as interpretability and direct uncertainty estimation, this class of models often becomes an appealing choice for modelling tasks within the field.
 
 \section{Bayesian statistical modelling}
+\label{sec:bayesian-intro}
 
 In many practical contexts, we find ourselves in situations where the underlying mechanisms governing the system are hidden or only partially observed, and the observations are noisy and limited. Such scarcity of information introduces inherent uncertainty in our understanding of the system. It is within this landscape of uncertainty that the Bayesian understanding of probabilities emerges as a natural tool. Rather than mere frequencies, probabilities are construed as representations of the degree of belief, capturing the epistemic uncertainty about the system parameters. A statistical model, crafted within this Bayesian paradigm, acts as a bridge between the observed data and the underlying phenomena, translating our assumptions and knowledge about the problem into a coherent probabilistic framework. This in turn allows us to make predictions, perform inference, and understand more deeply the structure of the data.
 
@@ -65,11 +66,11 @@ The graphical depiction of the components is shown on \textbf{FIGURE N}.
 
 The process of inference, while appearing simple in principle, presents substantial difficulties in actual computation. A major obstacle lies in the denominator of the Bayesian formulation, the integral often becomes intractable  thus rendering even moderately complex Bayesian models intractable, apart from a few cases with carefully selected \explain{ \emph{conjugate priors}}{Write a simple explanation} like shown in the previous example. This issue is a significant constraint in the applicability of Bayesian models, which must be carefully considered in their practical implementation and model formulation.
 
-The solution to the problems came through a sequence of developments in \ac{MCMC} methods, including the Metropolis algorithm \citep{Rosenbluth1953-gu}, Metropolis-Hastings algorithm \citep{Hastings1970-mb}, Gibbs sampling \citep{Geman1984-nk}, and Hybrid Monte Carlo (HMC) \citep{Duane1987-gu}. These methods permit the generation of samples from the posterior probability distribution by forming an invertible Markov chain. The equilibrium distribution of this chain corresponds to the targeted posterior distribution \citep{Roberts2004-op}. Consequently, if one were to compute the constructed Markov chain, a guarantee exists for the convergence to the genuine posterior distribution of the model, given that the number of sampling steps approaches infinity. In practical terms, provided the model is appropriately specified, convergence tends to occur in a sensible duration. The samples derived from the converged chain may then be utilised to estimate the requisite summary statistics. 
+The solution to the problems came through a sequence of developments in \ac{MCMC} methods, including the Metropolis algorithm \parencite{Rosenbluth1953-gu}, Metropolis-Hastings algorithm \parencite{Hastings1970-mb}, Gibbs sampling \parencite{Geman1984-nk}, and Hybrid Monte Carlo (HMC) \parencite{Duane1987-gu}. These methods permit the generation of samples from the posterior probability distribution by forming an invertible Markov chain. The equilibrium distribution of this chain corresponds to the targeted posterior distribution \parencite{Roberts2004-op}. Consequently, if one were to compute the constructed Markov chain, a guarantee exists for the convergence to the genuine posterior distribution of the model, given that the number of sampling steps approaches infinity. In practical terms, provided the model is appropriately specified, convergence tends to occur in a sensible duration. The samples derived from the converged chain may then be utilised to estimate the requisite summary statistics. 
 
 \ac{MCMC} has revolutionised the field of Bayesian inference, segregating the procedures of model formulation and inference. It must be noted, however, that these methods do not scale with ease when faced with the dimensions and complexity of the model. They often either demand an extensive number of steps or involve calculations that, although fewer in number, are considerably computationally demanding. In scenarios where the analytical posterior is inaccessible, and the computational cost of \ac{MCMC} is substantial, it is common to use alternative approximation schemes such as \ac{VI}.
 
-\acl{VI} is framed as an optimization problem, where the objective is to identify a distribution within a constrained family of tractable distributions that most closely approximates the target distribution \citep{Blei2017-dm}. This technique can be seen as an optimization problem, where the goal is to find a distribution that is most similar to the target distribution, within a constrained family of tractable distributions. Mathematically, the problem of \acl{VI} can be formulated as finding the distribution $q(\theta)$ of the variational family $\mathcal{Q}$ that is following the true posterior $p(\theta | D)$ as closely as possible. The common distance measure that is used is the Kullback-Leibler (KL) divergence, thus the goal is:
+\acl{VI} is framed as an optimization problem, where the objective is to identify a distribution within a constrained family of tractable distributions that most closely approximates the target distribution \parencite{Blei2017-dm}. This technique can be seen as an optimization problem, where the goal is to find a distribution that is most similar to the target distribution, within a constrained family of tractable distributions. Mathematically, the problem of \acl{VI} can be formulated as finding the distribution $q(\theta)$ of the variational family $\mathcal{Q}$ that is following the true posterior $p(\theta | D)$ as closely as possible. The common distance measure that is used is the Kullback-Leibler (KL) divergence, thus the goal is:
 
 \begin{equation}
 q(\theta) = \argmin_{q \in \mathcal{Q}} \text{KL}(q(\theta) || p(\theta | D))  
@@ -83,9 +84,9 @@ q(\theta) &= \argmin_{q \in \mathcal{Q}} \int q(\theta) \log \frac{q(\theta) p(D
 &= \argmin_{q \in \mathcal{Q}} \mathbb{E}_q [\log q(\theta) -  \log p(\theta, D)] + \log p(D)
 \end{align}
 
-Notice that $\log p(x)$ is constant with respect to $q$, so we can ignore it when minimising KL divergence. Now we can define the optimisation objective, which is the inverse expectation term, referred as the \explain{Evidence Lower Bound}{Compose a simple illustration on why this is the Evidence LOWER bound} (ELBO). Hence, the original problem of minimising KL divergence between approximation distribution and posterior becomes equivalent to the maximisation of ELBO. 
+Notice that $\log p(x)$ is constant with respect to $q$, so we can ignore it when minimising KL divergence. Now we can define the optimisation objective, which is the inverse expectation term, referred as the \explain{Evidence Lower Bound}{Compose a simple illustration on why this is the \ac{ELBO}}. Hence, the original problem of minimising KL divergence between approximation distribution and posterior becomes equivalent to the maximisation of \ac{ELBO}. 
 
-One significant development in \ac{VI} is \ac{ADVI} \citep{Kucukelbir2016-gn}. \ac{ADVI} generalises the approach by employing the normal family of distributions as the guide, thereby enabling the application of gradient-based optimisation techniques, via \explain{reparameterization trick}{Explain what is the reparameterization trick}.
+One significant development in \ac{VI} is \ac{ADVI} \parencite{Kucukelbir2016-gn}. \ac{ADVI} generalises the approach by employing the normal family of distributions as the guide, thereby enabling the application of gradient-based optimisation techniques, via \explain{reparameterization trick}{Explain what is the reparameterization trick}.
 
 In \ac{ADVI}, the variational distribution is assumed to be multivariate normal with an appropriate transformation.
 \begin{equation}
@@ -94,7 +95,7 @@ q(\theta) = f(\mathcal{N}(\mu, \Sigma))
 
 Here, $\mu$ and $\sigma$ are the optimised mean and covariance parameters, and $f$ is a \explain{transformation function}{Consider giving an example} that maps the normal distribution to the desired distribution. The transformation function is chosen such that the support of the transformed distribution is the same as the support of the target distribution. For example, if the target distribution is a Gamma distribution, then the transformation function is the Exponential function. 
 
-In practice, additional constraints are imposed on the covariance matrix, considering it either low-rank or simply diagonal (mean-field) \citep{Blei2017-dm}. Although these assumptions may overlook a probable covariance structure between model parameters, and frequently underestimate the variance, they dramatically decrease the number of parameters that can be optimised. This makes the inference of even larger models feasible.
+In practice, additional constraints are imposed on the covariance matrix, considering it either low-rank or simply diagonal (mean-field) \parencite{Blei2017-dm}. Although these assumptions may overlook a probable covariance structure between model parameters, and frequently underestimate the variance, they dramatically decrease the number of parameters that can be optimised. This makes the inference of even larger models feasible.
 
 In addition to advancements in inference algorithms, contemporary machine learning frameworks like \ac{Theano}\footnote{A discontinued python framework that I had a misfortune to use as a backand for model optimisation defined in PyMC package. Currently a fork is maintained under the name Aesara}, \ac{PyTorch}, \ac{TensorFlow}, and \ac{JAX}, have notably improved the efficiency of Bayesian inference. This is particularly true for methods that utilise automatic differentiation, such as the Hamiltonian Monte Carlo \ac{MCMC} family techniques and \ac{ADVI}. Probabilistic frameworks, including \ac{PyMC}, \ac{Pyro}, and \ac{NumPyro}, are simplifying the Bayesian model development process. By managing most of the underlying calculations, these frameworks allow researchers to concentrate more on conceptual model development and spend less time on numerical details.
 
@@ -102,9 +103,11 @@ In addition to advancements in inference algorithms, contemporary machine learni
 
 \section{Methods}
 \subsection{BaSISS data characterisation}
-Before diving into the model design, let's first examine the raw \ac{BaSISS} data for three samples from P1 (P1-ER1, P1-ER2, and P1-D1). A comprehensive description of the samples and the experimental procedure is discussed in \ref{sec:basiss_data}. In brief, the multi-region \ac{WGS} identified six clonal expansions, and 51 padlock probes were designed to track them on tissue slides targeting mutant and wildtype allelic variants. In total, these three samples contain approximately 1,000,000 cells, spanning 245 mm\(^2\) of tissue (Table \ref{tab:basiss_data_raw}), and roughly 1,000,000 detected \ac{BaSISS} signals, 25\% of which target mutant variants.
+\label{sec:bassis-data-brief}
 
-If one is to colour allelic variants by their clonal origin, it is easy to note that the data has hierarchical structure (Figure \ref{fig:basiss_data_raw}). For example private mutations of \green{green} and \blue{blue} clones tend to colocalise, while avoiding \orange{orange} clone private mutations. This is consistent with the clonal phylogeny, where \green{green} is a descendent of \blue{blue}, and therefore possesses all \blue{blue} mutations, while \orange{orange} clone is a separate lineage. When it comes to the corresponding wild type allels the situation is reversed, in the suspected location of \green{green} clone, wild type variants of the genes where it has a mutation is depleted, which makes sense as the copy number of the wild type variant is decreased once mutation happens. An even more obvious relation between copy number and singal density is observed for the copy number variable locus of \gene{FGFR1}. Since \orange{orange} clone possesses a greater copy number gain of 12 in this locus, the signal density is increased in the corresponding region  (Figure \ref{fig:basiss_data_raw_zoom}). 
+Before diving into the model design, let's first examine the raw \ac{BaSISS} data for three samples from P1 (P1-ER1, P1-ER2, and P1-D1). A comprehensive description of the samples and the experimental procedure is discussed in \cref{sec:basiss_data}. In brief, the multi-region \ac{WGS} identified six clonal expansions, and 51 padlock probes were designed to track them on tissue slides targeting mutant and wildtype allelic variants. In total, these three samples contain approximately 1,000,000 cells, spanning 245 mm\(^2\) of tissue (Table \cref{tab:basiss_data_raw}), and roughly 1,000,000 detected \ac{BaSISS} signals, 25\% of which target mutant variants.
+
+If one is to colour allelic variants by their clonal origin, it is easy to note that the data has hierarchical structure \cref{fig:basiss_data_raw}. For example private mutations of \green{green} and \blue{blue} clones tend to colocalise, while avoiding \orange{orange} clone private mutations. This is consistent with the clonal phylogeny, where \green{green} is a descendent of \blue{blue}, and therefore possesses all \blue{blue} mutations, while \orange{orange} clone is a separate lineage. When it comes to the corresponding wild type allels the situation is reversed, in the suspected location of \green{green} clone, wild type variants of the genes where it has a mutation is depleted, which makes sense as the copy number of the wild type variant is decreased once mutation happens. An even more obvious relation between copy number and singal density is observed for the copy number variable locus of \gene{FGFR1}. Since \orange{orange} clone possesses a greater copy number gain of 12 in this locus, the signal density is increased in the corresponding region  \cref{fig:basiss_data_raw_zoom}. 
 
 These observations motivate two key model design decisions. First of all, it is obvious that we won't be able to extract single cell level information from the data, as the signal density is too low. Therefore, we will be working with aggregated data, where the unit of observation is a region, not a cell. Cells inside these regions can belong to different clonal lineages and each should contribute to the observed signal count. Secondly, there is a clear relation between the copy number and signal density, which suggests that we should incorporate copy number information into the model.
 
@@ -151,7 +154,7 @@ we want $\mathbf{M}$ to be non-negative, and even more specifically, to be a pro
     \mathbf{M} = \left[ \dfrac{e^{\tau m_0}}{1 + \sum_{i=0}^{|s|-1}{e^{\tau m_i}}}, \dots, \dfrac{e^{\tau m_{|s|-1}}}{1 + \sum_{i=0}^{|s|-1}{e^{\tau m_i}}} \right]
 \end{equation}
 
-Here, $\tau$ is a temperature hyperparameter that controls the prior expectation of clone intermixing as shown on the (Figure \ref{fig:softmax_GP}). By setting high \explain{$\tau$ values}{Explain that for different number of components, tau should be chosen independently}, we express our beliefe that clones are likely to be spatially separated, while higher values of $\tau$ indicate a higher degree of intermixing. Since I didn't have a strong expectation about the degree of intermixing, I set $\tau$ = 2 for the case with 6 clones, which corresponds to a weak belief that clones tend to intermix.
+Here, $\tau$ is a temperature hyperparameter that controls the prior expectation of clone intermixing as shown on the \cref{fig:softmax_GP}. By setting high \explain{$\tau$ values}{Explain that for different number of components, tau should be chosen independently}, we express our beliefe that clones are likely to be spatially separated, while higher values of $\tau$ indicate a higher degree of intermixing. Since I didn't have a strong expectation about the degree of intermixing, I set $\tau$ = 2 for the case with 6 clones, which corresponds to a weak belief that clones tend to intermix.
 
 The use of \ac{GP} as a prior for the spatial maps $\mathbf{M}$ is a convinient way to deal with the sparcity of the data observed in the \ac{BaSISS} data. It allows to propagate information over the spatial dimensions in a \explain{non-parametric}{GP considered non parametric, explain why} way, stabilising the solution and reducing the impact of sampling fluctuations. Nevertheless, the model would benefit from excplicit parametrisation of the known sources of variation.
 
@@ -170,7 +173,7 @@ The product of $\mathbf{G}$ and $\mathbf{M}$ provides a value that one might int
     \item Overdispersed sampling fluctuations $\alpha$
 \end{enumerate}
 
-Accounting for these, the equation for the expected number of BaSISS signals \eqref{eq:ED} becomes:
+Accounting for these, the equation for the expected number of BaSISS signals \cref{eq:ED} becomes:
 
 \begin{equation} 
 \mathbf{M}_{a, x,y} = \underbrace{\nu_{x,y}}_{\text{cell density}} \cdot \overbrace{\iota}_a^{\mathclap{\text{detection rate}}} \cdot \underbrace{\sum_{a'} \tau_{a,a'}}_{\text{probe confusion}} \sum_s  \overbrace{\gamma_{s,a}}^{\mathclap{\text{clone-specific expression}}} \underbrace{\mathbf{G}_{a,s} \mathbf{M}_{s,x,y}}_{\text{clone contribution}} + \overbrace{\beta_a}^{\mathclap{\text{background}}}
@@ -180,7 +183,7 @@ Accounting for these, the equation for the expected number of BaSISS signals \eq
 Let's discuss each of these components in more detail.
 
 \subsubsection*{Cellular density}
-The cellular density $\nu_{x,y}$ directly influences the number of observed signals in a given region. While this density represents the expected number of cells, directly observing it poses a challenge. Some tools attempt to infer cellular density from transcriptional signals alone \citep{Kleshchevnikov2022-ch}. However, this method is unreliable due to \explain{confounding expression}{same singal level could be explained by higher global expression, or more dense cell populations} specific factors.
+The cellular density $\nu_{x,y}$ directly influences the number of observed signals in a given region. While this density represents the expected number of cells, directly observing it poses a challenge. Some tools attempt to infer cellular density from transcriptional signals alone \parencite{Kleshchevnikov2022-ch}. However, this method is unreliable due to \explain{confounding expression}{same singal level could be explained by higher global expression, or more dense cell populations} specific factors.
 
 Fortunately, the number of nuclei in the region provides necessery information to disentangle the effect of cellular density from the other sources of variation. We obtain this data during the \ac{BaSISS} signal acquisition process. Using a neural network model, we segment the DAPI stained image of nuclei, saving the nuclei counts in a two-dimensional array $\mathbf{N} \in \mathbb{N}^{|x| \times |y|}$. These counts may not always accurately reflect cell densities. This inaccuracy can result from segmentation errors or because the slide captures only a fraction of the cells. As a result, we model the nuclei counts $\mathbb{N}_{x,y}$ as Poisson distributed values. Their mean, $\nu_{x,y}$, represents cell densities and follows a weak Gamma prior.
 
@@ -195,7 +198,7 @@ The prior parameters $\mu$ and $\sigma$ are set to a weekly informative distribu
 
 \subsubsection*{Differential probe specificity}
 
-\ac{BaSISS} ability to detect allelic variants relies on a multistage process of reverse transcription, padlock probes annealing, amplification and fluorophore detection \citep{Svedlund2019-xb}. As it is hard to model each of the steps explicitly, we model the overall detection rate $\iota \in \mathbb{R}^{|a|}_{+}$ for each allele $a$ as a Gamma distributed random variable.
+\ac{BaSISS} ability to detect allelic variants relies on a multistage process of reverse transcription, padlock probes annealing, amplification and fluorophore detection \parencite{Svedlund2019-xb}. As it is hard to model each of the steps explicitly, we model the overall detection rate $\iota \in \mathbb{R}^{|a|}_{+}$ for each allele $a$ as a Gamma distributed random variable.
 
 \begin{equation}
     {\iota}_{a} \sim \text{Gamma}(\mu, \sigma)
@@ -205,7 +208,7 @@ The prior parameters $\mu$ and $\sigma$ are set to a weekly informative distribu
 
 \subsubsection*{Allelic confusion}
 
-The difference between wild type and mutated allelic variants often amounts to a single nucleotide. This elevates the chances for the padlock probe to anneal to the off-target allelic variant, resulting in \explain{allelic confusion}{Draw how it looks}. Though DNA ligases are optimised for fidelity, they can make mistakes, particularly under suboptimal conditions \citep{Lohman2016-ec}. This mistake-prone behaviour particularly contaminates mutated alleles. Since most cells contain at least two wild type copies, this creates spurious noise, as seen in \ref{fig:allelic_confusion}.
+The difference between wild type and mutated allelic variants often amounts to a single nucleotide. This elevates the chances for the padlock probe to anneal to the off-target allelic variant, resulting in \explain{allelic confusion}{Draw how it looks}. Though DNA ligases are optimised for fidelity, they can make mistakes, particularly under suboptimal conditions \parencite{Lohman2016-ec}. This mistake-prone behaviour particularly contaminates mutated alleles. Since most cells contain at least two wild type copies, this creates spurious noise, as seen in \cref{fig:allelic_confusion}.
 
 To model this effect, I design a sparse transition matrix ${\tau} \in \mathbb{R}^{|a|, |a|}_{(0,1)} $, populating it with transition probabilities $ \{ {\tau}_{a,a'}\} $ for each allele. I impose a strong regularising Beta prior on $ \tau_{a,a'} $, shifting the probability density close to 1 and preventing it from dropping below 0.75. This restriction avoids non-identifiabilities and is a reasonable constraint, given that this effect is selected against during protocol optimisation.
 
@@ -252,25 +255,133 @@ The Beta distirubtion parameters are chosen to shift the probability density tow
 
 \subsubsection*{Sampling fluctuations}
 
-I model BaSISS counts as being Negative Binomial distributed given an unobserved mean detection level $\mathbf{M}_{x,y,a}$ and over-dispersion parameter ${\alpha}_a$ which accounts for unexplained variance:
+I model BaSISS counts as being \explain{Negative Binomial}{A simple graph of negative binomial distribtuion and it's link to gamma-poisson} distributed given an unobserved mean detection level $\mathbf{M}_{x,y,a}$ and over-dispersion parameter ${\alpha}_a$ which accounts for unexplained variance:
 
 \begin{equation} 
 \mathbf{D}_{x,y,a} \sim \text{NB}(\mu_{x,y,a}, \alpha_a)
 \end{equation}
 
-Over-dispersion $\alpha_a$ is sampled from Gamma distribution where distribution density is shifted towards larger value, which 
+This is a common choice of the likelihood function \parencite{Kleshchevnikov2022-ch, Townes2023-uj}, as it is more flexible then Possion, which assumes that the variance is equal to the mean.
 
-\begin{equation} 
-{\alpha}_a \sim \mathrm{Gamma}(\mu, \sigma)
+Over-dispersion $\alpha_a$ is sampled from Gamma distribution where distribution density is shifted towards lover value, making the likelihood Poisson like if no over-dispersion is observed.
+
+\begin{equation}
+    {\alpha}_a \sim \mathrm{Gamma}(\mu, \sigma)
 \end{equation} 
 
+\figuretextwidth{conceptual-bassis-model.pdf}{conceptual-bassis-model}
+    {Mathematical modelling \ac{BaSISS} data}
+    {Mathematical model for generating quantitative clone maps. The essential idea is that the \ac{BaSISS} signals count matrix $\mathbf{D}$ is decomposed into maps of clones $\mathbf{M}$ each with
+    a distinct genotype $\mathbf{G}$ (grey shading), accounting for multiple sources of variability.}
+
+
+This concludes main part of the model definition. The full model is conceptually visualised in \cref{fig:conceptual-bassis-model}.
 
 \subsection{Regularisation with auxiliary constraints}
+Depending on the experimental setup, we may obtain auxiliary data containing information about the state of the system we are modelling. In the spirit of Bayesian inference, propagating this information through the model should reduce uncertainty in the posterior estimation of the parameters. In this section, I describe two types of auxiliary data likely to be generated alongside the \ac{BaSISS} experiment, which can be used to regularise the model.
+
+\subsubsection*{Bulk \acl{VAF} information}
+
+\ac{WGS} forms the initial step of \ac{BaSISS}, and is vital for inferring clone composition and identifying potential targets for probe design. This step is carried out on the tissue sections adjacent to the block used for \ac{BaSISS}, as illustrated in \cref{fig:experiment_design}. Since the neighbouring tissue sections are likely to have similar, though not identical, clone composition, we can use the \ac{WGS} data to regularise the global clonal composition inferred by the model.
+
+\ac{WGS} directly measures the number of reads for each allelic variant, so the relative \acf{VAF} for each locus should remain the same across tissue sections with identical relative clone composition. I apply this constraint to the model by constructing an auxiliary variable $\mathbf{VAF}^{\text{BaSISS}}$ of each mutant variant $m$ on the slide. This variable is formed by the summation of $\mathbf{M} \times \mathbf{G}$ product over spatial dimensions and represents the bulk inferred \ac{VAF} of the slide:
+
+\begin{equation} 
+\mathbf{VAF}^{\text{BaSISS}} = \sum_{x,y} \mathbf{M} \times \dfrac{\mathbf{G}^{\text{mut}}}{\mathbf{G}^{\text{wt}} + \mathbf{G}^{\text{mut}}}
+\end{equation}
+
+Next, I construct an auxiliary likelihood of $\mathbf{VAF}^{\text{BaSISS}}$ with $\alpha$ and $\beta$ parameters proportional to the number of mutated and wild-type reads found in the \ac{WGS} experiment. I incorporate parameter $u$ to account for uncertainty in \ac{WGS} data since it originates from a proximal slide that is not exactly the same as the one used in the BaSISS experiment:
+
+\begin{equation} 
+    \text{VAF}^{\text{BaSISS}}_m \sim \mathrm{Beta}(\alpha=\text{WGS}^\text{mut}_m / u + 1, \alpha=\text{WGS}^\text{wt}_m / u + 1)
+\end{equation}
+
+It is important to note that this likelihood contains exactly $|m|$ mutant alleles terms, roughly half the number of alleles $|a|$. In contrast, the main model likelihood \cref{eq:ED_full} includes $|x| \times |y| \times |a|$ terms, several orders of magnitude higher. This discrepancy means that the main model likelihood will predominantly influence the posterior estimation. Thus, I multiply the log-likelihood of the auxiliary constraint by a factor of $|x| \times |y|$ when formulating the \ac{ELBO}.
+
+\subsubsection*{\acl{IHC} based cell type counts}
+
+Another potential auxiliary data source stems from \ac{IHC} staining of the tissue section. \ac{IHC} staining, a standard technique in pathology, serves to identify specific cell types. Within the scope of the \ac{BaSISS} experiment, \ac{IHC} staining can be employed to characterise the spatial microenvironment of the tissue section. As the cancer cells' staining by \ac{IHC} is known, this information can be used to regularise the model.
+
+In our study, I focused on working with \protein{CD45} \ac{IHC} staining, which pinpoints the location of immune cells. As none of the breast cancer cells should be stained by \protein{CD45}, we can establish a connection between the fraction of stained cells in the region and the cancer cell fraction. This connection is made through the construction of an auxiliary variable for cell fraction, denoted as $\mathbf{CellFrac}$, obtained by summing the clone map matrix $\mathbf{M}$ over clones of the respective types $s^-$ (including cancer cells and normal genotypes of non-immune cells) or $s^+$ (covering immune cells with normal genotypes).
+
+\begin{equation} 
+\mathbf{CellFrac} = \dfrac{\sum_{s \in s^-} \mathbf{M}}{\sum_{s \in s^+} \mathbf{M}}
+\end{equation}
+
+Subsequently, I formulated an auxiliary likelihood of $\mathbf{CellFrac}$ using the Beta distribution, where the \explain{parameters $\alpha$ and $\beta$}{describe the link between counts and beta priors (beta-binomial)} correspond to the cell counts of \ac{IHC}- and \ac{IHC}+ stained nuclei on the slide.
+
+\begin{equation} 
+\mathbf{CellFrac}_{x,y} \sim \mathrm{Beta}(\alpha=\text{IHC}^\text{\,-}_{x,y} + 1, \alpha=\text{IHC}^\text{\,+}_{x,y} + 1)
+\end{equation}
+
+This form of regularisation proves especially beneficial in samples with very low \acl{CCF}, such as in \acl{LN} metastasis, where the majority of cells are immune cells. In these instances, the model might mistakenly interpret noise in areas with high normal cell density as cancer cell signals, thereby overestimating the local \ac{CCF}.
+
 \subsection{Multi-sample extensions}
+When conducting a BaSISS experiment on multiple tissue sections belonging to the same cancer patient, and when these sections are acquired and prepared in a batched manner, it becomes possible to share many of the model's parameters between the slides. Specifically, the shared parameters include the genotype matrix $\mathbf{G}$ (since they pertain to the same cancer case), clone-specific allelic expression variation $\gamma$ (as clones are likely to exhibit similar expression patterns), the probe confusion transition matrix $\tau$, and the expected probe detection rate $\iota$ (since the same genes are targeted, and the samples are prepared under identical conditions). The remaining parameters are specific to each of $k$ individual slides.
+
+To address potential variations in sample preparation, I multiply the mean probe detection rate by a slide-specific probe deviation matrix $\eta \in \mathbb{R}_{+}^{|k|\times|a|}$. This matrix has a log-normally distributed prior, with $\mathbb{E}[{\eta}]$ = 1 and a variance of 0.05.
+
+\begin{equation} 
+\eta_{k,a} \sim \text{LogN}(\mu, \sigma)
+\end{equation}
+
+This extension especially pays off when certain clones are present only in one of the slides. It prevents the model from overfitting to the noise within the data.
+
 \subsection{Inference}
+\label{sec:inference}
+\acl{VI} is used to approximate the posterior, specifically employing the mean-field version of \ac{ADVI} as found in the \ac{PyMC} package. As explained in \cref{sec:bayesian-intro}, \ac{ADVI} optimisation approximates the posterior distribution over unknown parameters using an appropriately transformed multivariate normal distribution. This transformation allows the exploitation of the automatic differentiation framework. Since estimating the covariance between parameters proved to be excessively costly, the optimisation is performed only on the mean and diagonal elements of the covariance matrix of the variational distribution.
+
+Training is halted when the \ac{ELBO} no longer rises, typically after at least 15,000 iterations using the ADAM stochastic optimiser \parencite{Kingma2014-um} with a learning rate of 0.01. For subsequent analysis, the marginalised variational posterior of the parameters is employed. My experiments demonstrate that multiple initialisations may be necessary to reach an optimal solution. This requirement is primarily driven by the stochastic selection of initial values but might also be affected by \explain{numerical instabilities}{float overflow, show erratic behaviour vs normal} occurring during inference with \ac{PyMC}.
 
 \section{Validation}
+\label{sec:bassis-validation}
+Validating spatial genomics models presents a formidable challenge. Simulation studies are of limited use, as they fail to capture the complexity of real data. Furthermore, the absence of ground truth data precludes a direct comparison of model predictions with actual values. Most validation methods, therefore, rely on indirect strategies. These include assessing correlations between the distributions of conservative marker genes and inferred cell types, or evaluating the stability of the solution on technical or simulated replicates \parencite{Li2023-ik}. For the \ac{BaSISS} experiment, we generated a technical replicate to gauge the stability of both experimental and computational aspects of our approach.
 
-\section{Model limitations and future directions}
+\explain{Defining cell-type}{Defining cell types can be vague due to transcriptional plasticity. Broad cell types may have stable markers, but niche cell types are often ephemeral} often poses an ambiguous task. However, the BaSISS model seeks to map clones defined by a set of point mutations, offering a robust and often binary definition (either present or not). Consequently, it becomes feasible to generate near ground truth data using the \ac{LCM} \ac{WGS} approach \parencite{Shen2000-xj}. In this method, the tissue undergoes microdissection into regions of interest, followed by DNA extraction and sequencing. Though expensive and time-consuming, this strategy yields high-resolution allelic frequency data, allowing for an assessment of model prediction accuracy.
+
+Technical replication and \ac{LCM}-\ac{WGS} experiments were carried out on cancer case P1, briefly introduced in \cref{sec:bassis-data-brief} and described in more detail in \cref{sec:add-later}.
+\subsubsection*{Consistency of the BaSISS data}
+In the initial stages of optimising the \ac{BaSISS} experimental protocol, we produced two consecutive slide technical replicates over several years. These replicates were created using different probe designs, imaging platforms, and tissue preparation strategies, as detailed in \cref{sec:bassis-protocol-supplementary}. This sequence offers an invaluable resource for evaluating the consistency of the experimental protocol, particularly concerning signal distribution.
+
+\cref{fig:bassis-technical-replicates} displays the correlations between the \ac{VAF} distributions of the two technical replicates. Despite the variations in experimental conditions, the \ac{BaSISS}-derived \ac{VAF}s demonstrate strong correlation across replicate experiments on serial tissue sections (R = 0.76–0.93, Pearson's). This result underscores the \ac{BaSISS} protocol's robustness against changes in experimental circumstances.
+
+I have previously addressed the visual correlation between \ac{BaSISS} signal density and \ac{CNA} level in \cref{sec:bassis-data-brief}, citing it as a motivation for the model design. Nonetheless, it is crucial to formally evaluate whether this correlation holds generally across loci. We possess \ac{WGS} data for the samples, providing us with bulk \ac{WGS} estimates. Although the precise clonal composition remains unknown, we can reasonably presume that normalising \ac{BaSISS} signals by \ac{WGS}-detected reads should account for the compositional differences between samples. As depicted in figure \cref{fig:bassis-cna-vs-vaf}, this assumption holds true, with $\log_2$(BaSISS/WGS) values showing reasonable correlation (R = 0.75–0.9, Pearson’s).\footnote{Writing thesis is actually useful; in our publication, I reported this equation incorrectly as \ac{VAF}s instead of the raw signal counts.} This finding supports the assumption that \ac{BaSISS} signal density correlates with the number of DNA copies in the sample.
+
+\subsubsection*{Consistency of the model predictions}
+The replication experiment mentioned earlier serves to assess the stability of the model's predictions. As the probes are engineered to target identical mutations, the model ought to generate comparable clonal maps for both replicates. However, certain variables, such as the probe detection rate, denoted as $iota$, may vary due to differences in probe barcodes and experimental conditions. When run with identical hyperparameters on the two replicates, the model yields reasonably similar clonal maps, accounting for the distance in the z-stack between them (refer to \cref{fig:bassis-technical-replicates}).
+
+\subsubsection*{Validation of model predictions with \ac{LCM}-\ac{WGS}}
+To apply our work to spatial characterisations, we must validate the accuracy of our detailed predictions concerning clonal compositions. Characterising the entire tissue slide is unfeasible due to its laborious nature, but we can select a small number of regions for \ac{LCM}-\ac{WGS} to confirm the model's predictions. For this purpose, we performed \ac{LCM}-\ac{WGS} on the residual tissue blocks.
+
+It is vital to acknowledge that the tissues used were not adjacent slides but were located at a significant distance along the z-stack. This distance represents an unfortunate oversight in our experimental design. We located areas with structural correspondence, excised them, and then conducted sequencing. Following this, we compared the resulting \ac{VAF} values to both the raw \ac{BaSISS} signal \ac{VAF}s and the model predictions formulated for the corresponding regions (refer to \cref{fig:bassis-lcm-wgs}).
+
+The contrast between the noisy raw \ac{BaSISS} signal VAFs and the nearly exact matching model predictions with the \ac{LCM}-\ac{WGS} estimates is striking. This contrast attests to the model's capability to precisely forecast the spatial clonal composition of the tissue. Furthermore, it affirms the model's suitability for downstream data analysis.
+
+\section{Model assumptions and limitations}
+
+Quantitative estimation of the spatial cellular composition of genetically distinct clones based on allelic information from in-situ RNA sequencing is a challenging problem. The aforementioned model offers a solution that deals with the multiple sources of biological and technical noise to produce clonal maps which have been orthogonally validated (see \cref{sec:bassis-validation}). However, it comes at the cost of introduced assumptions and limitations that make the solution possible.
+
+\subsubsection*{Spatial correlation}
+A Gaussian process prior is used to deal with the sparsity of the ISS data. The assumption is that the clonal composition changes smoothly across space. The biological reasoning behind it is based on the fact that breast cancer tissue exhibits some structural integrity, so when cells divide they remain close to each other. However, it’s important to note that the model doesn’t take into account the existence of detached compartments such as ducts. As this assumption breaks on the interface between compartmentalised regions, the inferred clonal composition on the borders may appear slightly more intermixed than it is in reality. 
+
+\subsubsection*{Copy number variation and expression}
+The BaSISS protocol detects RNA, however cancer clones are determined by their genotypes. To be able to conduct inference in relation to genetic clones, a relation between genotype and transcription needs to be stated. We assume a positive linear relationship between copy number of an allelic variant and its expression (and detection), with a possibility of a clone specific deviation. Previous studies suggest that the correlation between CNVs and expression seems to hold for many genes22,23.
+
+\subsubsection*{Probe affinities}
+A further technical reason that weakens the link between genotype and raw BaSISS abundances stems from the fact that ISS uses molecular probes which bind to cDNA with variable affinity. This can lead to some ambiguity as probe affinities need to be estimated from the observed data, which requires additional information. This is especially the case if there are few clone defining variants available (otherwise poorly and strongly binding probes may average out). To assist estimation of the allele and clone specific detection rate, it is instrumental to use prior information on the clonal composition, at least at the level of the whole tissue section. Given the first step in the BaSISS workflow is to perform subclone discovery by WGS, prior knowledge of clone composition exists in most cases, even considering the possibility of sampling bias.
+
+\subsubsection*{Homogeneity of clonal expression}
+Another assumption is that alleles belonging to a particular clone are expressed homogeneously across the slide. Violations of this expectation could be partly compensated by:
+
+Multiple alleles defining clonal branches. If only a few alleles are highly variable, the rest could compensate for that. Overdispersion parameters would automatically decrease the influence of alleles with higher heterogeneity than expected.
+
+Inhomogeneous background. Part of the heterogeneity could be captured as the background ‘residual’ clone.
+
+\subsubsection*{Phylogenetic tree}
+The clonal genotype matrix / phylogeny is a discrete model parameter, such that the model doesn’t have a way to adjust it directly. While it is theoretically possible to select an optimal tree solution based on BaSISS data, we observed that in practice different tree solutions provide very similar \ac{ELBO} values, likely due to the aforementioned unknown parameters which lead to a practical unidentifiability. Therefore, attention should be paid during WGS mutation clustering and copy number estimation, as errors in these quantities may lead to unrealistic clonal abundances and growth patterns. However, assessment of the model residuals could indicate problematic alleles and indicate if the genotype matrix is feasible.
+
+\subsubsection*{Confidence intervals of the inference}
+Mean-field variational approximation allows relatively fast inference but has several limitations on its own. Variational approximation of the posterior is estimated using the reverse-KL divergence KL(Q||P). If the true posterior P is multimodal, the variational approximation Q is known to fit only one of the modes of P, yielding only one of the potential solutions (the likely combination of the parameter values) and missing other potential solutions. In addition, mean-field approximation has a tendency to underestimate the parameter variance24.
+
 
 \section{Discussion}
