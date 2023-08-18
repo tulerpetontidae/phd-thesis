@@ -163,6 +163,11 @@ Since the matrix $\mathbf{M}$ is designed to represent a spatially continuous ma
 
 Here, $x$ and $x'$ denote spatial coordinates, and $l$ is a length scale hyperparameter that governs the smoothness.
 
+\figuretextwidth{gp-prior-samples.pdf}{gp-prior-samples}
+    {Samples from a softmax transformed \ac{GP} under different $\tau$}
+    {Samples from a softmax transformed \ac{GP} under different $\tau$. The \ac{GP} is defined by a squared exponential kernel with length scale $l=0.1$. The samples are transformed using a softmax transformation with different temperatures $\tau$. The temperature hyperparameter controls the level of intermixing between the clones}
+
+
 We can naturally express a generative process constrained by the kernel function through the \acf{GP}. The \ac{GP} represents a stochastic process where any finite set of random variables exhibits a joint Gaussian distribution. Put simply, a \ac{GP} serves as a distribution over functions which shape is constrained by the kernel. 
 
 The \ac{GP} relies on two main components for its specification: a mean function $m(x)$ and a covariance function. Since we are dealing with a two-dimensional spatial map, where $x$ and $y$ dimensions are independent, the covariance function is defined as the product of two one-dimensional kernels, $K_{xy} = K_x \times K_y$. As there is no prior knowledge about the expected prevalence of clones in the region, the mean function is set to zero:
@@ -178,9 +183,9 @@ we want $\mathbf{M}$ to be non-negative, and even more specifically, to be a pro
     \mathbf{M} = \left[ \dfrac{e^{\tau m_0}}{1 + \sum_{i=0}^{|s|-1}{e^{\tau m_i}}}, \dots, \dfrac{e^{\tau m_{|s|-1}}}{1 + \sum_{i=0}^{|s|-1}{e^{\tau m_i}}} \right]
 \end{equation}
 
-Here, $\tau$ is a temperature hyperparameter that controls the prior expectation of clone intermixing as shown on the \cref{fig:softmax_GP}. By setting high \explain{$\tau$ values}{Explain that for different number of components, tau should be chosen independently}, we express our beliefe that clones are likely to be spatially separated, while higher values of $\tau$ indicate a higher degree of intermixing. Since I didn't have a strong expectation about the degree of intermixing, I set $\tau$ = 2 for the case with 6 clones, which corresponds to a weak belief that clones tend to intermix.
+Here, $\tau$ is a temperature hyperparameter that controls the prior expectation of clone intermixing as shown on the \cref{fig:softmax_GP}. By setting high $\tau$ values, we express our beliefe that clones are likely to be spatially separated, while higher values of $\tau$ indicate a higher degree of intermixing as shown on \cref{fig:gp-prior-samples}. Since I didn't have a strong expectation about the degree of intermixing, I set $\tau$ = 2 for the case with 6 clones, which corresponds to a weak belief that clones tend to intermix.
 
-The use of \ac{GP} as a prior for the spatial maps $\mathbf{M}$ is a convinient way to deal with the sparcity of the data observed in the \ac{BaSISS} data. It allows to propagate information over the spatial dimensions in a \explain{non-parametric}{GP considered non parametric, explain why} way, stabilising the solution and reducing the impact of sampling fluctuations. Nevertheless, the model would benefit from excplicit parametrisation of the known sources of variation.
+The use of \ac{GP} as a prior for the spatial maps $\mathbf{M}$ is a convinient way to deal with the sparcity of the data observed in the \ac{BaSISS} data. It allows to propagate information over the spatial dimensions in a \explain{non-parametric}{Even though \ac{GP} include kernel hyperparameters, the term "non-parametric" here refers to the fact that the \ac{GP} doesn't assume a fixed form for the underlying function it's modeling. The model can adapt to the underlying structure in the data and can represent an infinite variety of functional forms} way, stabilising the solution and reducing the impact of sampling fluctuations. Nevertheless, the model would benefit from excplicit parametrisation of the known sources of variation.
 
 \subsection{Sources of variation}
 
