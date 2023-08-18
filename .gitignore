@@ -18,6 +18,7 @@
 
 # Ignore temporary files created by editors
 *~
+.*
 *.bak
 *.swp
 *.swo
