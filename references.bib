@@ -1567,3 +1567,153 @@
 }
 
 
+@ARTICLE{Long2023-wz,
+  title    = "Spatially informed clustering, integration, and deconvolution of
+              spatial transcriptomics with {GraphST}",
+  author   = "Long, Yahui and Ang, Kok Siong and Li, Mengwei and Chong, Kian
+              Long Kelvin and Sethi, Raman and Zhong, Chengwei and Xu, Hang and
+              Ong, Zhiwei and Sachaphibulkij, Karishma and Chen, Ao and Zeng,
+              Li and Fu, Huazhu and Wu, Min and Lim, Lina Hsiu Kim and Liu,
+              Longqi and Chen, Jinmiao",
+  abstract = "Spatial transcriptomics technologies generate gene expression
+              profiles with spatial context, requiring spatially informed
+              analysis tools for three key tasks, spatial clustering,
+              multisample integration, and cell-type deconvolution. We present
+              GraphST, a graph self-supervised contrastive learning method that
+              fully exploits spatial transcriptomics data to outperform
+              existing methods. It combines graph neural networks with
+              self-supervised contrastive learning to learn informative and
+              discriminative spot representations by minimizing the embedding
+              distance between spatially adjacent spots and vice versa. We
+              demonstrated GraphST on multiple tissue types and technology
+              platforms. GraphST achieved 10\% higher clustering accuracy and
+              better delineated fine-grained tissue structures in brain and
+              embryo tissues. GraphST is also the only method that can jointly
+              analyze multiple tissue slices in vertical or horizontal
+              integration while correcting batch effects. Lastly, GraphST
+              demonstrated superior cell-type deconvolution to capture spatial
+              niches like lymph node germinal centers and exhausted tumor
+              infiltrating T cells in breast tumor tissue.",
+  journal  = "Nat. Commun.",
+  volume   =  14,
+  number   =  1,
+  pages    = "1155",
+  month    =  mar,
+  year     =  2023,
+  language = "en"
+}
+
+@ARTICLE{Ni2022-tu,
+  title    = "{SpotClean} adjusts for spot swapping in spatial transcriptomics
+              data",
+  author   = "Ni, Zijian and Prasad, Aman and Chen, Shuyang and Halberg,
+              Richard B and Arkin, Lisa M and Drolet, Beth A and Newton,
+              Michael A and Kendziorski, Christina",
+  abstract = "Spatial transcriptomics is a powerful and widely used approach
+              for profiling the gene expression landscape across a tissue with
+              emerging applications in molecular medicine and tumor
+              diagnostics. Recent spatial transcriptomics experiments utilize
+              slides containing thousands of spots with spot-specific barcodes
+              that bind RNA. Ideally, unique molecular identifiers (UMIs) at a
+              spot measure spot-specific expression, but this is often not the
+              case in practice due to bleed from nearby spots, an artifact we
+              refer to as spot swapping. To improve the power and precision of
+              downstream analyses in spatial transcriptomics experiments, we
+              propose SpotClean, a probabilistic model that adjusts for spot
+              swapping to provide more accurate estimates of gene-specific UMI
+              counts. SpotClean provides substantial improvements in marker
+              gene analyses and in clustering, especially when tissue regions
+              are not easily separated. As demonstrated in multiple studies of
+              cancer, SpotClean improves tumor versus normal tissue delineation
+              and improves tumor burden estimation thus increasing the
+              potential for clinical and diagnostic applications of spatial
+              transcriptomics technologies.",
+  journal  = "Nat. Commun.",
+  volume   =  13,
+  number   =  1,
+  pages    = "2971",
+  month    =  may,
+  year     =  2022,
+  language = "en"
+}
+
+@ARTICLE{Dong2022-mu,
+  title    = "Deciphering spatial domains from spatially resolved
+              transcriptomics with an adaptive graph attention auto-encoder",
+  author   = "Dong, Kangning and Zhang, Shihua",
+  abstract = "Recent advances in spatially resolved transcriptomics have
+              enabled comprehensive measurements of gene expression patterns
+              while retaining the spatial context of the tissue
+              microenvironment. Deciphering the spatial context of spots in a
+              tissue needs to use their spatial information carefully. To this
+              end, we develop a graph attention auto-encoder framework STAGATE
+              to accurately identify spatial domains by learning
+              low-dimensional latent embeddings via integrating spatial
+              information and gene expression profiles. To better characterize
+              the spatial similarity at the boundary of spatial domains,
+              STAGATE adopts an attention mechanism to adaptively learn the
+              similarity of neighboring spots, and an optional cell type-aware
+              module through integrating the pre-clustering of gene
+              expressions. We validate STAGATE on diverse spatial
+              transcriptomics datasets generated by different platforms with
+              different spatial resolutions. STAGATE could substantially
+              improve the identification accuracy of spatial domains, and
+              denoise the data while preserving spatial expression patterns.
+              Importantly, STAGATE could be extended to multiple consecutive
+              sections to reduce batch effects between sections and extracting
+              three-dimensional (3D) expression domains from the reconstructed
+              3D tissue effectively.",
+  journal  = "Nat. Commun.",
+  volume   =  13,
+  number   =  1,
+  pages    = "1739",
+  month    =  apr,
+  year     =  2022,
+  language = "en"
+}
+
+@ARTICLE{Ma2022-pd,
+  title    = "Spatially informed cell-type deconvolution for spatial
+              transcriptomics",
+  author   = "Ma, Ying and Zhou, Xiang",
+  abstract = "Many spatially resolved transcriptomic technologies do not have
+              single-cell resolution but measure the average gene expression
+              for each spot from a mixture of cells of potentially
+              heterogeneous cell types. Here, we introduce a deconvolution
+              method, conditional autoregressive-based deconvolution (CARD),
+              that combines cell-type-specific expression information from
+              single-cell RNA sequencing (scRNA-seq) with correlation in
+              cell-type composition across tissue locations. Modeling spatial
+              correlation allows us to borrow the cell-type composition
+              information across locations, improving accuracy of deconvolution
+              even with a mismatched scRNA-seq reference. CARD can also impute
+              cell-type compositions and gene expression levels at unmeasured
+              tissue locations to enable the construction of a refined spatial
+              tissue map with a resolution arbitrarily higher than that
+              measured in the original study and can perform deconvolution
+              without an scRNA-seq reference. Applications to four datasets,
+              including a pancreatic cancer dataset, identified multiple cell
+              types and molecular markers with distinct spatial localization
+              that define the progression, heterogeneity and
+              compartmentalization of pancreatic cancer.",
+  journal  = "Nat. Biotechnol.",
+  volume   =  40,
+  number   =  9,
+  pages    = "1349--1359",
+  month    =  sep,
+  year     =  2022,
+  language = "en"
+}
+
+@ARTICLE{Krige1951-mt,
+  title     = "A statistical approach to some basic mine valuation problems on
+               the Witwatersrand",
+  author    = "Krige, D G",
+  abstract  = "… analysis of mine valuation problems on a; modern
+               \textbackslash, statistical basis… Some contributions have
+               however been made from time to time towards the application of
+               statistics to mine valuation …",
+  journal   = "J. South Afr. Inst. Min. Metall.",
+  publisher = "journals.co.za",
+  year      =  1951
+}
