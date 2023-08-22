@@ -28,6 +28,7 @@
 \usepackage{enumitem}
 \usepackage{booktabs}
 \usepackage{longtable}
+\usepackage{marginfix}
 \usepackage{tabu}
 \usepackage{caption}
 \usepackage{relsize}
@@ -305,6 +306,8 @@
 
 
 \newcommand\pcref[1]{(\cref{#1})}
+\newcommand{\fullauthcite}[1]{\AtNextCite{\defcounter{maxnames}{99}}\fullcite{#1}}
+
     
 \newcommand*\gene[1]{\textit{#1}}
 \newcommand*\ko[1]{\textit{#1\textsuperscript{\(-/-\)}}}
