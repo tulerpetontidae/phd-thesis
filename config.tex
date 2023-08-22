@@ -19,6 +19,7 @@
 \definecolor{dodgerblue}{RGB}{30,144,255}
 \definecolor{forestgreen}{RGB}{34,139,34}
 \definecolor{darkviolet}{RGB}{148,0,211}
+\definecolor{infoboxcolor}{RGB}{240, 240, 255} % Define the bluish grey color
 
 \usepackage[strict]{changepage}
 \usepackage[export]{adjustbox} % for chapter style. Need export for the "inner" option in \includegraphics
@@ -37,11 +38,14 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{mathtools}
+\usepackage{multicol}
+\usepackage{cuted} % Needed for the strip environment
 \usepackage{acro}
 \acsetup{
     cite/cmd = \parencite,
     list/sort = true,
 }
+\usepackage{lipsum}
 
 \RequirePackage[nameinlink, noabbrev, capitalise]{cleveref} % load last !!!
 
@@ -293,6 +297,35 @@
     \addcontentsline{toc}{chapter}{\listtablename}
     \listoftables
 }
+
+% Information Box
+
+\newcommand{\infobox}[4]{
+  \clearpage
+  \ifodd\value{page}\hbox{}\newpage\fi % Start on an even page
+  \pagecolor{infoboxcolor}
+  % Adjust outer margin for even page
+  \begin{adjustwidth}{-\marginparwidth-\marginparsep}{0pt}
+    \begin{multicols}{2} % Start two-column layout
+      #2 % Insert first part of your text content here
+    \end{multicols}
+  \end{adjustwidth}
+  \clearpage
+  % Adjust outer margin for odd page
+  \begin{adjustwidth}{0pt}{-\marginparwidth-\marginparsep}
+    \begin{multicols}{2} % Restart two-column layout
+      #3 % Insert second part of your text content here
+    \end{multicols}
+    \includegraphics[width=\dimexpr\textwidth+\marginparwidth+\marginparsep\relax]{#1} % Include your image
+      #4
+  \end{adjustwidth}
+  \clearpage
+  \nopagecolor
+}
+
+
+
+
 
 % Macros
 
