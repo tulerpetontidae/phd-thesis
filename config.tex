@@ -312,7 +312,7 @@
     \vspace{10pt}
     #4
   \end{multicols}
-  \includegraphics[width=\textwidth]{#1}
+  \includegraphics[width=\textwidth,center]{#1}
   \clearpage
   \KOMAoptions{BCOR=8.5mm, DIV=8}
   \recalctypearea
@@ -332,7 +332,7 @@
 \newcommand\margintext[1]{%
     \ifstrequal{#1}{}{}{{\marginpar{\raggedright\footnotesize\itshape #1}}}}
 \newcommand\explain[2]{#1%
-    \margintext{\textbf{#1}\quad #2}}
+    \margintext{\textbf{#1}\quad #2 \vspace{10pt}}}
 \newcommand\todo[1]{%
     \marginpar{\footnotesize\color{red}\textbf{TO\ DO:}\\#1}}
 
