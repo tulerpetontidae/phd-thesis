@@ -7,7 +7,7 @@ This chapter draws upon the work detailed in \fullauthcite{Seferbekova2023-wg}, 
 
 I conducted literature research in collaboration with \ac{zaira}, and we both wrote the manuscript under the supervision of \ac{lucy} and \ac{moritz}. Based on a discussion among all authors, \ac{zaira} created the initial figures, which a professional illustrator later redrew.
 
-The content of this chapter has been adapted from the original review manuscript, with only minor stylistic and structural alterations.
+The content of this chapter has been adapted from the original review manuscript, with only minor stylistic and structural alterations. The concluding \cref{sec:aims-of-the-thesis} is original.
 
 \section{Componentes of cancer evolution}
 
@@ -212,18 +212,19 @@ These challenges notwithstanding, the opportunities for spatial cancer genomics 
 The availability of various single-cell and spatially resolved assays and the emerging insights that these approaches offer thus warrant new concerted efforts. Previous initiatives, such as the \textcite{Cancer_Genome_Atlas_Research_Network2013-ox}, the \textcite{International_Cancer_Genome_Consortium2010-ww, ICGCTCGA_Pan-Cancer_Analysis_of_Whole_Genomes_Consortium2020-vu}, have created valuable community resources detailing the molecular and genomic properties across cancers. It thus seems natural for emerging projects, such as The Human Tumour Atlas Network \parencite{Rozenblatt-Rosen2020-bl}, to follow in this spirit in order to create the next generation of molecularly resolved cancer atlases.
 
 \section{Aims of this thesis}
+\label{sec:aims-of-the-thesis}
 
-As discussed in the previous section, spatial genomics is a rapidly evolving field with many opportunities for the study of the open quesitons in cancer evolution. 
+As highlighted in the preceding section, the spatial aspects of cancer biology hold significant importance in understanding the evolutionary dynamics of cancer. The rapid development of spatial omic technologies in recent years has facilitated the study of cancer biology's spatial dimensions at an unprecedented resolution. The genetic component is particularly vital, as its alterations are not only fundamental drivers of cancer evolution but also record changes over time. This recording allows for insight into the cancer's history and reasoning at a temporal level. Nonetheless, constructing the genetic maps of tumours with clonal resolution continues to be a formidable challenge. As a result, further efforts must be directed towards developing methods to trace cancer lineages in space. Without this genetic information, the full complexity of cancer's development and behaviour would remain hidden, restricting the opportunities for accurate diagnosis and tailored treatment.
 
-In this thesis, I aim to develop and apply computational methods to analyse spatially resolved genomic data in order to gain insights into the evolutionary dynamics of cancer. 
+In this thesis, I foucs on the development of computational methods to analyse data produced by a promising microscopy-based spatial genomics approach called \acf{BaSISS} \parencite{Lomakin2022-ks}. This method maps the spatial distribution of a broad spectrum of somatic mutations in extensive sections of tumour tissue. Then I apply designed algorithms to chart clonal maps and deeply investigate two multifocal breast cancers that span the main histological stages of early cancer progression: ductal carcinoma in situ, invasive cancer and lymph node metastasis. 
 
-In \cref{sec:chapter-basiss-model} I
+In \cref{sec:chapter-basiss-model} I introduce the motivation for the \ac{BaSISS} experimental protocol and provide a brief foundation in Bayesian statistics necessery to model the experimental data. I then examine the properties of the data and motivate the design of the model, providing a detailed outline of the model's structure and referring to the biological and technical aspects of the system being modelled. I prove the consistency and accuracy of the quantitative nature of the model predictions, drawing on \ac{BaSISS} technical replicas as well as \ac{LCM}–\ac{WGS} targeted sequencing data and illustate that the model sucessfuly deals with the noise inherent to the data, making it suitable for describing the spatial evolution of cancer clones. The chapter concludes with a discussion of the necessary model assumptions, their biological roots, limitations, and potential future improvements.
 
-In \cref{sec:chapter-basiss-multimodal} I
+In \cref{sec:chapter-basiss-multimodal} I introduce complementary data and ask the question of how to characterise phenotypes and TME characteristical to the clones obtained with BaSISS 
 
-In \cref{sec:chapter-basiss-applications} I
+In \cref{sec:chapter-basiss-applications} I introduce the breast cancer cases and dive deep in the findings made by BaSISS experiments
 
-In \cref{sec:chapter-discussion} I
+In \cref{sec:chapter-discussion} Discuss the future of the method
 
 
 
