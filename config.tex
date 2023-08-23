@@ -19,7 +19,7 @@
 \definecolor{dodgerblue}{RGB}{30,144,255}
 \definecolor{forestgreen}{RGB}{34,139,34}
 \definecolor{darkviolet}{RGB}{148,0,211}
-\definecolor{infoboxcolor}{RGB}{240, 240, 255} % Define the bluish grey color
+\definecolor{infoboxcolor}{RGB}{250, 250, 255} % Define the bluish grey color
 
 \usepackage[strict]{changepage}
 \usepackage[export]{adjustbox} % for chapter style. Need export for the "inner" option in \includegraphics
@@ -302,30 +302,29 @@
 
 \newcommand{\infobox}[4]{
   \clearpage
-  \ifodd\value{page}\hbox{}\newpage\fi % Start on an even page
+  \refstepcounter{boxcounter} % Increment the custom counter
+  \label{#2} % Create a label for the box
   \pagecolor{infoboxcolor}
-  % Adjust outer margin for even page
-  \begin{adjustwidth}{-\marginparwidth-\marginparsep}{0pt}
-    \begin{multicols}{2} % Start two-column layout
-      #2 % Insert first part of your text content here
-    \end{multicols}
-  \end{adjustwidth}
+  \KOMAoptions{BCOR=8.5mm, DIV=12}
+  \recalctypearea
+  \begin{multicols}{2}
+    \section*{Box \arabic{boxcounter}: #3}
+    \vspace{10pt}
+    #4
+  \end{multicols}
+  \includegraphics[width=\textwidth]{#1}
   \clearpage
-  % Adjust outer margin for odd page
-  \begin{adjustwidth}{0pt}{-\marginparwidth-\marginparsep}
-    \begin{multicols}{2} % Restart two-column layout
-      #3 % Insert second part of your text content here
-    \end{multicols}
-    \includegraphics[width=\dimexpr\textwidth+\marginparwidth+\marginparsep\relax]{#1} % Include your image
-      #4
-  \end{adjustwidth}
-  \clearpage
+  \KOMAoptions{BCOR=8.5mm, DIV=8}
+  \recalctypearea
   \nopagecolor
 }
 
+% Define a new counter
+\newcounter{boxcounter}
 
-
-
+% Define how the label should be formatted
+\crefname{boxcounter}{Box}{Boxes}
+\Crefname{boxcounter}{Box}{Boxes}
 
 % Macros
 
