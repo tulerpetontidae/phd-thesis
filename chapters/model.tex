@@ -2,16 +2,18 @@
 \label{sec:chapter-basiss-model}
 
 \section*{Contributions}
-This chapter is largely based on the supplementary methods and technical results from \fullauthcite{Lomakin2022-ks}. You can find all the code on \href{https://github.com/gerstung-lab/BaSISS}{Github}.
-
-The work I present here is primarily my own contribution. I focused on developing and implementing the core mathematical model for the \acs{BaSISS} data under the supervision of \ac{moritz}, with valuable inputs from \ac{artem1} and \ac{vitalii}. I analysed and interpreted the data, and drafted the original article and figures, again under the supervision of \ac{moritz} and \ac{lucy}.
+This chapter is largely based on the supplementary methods and technical results from:
+\\~\\
+ \fullauthcite{Lomakin2022-ks}. 
+\\~\\
+The work I present here is primarily my own contribution. I focused on developing and implementing the core mathematical model for the \acs{BaSISS} data under the supervision of \ac{moritz}, with valuable inputs from \ac{artem1} and \ac{vitalii}. I analysed and interpreted the data, and drafted the original article and figures, again under the supervision of \ac{moritz} and \ac{lucy}. You can find all the code on \href{https://github.com/gerstung-lab/BaSISS}{Github}.
 
 Another first author of this paper, \ac{jessica}, in collaboration with \ac{peter}, \ac{mats}, and \ac{lucy}, designed the initial study of \acs{BaSISS}. \ac{jessica}, \ac{mats}, and \ac{carina} conducted the experiments and provided the raw \acs{BaSISS} data. \ac{junsung}, \ac{vasyl}, \ac{tong}, and \ac{milana} preprocessed and decoded this data. \ac{lucy} performed the \acs{LCM} cuts, and \ac{stefan} conducted the \acs{WGS} subclonality analyses. I had access to the decoded \acs{BaSISS} and \acs{LCM}-\acs{WGS} data.
 
 The Introductory \cref{sec:basiss-popular} and \cref{sec:bayesian-intro}, Data Characterisation \cref{sec:bassis-data-brief}, and Validation \cref{sec:bassis-validation} are original. I reworked the rest of the sections to fit the thesis format, rewording, expanding and illustrating them for clarity. All the main and margin figures are original except \cref{fig:basiss-data-raw}, \cref{fig:basiss-replication-stats}, \cref{fig:conceptual-bassis-model} and \cref{fig:basiss-lcm-validation}, which I borrowed from the original paper with stylistic and compositional adjustements. 
 
 \section{Background}
-\subsection{The \ac{BaSISS} protocl}
+\subsection{The \ac{BaSISS} protocol}
 \label{sec:basiss-intro}
 Lineage tracing through somatic mutations can reveal ancestral connections between cancer subclones \pcref{sec:chapter-introduction}. Yet, current methods fall short in preserved human tissue studies \parencite{Yates2015-xk,Jamal-Hanjani2017-uv,Jones2008-sd,Shah2009-xz,Casasent2018-gx,Tarabichi2021-xx}. Techniques like \acf{LCM} combined with targeted nucleic acid library sequencing, including single-cell sequencing, help to some extent in delineating subclone spatial structures \parencite{Shen2000-xj,Casasent2018-gx}. However, \ac{LCM}-based methods fail to capture the full diversity of cancer clones across entire tumour sections. Even the most exhaustive sampling approach would struggle to profile square centimetres at the desired cellular or slightly above cellular resolution. While recent spatial genomics techniques can identify cancer clones based on distinct copy number profiles \parencite{Zhao2022-xd,Erickson2022-zh}, they fall short in detecting point mutations or quantifying mixed clones.
 
@@ -50,6 +52,7 @@ Recent benchmarking within the wide array of spatial transcriptomics models has 
 
 In many practical contexts, we find ourselves in situations where the underlying mechanisms governing the system are hidden or only partially observed, and the observations are noisy and limited. Such scarcity of information introduces inherent uncertainty in our understanding of the system. It is within this landscape of uncertainty that the Bayesian understanding of probabilities emerges as a natural tool. Rather than mere frequencies, probabilities are construed as representations of the degree of belief, capturing the epistemic uncertainty about the system parameters. A statistical model, crafted within this Bayesian paradigm, acts as a bridge between the observed data and the underlying phenomena, translating our assumptions and knowledge about the problem into a coherent probabilistic framework. This in turn allows us to make predictions, perform inference, and understand more deeply the structure of the data.
 
+\subsubsection*{Basics of Bayesian inference}
 Given a set of observations ${D} = \{t_1, t_2, … t_n\}$, a statistical model aims to describe how these observations are generated. One can consider these observations a realisation of a random variable $T$ which is controlled by a set of parameters $\theta$. Therefore, a statistical model could formally be defined by specifying the joint probability distribution $p({D}, \theta)$, describing the stochastic relationship between the observations and the controlling parameters. We can rewrite the joined probability using conditional probability, leading us to the Bayes' theorem equation:
 
 \begin{equation}
@@ -86,12 +89,14 @@ The graphical depiction of the components is shown on \cref{fig:simple-gamma-poi
     {Simple gamma-poisson model of cell expression.}
     {Toy mathematical model of gene expression in cells trained on $n$ = 5 observations. The gene expression rate $\lambda$ is a hidden variable, which is modelled as a $\text{Gamma}$ random variable with the hyperparameters $\alpha$ and $\beta$ which is consistent with the week prior beliefe on low expression. The observed counts $D_i$ are modelled as $\text{Poisson}$ random variables with the rate parameter $\lambda$. An exact analytical solution for the posterior distribution $p(\lambda|D)$ is tracktable (\cref{eq:simple-gamma-poisson}) due to the conjugacy of the prior and likelihood.}
 
+\subsubsection*{Bayesian inference in practice}
 The process of inference, while appearing simple in principle, presents substantial difficulties in actual computation. A major obstacle lies in the denominator of the Bayesian formulation, the integral often becomes intractable  thus rendering even moderately complex Bayesian models intractable, apart from a few cases with carefully selected \explain{ \emph{conjugate priors}}{are prior distributions that, when combined with a specific likelihood function, result in a posterior distribution with the same functional form} like shown in the previous example. This issue is a significant constraint in the applicability of Bayesian models, which must be carefully considered in their practical implementation and model formulation.
 
 The solution to the problems came through a sequence of developments in \ac{MCMC} methods, including the Metropolis algorithm \parencite{Rosenbluth1953-gu}, Metropolis-Hastings algorithm \parencite{Hastings1970-mb}, Gibbs sampling \parencite{Geman1984-nk}, and Hybrid Monte Carlo (HMC) \parencite{Duane1987-gu}. These methods permit the generation of samples from the posterior probability distribution by forming an invertible Markov chain. The equilibrium distribution of this chain corresponds to the targeted posterior distribution \parencite{Roberts2004-op}. Consequently, if one were to compute the constructed Markov chain, a guarantee exists for the convergence to the genuine posterior distribution of the model, given that the number of sampling steps approaches infinity. In practical terms, provided the model is appropriately specified, convergence tends to occur in a sensible duration. The samples derived from the converged chain may then be utilised to estimate the requisite summary statistics. 
 
 \ac{MCMC} has revolutionised the field of Bayesian inference, segregating the procedures of model formulation and inference. It must be noted, however, that these methods do not scale with ease when faced with the dimensions and complexity of the model. They often either demand an extensive number of steps or involve calculations that, although fewer in number, are considerably computationally demanding. In scenarios where the analytical posterior is inaccessible, and the computational cost of \ac{MCMC} is substantial, it is common to use alternative approximation schemes such as \ac{VI}.
 
+\subsubsection*{Variational inference}
 \acl{VI} is framed as an optimization problem, where the objective is to identify a distribution within a constrained family of tractable distributions that most closely approximates the target distribution \parencite{Blei2017-dm}. This technique can be seen as an optimization problem, where the goal is to find a distribution that is most similar to the target distribution, within a constrained family of tractable distributions. Mathematically, the problem of \acl{VI} can be formulated as finding the distribution $q(\theta)$ of the variational family $\mathcal{Q}$ that is following the true posterior $p(\theta | D)$ as closely as possible. The common distance measure that is used is the Kullback-Leibler (KL) divergence, thus the goal is:
 
 \begin{equation}
@@ -119,11 +124,12 @@ Here, $\mu$ and $\sigma$ are the optimised mean and covariance parameters, and $
 
 In practice, additional constraints are imposed on the covariance matrix, considering it either low-rank or simply diagonal (mean-field) \parencite{Blei2017-dm}. Although these assumptions may overlook a probable covariance structure between model parameters, and frequently underestimate the variance, they dramatically decrease the number of parameters that can be optimised. This makes the inference of even larger models feasible.
 
+\subsubsection*{Probabilistic programming}
 In addition to advancements in inference algorithms, contemporary machine learning frameworks like \ac{Theano}\footnote{A discontinued python framework that I had a misfortune to use as a backand for model optimisation defined in PyMC package. Currently a fork is maintained under the name Aesara}, \ac{PyTorch}, \ac{TensorFlow}, and \ac{JAX}, have notably improved the efficiency of Bayesian inference. This is particularly true for methods that utilise automatic differentiation, such as the Hamiltonian Monte Carlo \ac{MCMC} family techniques and \ac{ADVI}. Probabilistic frameworks, including \ac{PyMC}, \ac{Pyro}, and \ac{NumPyro}, are simplifying the Bayesian model development process. By managing most of the underlying calculations, these frameworks allow researchers to concentrate more on conceptual model development and spend less time on numerical details.
 
 \ac{BaSISS} profiles extensive areas of tissue, encompassing hundreds of thousands of cells. The underlying processes that generate the final data are complex. Therefore, defining a statistical approach becomes unfeasible without the utilisation of cutting-edge inference approaches and frameworks capable of handling this complexity.
 
-\section{A model to localise cancer clones in tissue}
+\section{A bayesian model to localise cancer clones in tissue}
 \subsection{BaSISS data characterisation}
 \label{sec:bassis-data-brief}
 
