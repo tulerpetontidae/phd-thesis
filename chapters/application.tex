@@ -12,7 +12,7 @@ Breast cancer exhibits significant heterogeneity in both histological and molecu
 
 On the molecular front, initial classification strategies focused on the presence of hormone receptors like oestrogen (\protein{ER}) and progesterone (\protein{PR}) \parencite{Early_breast_cancer_trialists_collaborative_group1992-dy}. Groundbreaking research using transcriptional microarrays, notably by \textcite{Perou2000-hc} and \textcite{Sorlie2001-yy}, deepend the classification of ductal and lobular carcinomas. These studies identified five intrinsic categories based on gene expression patterns: basal-like, normal-breast-like, \protein{ER}\textsuperscript{+} luminal types A and B, and \gene{HER}\textsuperscript{+} groups. This gene-expression-based classification, commonly known as the PAM50 system, has gained wide clinical acceptance and has demonstrated correlations with patient survival \parencite{Wallden2015-bp}. In a clinical setting, a cost-effective surrogate approach often replaces the PAM50 system. This approach utilises an \ac{IHC} panel that measures \protein{ER}, \protein{PR}, \protein{Ki-67}, and \protein{HER2} to classify breast cancer into four primary subtypes: Luminal A, Luminal B, HER2-enriched, and \ac{TNBC} \parencite{Goldhirsch2013-xy}.
 
-\subsection*{Ductal epithelium and heterogeneity}
+\subsection*{Ductal epithelium normal heterogeneity}
 Clinical classification systems aid in predicting patient outcomes but do not fully capture cancer's heterogeneity. Although significant efforts have been made to understand the molecular evolution of breast cancer, the mechanisms governing its initiation and progression remain unclear.
 
 This heterogeneity partly originates from the cells that give rise to breast cancer. The ductal epithelium, a key structure, comprises two distinct cell types: luminal (\protein{KRT18, KRT8}) and basal (\protein{KRT5, SMA}). Luminal cells form the inner layer and are integral for milk production and duct formation. Basal cells, making up the outer layer, facilitate the contractile function necessary for milk release.
@@ -23,20 +23,33 @@ The prevailing hypothesis postulates that a basal-like bipotent progenitor stem 
 
 Irrespective of the precise mechanisms underlying cancer genesis, transcriptional parallels are evident between luminal cells and luminal breast cancer, as well as between basal cells and basal-like intrinsic cancer types \parencite{Bhat-Nakshatri2021-jy}. Although some hypotheses suggest that the cell of origin dictates the phenotype \parencite{Skibinski2015-rh, Taurin2020-mq}, the presence of specific sets of mutations \parencite{Cancer_Genome_Atlas_Network2012-gx,Russnes2017-eo} and known transcriptional plasticity \parencite{Fan2020-vi, Su2015-ve,Yamamoto2014-th} favour the view that the nature of the oncogenic factor significantly shapes the tumour's phenotype.
 
-\subsection*{Breast cancer evolution of genome}
+\subsection*{Genomic landscape} 
 
-BRCA1/2 associations
+The first definitive association between recurrent genetic alterations and breast cancer came with the discovery of the tumour suppressor genes \gene{BRCA1} (located on chromosome 17q21) and \gene{BRCA2} (on 13q12-13) \parencite{Wooster1994-xa, Hall1990-mg}. These genes play a crucial role in DNA repair, especially in epithelial cells, and are notably expressed in the mammary gland during development and pregnancy. Advances in genomic tools have enabled large-scale, systematic genomics analyses of thousands of tumours. These studies have revealed intricate patterns of mutations across different subtypes of breast cancer.
 
-Main insights in sequencing studies
+Several early comrehencive genomics studies identified thousands likely driver mutations, spanning hundreds of cancer-related genes and several non-coding regions \parencite{Cancer_Genome_Atlas_Network2012-gx,Shah2012-xz, Nik-Zainal2016-ek,Banerji2012-as,Ciriello2015-ey}. The most commonly mutated genes as found in \textcite{Cancer_Genome_Atlas_Network2012-gx} are \gene{TP53} (43\%), \gene{PIK3CA} (32\%), \gene{MYC} (20\%), \gene{CCND1} (16\%), \gene{PTEN} (16\%), \gene{ERBB2} (14\%), Chr8:(\gene{ZNF703}/\gene{FGFR1}) (12\%), \gene{GATA3} (10\%), \gene{RB1} (9\%), \gene{MAP3K1} (8\%). These genes predominantly participate in cell cycle regulation, reparation and growth factor signalling. However, most mutations in cancer-associated genes are infrequent, leading to significant genetic diversity among patients.
 
-\subsection*{Breast cancer microenvironment}
+Breast cancer mutagenesis encompasses a wide range of mechanisms. Chromosomal rearrangements are common and occur during extended periods of chromosomal instability \parencite{Gerstung2020-sg}. In addition to the strong associations with \gene{BRCA1/2} and other DNA double-strand break repair pathways—which result in frequent genome rearrangements—the \protein{APOBEC} signature is also prevalent \parencite{Nik-Zainal2016-ek, Banerji2012-as}. This signature causes a high frequency of C>T mutations, sometimes exhibiting focal hypermutation patterns, known as kataegis, in approximately half of the breast tumours. Given the diversity of driver genes and the extended period of mutagenesis, breast cancer appears to be driven by a cumulative effect of multiple accumulated drivers.
+
+Notably, the frequency of driver mutations varies among breast tumour types. The \textbf{Luminal class} commonly features somatic mutations that activate the PI3K-AKT signalling pathway (\gene{PIK3CA}, \gene{PTEN}) and inactivate the GATA3 and JUN kinase (\gene{MAP3K1}) pathways. Tumour suppressors \gene{TP53} and \gene{RB1} remain largely intact in Luminal A cancers but are often inactivated in the more aggressive Luminal B subtype \parencite{Cancer_Genome_Atlas_Network2012-gx}.
+
+In the \textbf{HER2-enriched class}, there is frequent high copy number amplification of \gene{ERBB2}, which accounts for elevated levels of \protein{HER2} protein expression. This amplification often co-occurs with amplification of the nearby gene, \gene{GRB7}. A systematic analysis of this group revealed subclusters that resemble luminal and basal types in both gene expression and mutation distribution. This suggests that rather than constituting an entirely independent intrinsic type, this group represents a composite of the broader breast cancer spectrum, further complicated by \gene{ERBB2} amplification \parencite{Ferrari2016-qj}.
+
+The \textbf{\ac{TNBC} class} aligns closely with the basal-like intrinsic expression subtype, with approximately 75\% of \ac{TNBC}s being basal-like. This class exhibits a high frequency of TP53 mutations, especially among basal-like types, as well as a high level of \ac{CNA}s \parencite{Shah2012-xz, Cancer_Genome_Atlas_Network2012-gx}. This coincides with frequent inactivation of \gene{BRCA1} and \gene{BRCA2} genes, more so than in other subtypes. However, the mutation landscape of \ac{TNBC} is highly diverse overall. Deep sequencing of \ac{TNBC} reveales variable clonal frequencies at the time of diagnosis \parencite{Shah2012-xz}. This analysis identified numerous subclonal mutations targeting cytoskeletal genes, underscoring the extended and variable evolutionary history of this subtype.
+
+Classification into \textbf{ductal} and \textbf{lobular} phentoypes also demonstrates a strong genomic basis. The hallmark feature of the lobular phenotype, the loss of \protein{E-cadherin} protein, correlates with mutations in the \gene{CDH1} gene in nearly all lobular cases \parencite{Ciriello2015-ey}. This pattern persists in both pure and mixed types, the latter being a clear blend of the two distinct genetic lineages.
+
+Overall, bulk genomic studies indicate that the breast cancer genome exhibits significant diversity. This diversity is shaped by the evolutionary history of the tumour. While some patterns and dominant evolutionary trajectories are visible, they are often not clear-cut. The presence of mixed phenotypes within a single tumour and observed clonal and subclonal diversity at the time of diagnosis further complicate the landscape. For a comprehensive understanding of the biology and therapeutic responses of patients, a more nuanced grasp of the tumour's evolutionary history at the subclonal level is essential.
+
+\subsection*{Subclonal evolution}
+
 
 \subsection*{Breast cancer metastasis}
 
 \subsection*{Breast cancer open questions}
 
 
-genetic predisposition and known drivers. BRCA1/2
+
 
 The existance of multiple cancer cell types based on hitological and transcriptional patterns like PAM50 hint that although, the patterns are complex there are some . Large scale genomic stidues identifies evolutionary patterns leading to the emergence of phenotypical classes. Such as
 

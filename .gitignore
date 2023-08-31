@@ -33,3 +33,7 @@
 
 # Ignore specific directories (e.g., build directory)
 /build/
+
+# Ignore data files
+*.npy
+*.csv
