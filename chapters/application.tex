@@ -51,26 +51,38 @@ The more comprehensive the microdissection strategy and study depth, the greater
 
 \subsection{Microenvironment}
 
-single cell described cancer microenvironment and composed several atlases of cells accompanying the tumour. The general picture of the microenvironment is similar to the general one described in \cref{sec:mapping-the-cancer-ecosystem}.
+Single-cell proteomics and transcriptomics studies have substantially advanced our understanding of the tumour microenvironment in breast cancer, going well beyond traditional bulk PAM50 transcriptional classification \parencite{Wu2021-uq,Pal2021-rf,Wagner2019-zp}. These investigations confirm that the general structure of the breast cancer microenvironment closely aligns with the broader cancer landscape, as outlined in Section \cref{sec:mapping-the-cancer-ecosystem}. The microenvironment commonly comprises immune cells (both myeloid and lymphoid), stromal cells (including \acfp{CAF}, endothelial cells, \acfp{PVL} and adipocytes), and epithelial cells (luminal and myoepithelial). However, breast cancer exhibits significant heterogeneity, both in the relative proportions of these cell types and in the presence of niche cell subtypes associated with patients survival. Interactions among these cells also vary widely among individual patients \parencite{Danenberg2022-zb}.
+
+\subsubsection*{Immune cells}
+
+In the context of cancer, immune cells are often simplistically categorised as either tumour-promoting, such as regulatory T cells (Tregs) and M2 macrophages, or tumour-inhibiting, such as cytotoxic CD8+ T cells, natural killer (NK) cells, CD4+ T-helper cells, and M1 macrophages \pcref{fig:intro-tme-composition}. Generally, the immune system acts as a tumour suppressor, and the presence of immune cells in the tumour microenvironment is linked to a better prognosis. However, lymphocytes can enter a so-called 'exhausted' dysfunctional state, characterised by the expression of co-inhibitory receptors such as \protein{CTLA-4}, \protein{PD-1} and \protein{LAG3}.
+
+Despite these general classifications, the landscape of immune cell roles in cancer remains complex. Variability exists across studies in the identification of cell subtypes and their roles, sometimes leading to contradictions. For instance, while NK cells generally target tumour cells, some studies suggest they might also enhance tumour vascularisation and even exert immunosuppressive effects \parencite{Retecki2021-se}. This diversity in findings indicates that the immune landscape in cancer is more intricate than often portrayed.
+
+In breast cancer research, studies show a continuous and complex spectrum of T-cell activation states \parencite{Azizi2018-vc}. This heterogeneity sharply differs from normal tissue and could account for varying clinical outcomes in patients by the abundace of certain cell states \parencite{Azizi2018-vc,Savas2018-vb}. T-cell diversity largely stems from variations in T-cell receptor (TCR) and antigen-presenting cell heterogeneity \parencite{Azizi2018-vc}. Such variability may result from differing tumour antigens across clonal populations.
+
+Compared to T cells, myeloid cells display more distinct activation states. However, a single cell can simultaneously express both M1 and M2 programs \parencite{Azizi2018-vc}. A correlation exists between immunosuppressive T cells, PD-L1+ macrophages, and high-grade tumours \parencite{Wagner2019-zp}.
+
+Spatial analysis of immune cell distribution in breast cancer indicates non-uniform patterns linked to prognosis \parencite{Danenberg2022-zb}. For instance, dysfunctional T cells often cluster near regulatory T cells (Tregs), which are believed to control their proliferation and activation. Large dysfunctional T-cell aggregates may signify tumour cells resistant to ongoing immune attacks, thereby chronically stimulating cytotoxic T cells. Conversely, structures containing antigen-presenting cells, macrophages, and T cells associate negatively with survival. In contrast, cell communities featuring granulocytes, and particularly \acf{TLS} with B cells, correlate with better survival outcomes.
+
+\subsubsection*{Stroma}
+
+In the stroma, fibroblasts are the most extensively studied cells. Researchers typically categorise these fibroblasts into two broad types: SMA- fibroblasts and SMA+ myofibroblasts \parencite{Costa2018-ir}. While efforts exist to categorise more types, these efforts face challenges due to the cell-type fluidity of fibroblasts \parencite{Cords2023-og,Wu2021-uq}. These cells serve essential structural functions and engage in immune cell recruitment and extracellular matrix remodelling.
+
+Of specific interest is the SMA+ FAP+ subset of fibroblasts, which acts as a crucial immunosuppressive agent. This subset attracts T lymphocytes and facilitates their differentiation into immunosuppressive Tregs, thereby aiding in immune evasion in cancer. In contrast, SMA+ FAP- fibroblasts lack this immunosuppressive function \parencite{Costa2018-ir}. Spatial distribution analysis indicates that myofibroblasts frequently reside at the tumour-stromal interface in breast cancer, which suggests their role in lymphocytic exclusion \parencite{Danenberg2022-zb}. Although this seems to promote tumour growth, other fibroblasts located near tertiary lymphoid structures (TLS) correlate with a better prognosis \parencite{Danenberg2022-zb, Cords2023-og}.
+
+Endothelial cells and \acp{PVL} are other significant components of the tumour microenvironment. These cells constitute the vasculature, critical for tumour growth and metastasis. In the context of breast cancer, a dense vascular stroma correlates with a poor prognosis \parencite{Danenberg2022-zb}.
+
+\subsubsection*{Cancer Epithelial plasticity}
+
+As previously discussed, the breast ductal system's epithelium comprises luminal and basal cell types, which exhibit significant plasticity. In cancer, this epithelial plasticity not only persists but also amplifies, leading to a diverse range of transcriptional states \parencite{Wagner2019-zp, Wu2021-uq, Pal2021-rf}. The study by \textcite{Wu2021-uq} dissected the intrinsic expression profiles of breast cancer cells into various transcriptional modules, each showing distinct patterns. Notably, the \acf{EMT} and proliferative modules appeared mutually exclusive. This observation corroborates the incompatibility between a mesenchymal-like state and proliferation in breast cancer \parencite{Tsai2012-hb}. However, despite the coexistence of multiple tumour cell phenotypes within all tumour ecosystems, one phenotype often dominates, potentially reflecting the expansion of the fittest tumour subclones \parencite{Wagner2019-zp}.
+
+The extent to which breast cancer plasticity influences invasion has been explored by \textcite{Sinha2021-mf} through a mouse model study. In this research, cancer cells sharing the same genetic background—specifically, activated \gene{Erbb2}—gave rise to two distinct types of ductal carcinoma in situ (DCIS) lesions within the same animal: 'indolent' and 'aggressive'. Importantly, cells from both lesion types demonstrated the ability to initiate invasive tumours. The key differences between these two lesion types lay in their intrinsic phenotypes and surrounding immune environments. The 'aggressive' lesions contained more basal-like cells and macrophages, while the 'indolent' lesions were enriched for luminal cells and T cells, hinting that local environmental factors may influence the tumour's invasive potential.
 
 \subsection{Metastasis}
 
 \subsection{Open questions}
 
-
-
-
-The existance of multiple cancer cell types based on hitological and transcriptional patterns like PAM50 hint that although, the patterns are complex there are some . Large scale genomic stidues identifies evolutionary patterns leading to the emergence of phenotypical classes. Such as
-
-Microenvironment, \ac{TNBC} has higher immune exposure than others. HER2 aslo high. Luminal are to a lesse extend. 
-
-subclonal divercity and evolution (Lucys paper)
-
-Invasion
-
-Metastiasis
-
-Novelty - observing continuum of the genetic status across 
 \section{Two cases of multifocal breast cancer}
 
 The cohort includes eight tissue blocks from two patients (P1 and P2) who underwent a surgical mastectomy for a multifocal breast cancer. These patients were selected to permit a comparison between genetic and histological progression models in early breast cancer development29 (Fig. 1b,c). P1 had two separate oestrogen receptor (ER)-positive, human epidermal growth factor receptor 2 (HER2)-negative primary invasive breast cancers (PBCs) within a 5-cm bed of DCIS; we used tissue blocks from both PBCs (samples P1-ER1 and P1-ER2) and three regions from DCIS (samples P1-D1, P1-D2 and P1-D3). P2 had two separate PBCs of the ‘triple-negative’ subtype (lacking the ER, progesterone receptor and HER2). We sampled both PBCs (samples P2-TN1 and P2-TN2) and an axillary lymph node that contained metastatic cancer deposits (sample P2-LN1) (Fig. 1b).
