@@ -26,6 +26,7 @@
 \usepackage[section]{placeins}
 \usepackage{afterpage} % to force one figure on even page
 \usepackage{tikz}
+\usepackage{newfloat}
 \usepackage{enumitem}
 \usepackage{booktabs}
 \usepackage{longtable}
@@ -190,6 +191,15 @@
         \figcap{#3}{#4}{#5}
     \end{figure}
 }
+
+\newcommand*\figurefloat[5][!htp]{%                       <- figuretextwidth [4]
+    \begin{figure}[#1]
+        \captionsetup{type=figure}
+        \includegraphics[width=\textwidth,center]{#2}%
+        \figcap{#3}{#4}{#5}
+    \end{figure}
+}
+
 \newcommand*\figurearbitrary[6][ht]{%                       <- figurearbitrary [5]
     \begin{figure}[#1]
         \captionsetup{type=figure}
@@ -260,6 +270,7 @@
     justification=justified}
 \newcommand*\figcap[3]{\caption[#2]{\label{fig:#1}\textbf{#2.\enspace} #3}}
 \newcommand*\tabcap[3]{\caption[#2]{\label{tab:#1}\textbf{#2.\enspace} #3}}
+\newcommand*\appfigcap[3]{\caption[#2]{\label{appfig:#1}\textbf{#2.\enspace} #3}}
 
 %% Lists in the front/back matter
 \newcommand*\listofabbrev{%
@@ -319,12 +330,29 @@
   \nopagecolor
 }
 
-% Define a new counter
 \newcounter{boxcounter}
 
-% Define how the label should be formatted
 \crefname{boxcounter}{Box}{Boxes}
 \Crefname{boxcounter}{Box}{Boxes}
+
+% Supplementary figures
+% \DeclareFloatingEnvironment[name={Appendix Figure}]{appfigure}
+
+\newcommand*\appendixfiguretextwidth[5][ht]{%                       <- figuretextwidth [4]
+    \label{appfig:#2}
+    \begin{figure}[#1]
+        % \refstepcounter{appfigcounter}
+        \captionsetup{type=appfig}
+        \includegraphics[width=\textwidth,center]{#2}%
+        \appfigcap{#3}{#4}{#5}
+    \end{figure}
+}
+
+\DeclareCaptionType{appfig}[Appendix Figure][List of Appendix Figures]
+% \newcounter{appfigcounter}
+\crefname{appfig}{Appendix Figure}{Appendix Figures}
+\Crefname{appfig}{Appendix Figure}{Appendix Figures}
+
 
 % Macros
 
