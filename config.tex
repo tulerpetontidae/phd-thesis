@@ -336,7 +336,6 @@
 \Crefname{boxcounter}{Box}{Boxes}
 
 % Supplementary figures
-% \DeclareFloatingEnvironment[name={Appendix Figure}]{appfigure}
 
 \newcommand*\appendixfiguretextwidth[5][ht]{%                       <- figuretextwidth [4]
     \label{appfig:#2}
@@ -348,7 +347,17 @@
     \end{figure}
 }
 
-\DeclareCaptionType{appfig}[Appendix Figure][List of Appendix Figures]
+\newcommand*\appendixfigurefloat[5][!htp]{%                       <- figuretextwidth [4]
+    \label{appfig:#2}
+    \begin{figure}[#1]
+        % \refstepcounter{appfigcounter}
+        \captionsetup{type=appfig}
+        \includegraphics[width=\textwidth,center]{#2}%
+        \appfigcap{#3}{#4}{#5}
+    \end{figure}
+}
+
+\DeclareCaptionType[fileext=lof, placement={!ht}, within=chapter, name=Appendix Figure, listname={List of Figures}]{appfig}
 % \newcounter{appfigcounter}
 \crefname{appfig}{Appendix Figure}{Appendix Figures}
 \Crefname{appfig}{Appendix Figure}{Appendix Figures}
