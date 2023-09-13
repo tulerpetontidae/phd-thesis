@@ -312,6 +312,7 @@
 % Information Box
 
 \newcommand{\infobox}[4]{
+%   \afterpage{
   \clearpage
   \refstepcounter{boxcounter} % Increment the custom counter
   \label{#2} % Create a label for the box
@@ -324,10 +325,11 @@
     #4
   \end{multicols}
   \includegraphics[width=\textwidth,center]{#1}
-  \clearpage
-  \KOMAoptions{BCOR=8.5mm, DIV=8}
   \recalctypearea
   \nopagecolor
+  \clearpage
+  \KOMAoptions{BCOR=8.5mm, DIV=8}
+%   }
 }
 
 \newcounter{boxcounter}

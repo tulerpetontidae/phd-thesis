@@ -12,7 +12,7 @@ Another first author of this paper, \ac{jessica}, in collaboration with \ac{pete
 
 The Introductory \cref{sec:applications-breast-intro} is original. I borrowed the rest of the sections from the original manuscript with only minor stylistic and structural alterations. All the main and margin figures in the introduction are original. Figures \cref{fig:applications-maps-PBC-P1,fig:applications-maps-PBC-P2,fig:applications-maps-DCIS,fig:applications-LN-genome,fig:applications-maps-LN} and the margin figure in \cref{sec:applications-DICS-growth} are borrowed from the original paper with minor stylistic and compositional adjustements.
 
-\section{Breast Cancer}
+\section{A Primer on Breast Cancer}
 \label{sec:applications-breast-intro}
 
 \explain{}{\marginfig{side-plot-cancer-cases-2020.pdf}
@@ -85,41 +85,122 @@ The advent of high-throughput technologies, including microarrays and next-gener
 
 \subsection{Genomic landscape} 
 
-The first definitive association between recurrent genetic alterations and breast cancer came with the discovery of the tumour suppressor genes \gene{BRCA1} (located on chromosome 17q21) and \gene{BRCA2}\explain{}{\marginfig{side-plot-brca-road.pdf} Cycling path in Cambridge\footnotemark with the entire sequence of \gene{BRCA2}} (on 13q12-13) \parencite{Wooster1994-xa, Hall1990-mg}. These genes play a crucial role in DNA repair, especially in epithelial cells, and are notably expressed in the mammary gland during development and pregnancy. Advances in genomic tools have enabled large-scale, systematic genomics analyses of thousands of tumours. These studies have revealed intricate patterns of mutations across different subtypes of breast cancer.
+Pioneering studies by \textcite{Stehelin1976-jr, Nowell1960-eh}, established a critical link between genomic aberrations and cancer, thereby integrating evolutionary theory with our understanding of cancer as a disease \parencite{Cairns1975-oz,Nowell1976-sm}. Since then, many cancer genes such as TP53 \parencite{Lane1979-hx}, MYC \parencite{Kohl1984-ri}, BRCA1/2\explain{}{\marginfig{side-plot-brca-road.pdf} Cycling path in Cambridge\footnotemark with the entire sequence of \gene{BRCA2}} (on 13q12-13) \parencite{Wooster1994-xa, Hall1990-mg} \parencite{Wooster1994-xa, Hall1990-mg} , and PIK3CA \parencite{Chang1997-sa} have been indetified. Advances in genomic tools have enabled large-scale, systematic genomics analyses of thousands of tumours. These studies have revealed complex patterns of genetic alterations specific for breast cancer.
 
 \footnotetext{My processing speed is approximately 60 bp/s, as I can slide along 10,257 base pairs of \gene{BRCA2} sequence in 2 minutes and 47 seconds. For comparison, \emph{Taq} polymerase operates at a rate of 150 bp/s, while the high-fidelity \emph{Pfu} polymerase works at a considerably slower pace of 15 bp/s. I deeply thank Lukas Weilguny for consistently providing slipstream support along the way.}
 
 \figuretextwidth{applications-driver-pathways.pdf}{applications-driver-pathways}{Main driver genes and signalling pathways in breast cancer}{Comprehensive early genomics studies have identified key driver genes associated with breast cancer. These genes primarily target four main pathways: Receptor Tyrosine Kinases, PI(3)K/Akt, p53 signalling, and cell cycle checkpoint regulators. Mutations in genes contolling these pathways results in: cell survival through inhibition of apoptosis, proliferation, dedifferentiation and faults in DNA reparation. On the figure red indicates gain-of-function mutations or amplifications; blue represents loss-of-function mutations or deletions.}
 
-Several early comprehensive genomics studies identified thousands likely driver mutations, spanning hundreds of cancer-related genes and several non-coding regions \parencite{Shah2009-xz, Cancer_Genome_Atlas_Network2012-gx,Shah2012-xz, Nik-Zainal2016-ek,Banerji2012-as,Ciriello2015-ey,Pereira2016-ov, Curtis2012-hu}. The most commonly mutated genes as found in \textcite{Cancer_Genome_Atlas_Network2012-gx} are \gene{TP53} (43\%), \gene{PIK3CA} (32\%), \gene{MYC} (20\%), \gene{CCND1} (16\%), \gene{PTEN} (16\%), \gene{ERBB2} (14\%), Chr8:(\gene{ZNF703}/\gene{FGFR1}) (12\%), \gene{GATA3} (10\%), \gene{RB1} (9\%), \gene{MAP3K1} (8\%). These genes predominantly participate in cell cycle regulation, reparation and growth factor signalling \pcref{fig:applications-driver-pathways}. However, most mutations in cancer-associated genes are infrequent, leading to significant genetic diversity among patients.
+\subsubsection*{Breast cancer driver genes}
+Several early comprehensive genomics studies identified thousands likely driver mutations, spanning hundreds of cancer-related genes and several non-coding regions \parencite{Shah2009-xz, Cancer_Genome_Atlas_Network2012-gx,Shah2012-xz, Nik-Zainal2016-ek,Banerji2012-as,Ciriello2015-ey,Pereira2016-ov, Curtis2012-hu}. The most commonly mutated genes as found in \textcite{Cancer_Genome_Atlas_Network2012-gx} are \gene{TP53} (43\%), \gene{PIK3CA} (32\%), \gene{MYC} (20\%), \gene{CCND1} (16\%), \gene{PTEN} (16\%), \gene{ERBB2} (14\%), Chr8:(\gene{ZNF703}/\gene{FGFR1}) (12\%), \gene{GATA3} (10\%), \gene{RB1} (9\%), \gene{MAP3K1} (8\%). These genes predominantly participate in cell cycle regulation, reparation and growth factor signalling \pcref{fig:applications-driver-pathways}. However, most mutations in cancer-associated genes are infrequent, leading to significant genetic diversity among patients. 
+
+The mechanisms through which these driver genes are generated vary significantly. While some mutations are inherited, many arise somatically \pcref{sec:chapter-introduction}, frequently as a result of both mutagenic factors and imperfections of the repair systems. High-throughput genome sequencing, especially \ac{WGS}, has not only facilitated the identification of driver genes but also elucidated the complex mutational processes responsible for their occurrence.
+
+\subsubsection*{Mutation processes}
+
+While DNA microarrays and exome sequencing have identified broad copy number profiles and mutational landscapes in genes, their coverage remains limited and biased. The next generation of \ac{WGS} overcomes these limitations by providing comprehensive data, allowing for detailed analysis across entire genomes. This advance enables the decomposition of the mutational landscape into additive sets of mutational signatures, many of which have clear biological implications \parencite{Nik-Zainal2012-vo}. 
+
+Breast cancer mutagenesis involves a variety of mechanisms that generate a spectrum of mutation types. Chromosomal rearrangements frequently occur and are linked to periods of chromosomal instability \parencite{Curtis2012-hu, Gerstung2020-sg, Nik-Zainal2012-vo}. These rearrangements are often associated with mutational signatures related to BRCA1/2 genes and other DNA double-strand break repair pathways \parencite{Nik-Zainal2012-vo}.
+
+Additionally, the \protein{APOBEC} signature turned out prevalent \parencite{Nik-Zainal2016-ek, Banerji2012-as, Nik-Zainal2012-vo}. This signature causes a high frequency of C>T mutations, sometimes exhibiting focal hypermutation patterns, known as kataegis, in approximately half of the breast tumours. Given the diversity of driver genes and the extended period of mutagenesis, breast cancer appears to be driven by a cumulative effect of multiple accumulated drivers.
 
 \explain{}{\marginfig{side-plot-apobec.pdf} \protein{APOBEC} is a cytidine deaminase. Under normal conditions it serves as a cellular defence against viral infections by mutating viral ssRNA and ssDNA. In cancer, dysregulated \protein{APOBEC} mutates ssDNA in the nucleus, causing a high frequency of C>T mutations}
 
-Breast cancer mutagenesis encompasses a wide range of mechanisms. Chromosomal rearrangements are common and occur during extended periods of chromosomal instability \parencite{Curtis2012-hu, Gerstung2020-sg,Nik-Zainal2012-zz}. These chromosomal rearrengements are connected to the signatures strongly associated with \gene{BRCA1/2} and other DNA double-strand break repair pathways. Additionally, the \protein{APOBEC} signature is also prevalent \parencite{Nik-Zainal2016-ek, Banerji2012-as, Nik-Zainal2012-vo}. This signature causes a high frequency of C>T mutations, sometimes exhibiting focal hypermutation patterns, known as kataegis, in approximately half of the breast tumours. Given the diversity of driver genes and the extended period of mutagenesis, breast cancer appears to be driven by a cumulative effect of multiple accumulated drivers.
+\subsubsection*{Somatic mutations in breast cancer subtypes}
 
-Notably, the frequency of driver mutations varies among breast tumour types. The \textbf{Luminal class} commonly features somatic mutations that activate the PI3K-AKT signalling pathway (\gene{PIK3CA}, \gene{PTEN}) and inactivate the GATA3 and JUN kinase (\gene{MAP3K1}) pathways. Tumour suppressors \gene{TP53} and \gene{RB1} remain largely intact in Luminal A cancers but are often inactivated in the more aggressive Luminal B subtype \parencite{Cancer_Genome_Atlas_Network2012-gx}.
+Notably, the frequency of driver mutations and mutation signatures varies among breast tumour types. The \textbf{Luminal class} commonly features somatic mutations that activate the PI3K-AKT signalling pathway (\gene{PIK3CA}, \gene{PTEN}) and inactivate the GATA3 and JUN kinase (\gene{MAP3K1}) pathways. Tumour suppressors \gene{TP53} and \gene{RB1} remain largely intact in Luminal A cancers but are often inactivated in the more aggressive Luminal B subtype \parencite{Cancer_Genome_Atlas_Network2012-gx}.
 
-In the \textbf{HER2-enriched class}, there is frequent high copy number amplification of \gene{ERBB2}, which accounts for elevated levels of \protein{HER2} protein expression. This amplification often co-occurs with amplification of the nearby gene, \gene{GRB7}. A systematic analysis of this group revealed subclusters that resemble luminal and basal types in both gene expression and mutation distribution. This suggests that rather than constituting an entirely independent intrinsic type, this group represents a composite of the broader breast cancer spectrum, further complicated by \gene{ERBB2} amplification \parencite{Ferrari2016-qj}.
+In the \textbf{HER2+ class}, there is frequent high copy number amplification of \gene{ERBB2}, which accounts for elevated levels of \protein{HER2} protein expression. This amplification often co-occurs with amplification of the nearby gene, \gene{GRB7}. A systematic analysis of this group revealed subclusters that resemble luminal and basal types in both gene expression and mutation distribution. This suggests that rather than constituting an entirely independent intrinsic type, this group represents a composite of the broader breast cancer spectrum, further complicated by \gene{ERBB2} amplification \parencite{Ferrari2016-qj}.
 
 The \textbf{\ac{TNBC} class} aligns closely with the basal-like intrinsic expression subtype, with approximately 75\% of \ac{TNBC}s being basal-like. This class exhibits a high frequency of TP53 mutations, especially among basal-like types, as well as a high level of \ac{CNA}s \parencite{Shah2012-xz, Cancer_Genome_Atlas_Network2012-gx}. This coincides with frequent inactivation of \gene{BRCA1} and \gene{BRCA2} genes, more so than in other subtypes. However, the mutation landscape of \ac{TNBC} is highly diverse overall. Deep sequencing of \ac{TNBC} reveales variable clonal frequencies at the time of diagnosis \parencite{Shah2012-xz}. This analysis identified numerous subclonal mutations targeting cytoskeletal genes, underscoring the extended and variable evolutionary history of this subtype.
-\explain{}{\marginfig{side-plot-ductal-lobular.pdf} Ductal and lobular breast cancer are two histological subtypes differentiated primarily by the presence of a single mutation in the \gene{CDH1} gene}
-Classification into \textbf{ductal} and \textbf{lobular} phentoypes also demonstrates a strong genomic basis. The hallmark feature of the lobular phenotype, the loss of \protein{E-cadherin} protein, correlates with mutations in the \gene{CDH1} gene in nearly all lobular cases \parencite{Ciriello2015-ey}. This pattern persists in both pure and mixed types, the latter being a clear blend of the two distinct genetic lineages.
 
-Overall, bulk genomic studies indicate that the breast cancer genome exhibits significant diversity. This diversity is shaped by the evolutionary history of the tumour. While some patterns and dominant evolutionary trajectories are visible, they are often not clear-cut. The presence of mixed phenotypes within a single tumour and observed clonal and subclonal diversity at the time of diagnosis further complicate the landscape \parencite{Ciriello2015-ey,Pereira2016-ov,Shah2012-xz}. For a comprehensive understanding of the biology and therapeutic responses of patients, a more nuanced grasp of the tumour's evolutionary history at the subclonal level is essential.
+\textbf{Lobular} phentoype also demonstrates a strong genomic basis. The hallmark feature of the lobular phenotype, the loss of \protein{E-cadherin} protein, correlates with mutations in the \gene{CDH1} gene in nearly all lobular cases \parencite{Ciriello2015-ey}. This pattern persists in both pure and mixed types, the latter being a clear blend of the two distinct genetic lineages.
+
+\explain{}{\marginfig{side-plot-ductal-lobular.pdf} Ductal and lobular breast cancer are two histological subtypes differentiated primarily by the presence of a single mutation in the \gene{CDH1} gene}
+
+Overall, bulk genomic studies indicate that the breast cancer genome exhibits significant inter-tumour diversity. This diversity is shaped by the evolutionary history of the tumour. However, while some patterns and dominant evolutionary trajectories are visible, they are often not clear-cut. The presence of mixed phenotypes within a single tumour and observed clonal and subclonal diversity at the time of diagnosis further complicated the landscape \parencite{Ciriello2015-ey,Pereira2016-ov,Shah2012-xz}. 
+
+While these studies offer initial insights into intra-tumour heterogeneity, their resolution is insufficient for reconstructing a tumour's complete evolutionary history. A nuanced understanding of evolutionary history at the subclonal level is crucial for comprehensively grasping both the biology and therapeutic responses of patients.
 
 \subsection{Clonal evolution}
 
-Progress in whole-genome sequencing (WGS), enhanced multiregional tissue sampling techniques, and the advent of advanced computational tools collectively enable more intricate studies of breast cancer evolution \pcref{box:technologies}. First studies relied on \ac{CNA} inferred from single-cell sequencing that allowed to reconstruct phelogenies. They revealed that breast cancer is in fact a patchwork of clones, a result of a series of `punctuated' clonal expantions, rather than a linear gradually developing disease \parencite{Navin2011-qq,Wang2014-bp,Gao2016-qv}. These studeis also pointed out that clonal expansions are linked to focal \ac{CNA} events, while \acp{SNV} seem to accumulate in a gradual manner. However, these studies were limited by the low sensitivity of single-cell sequencing, and ambiguity of tree reconsturction from copy number profiles, without the use of point mutaitons.
+Progress in whole-genome sequencing (WGS), enhanced multiregional tissue sampling techniques, and the advent of advanced computational tools collectively enable more intricate studies of breast cancer evolution \pcref{box:technologies,box:phylogeny-reconstruction}. The first study by \textcite{Nik-Zainal2012-zz} used a single sample \ac{WGS} data complemented with sophisticated computational methods to reconstruct the evolutionary history of a breast tumour in details. The study traced the tumour's lineage back to the fertilised egg, discerning multiple clonal branches and establishing the temporal sequence of chromosomal rearrangements and driver mutations. Notably, each studied tumour contaied a dominant subclonal lineage, making up over 50\% of the cancer cells. The research proposed a model wherein sparse, long-lived cellular lineages accumulate mutations passively until a critical event instigates their rapid proliferation, culminating in a clinically detectable tumour mass. 
 
-\textcite{Yates2015-xk} conducted the first multiregional targeted sequencing of breast cancer. While the study was not highly sensitive, it revealed variable genomic diversity across samples. Most cases exhibited long trunk mutations, but the study also reported instances of early branching and extensive parallel evolution. Notably, mutations in the \gene{PTEN} and \gene{TP53} genes showed signs of convergent evolution, occurign independently across parallel branches. This study further identified that complex chromosomal events can happen at any evolutionary stage, both early and late, potentially reshaping the genome and contributing to phenotypic diversity at clonal and subclonal levels.
+Other pioneering studies relied on \ac{CNA} inferred from single-cell sequencing that allowed to reconstruct phelogenies. They also showed that breast cancer is a patchwork of clones, a result of a series of `punctuated' clonal expantions, rather than a linear gradually developing disease \parencite{Navin2011-qq,Wang2014-bp,Gao2016-qv}. These studeis also pointed out that clonal expansions are linked to focal \ac{CNA} events, while \acp{SNV} seem to accumulate in a gradual manner. However, these studies were limited by the low sensitivity of single-cell sequencing, and ambiguity of tree reconsturction from copy number profiles, without the use of point mutaitons \pcref{box:phylogeny-reconstruction}.
 
 \figuretextwidth{applications-evolution-tree.pdf}{applications-evolution-tree}
 {Highly branched parallel evolution of breast cancer described by \textcite{Nishimura2023-mk}}
 {Deep study of breast cancer case reveals complex, highly branched evolutionary path. Key driver events, specifically der(1;16) translocations, emerged independently in two branches when the patient was around 6 and 10 years old. Although only one branch led to an invasive phenotype, parallel driver events occurred across multiple branches. The complex relationship between genome and phenotype becomes evident from the mismatch between the number of driver events and the resulting phenotype. This suggests a potential role for the microenvironment in disease progression. Notably, a single \gene{CDH1} gene mutation led to the formation of a lobular phenotype within a primarily ductal carcinoma}
 
+\textcite{Yates2015-xk} conducted the first multiregional targeted sequencing of breast cancer. Although the study's sensitivity was not exceptionally high, its use of a multi-region approach for reconstruction improved branch resolution compared to previous studies. This methodology also unveiled considerable genomic diversity across different samples. Most cases exhibited long trunk mutations, similar to \textcite{Nik-Zainal2012-zz}, but the study also reported instances of early branching and extensive parallel evolution. Notably, mutations in the \gene{PTEN} and \gene{TP53} genes showed signs of convergent evolution, occurign independently across parallel branches. This study further confirmed that complex chromosomal events can happen at any evolutionary stage, both early and late, potentially reshaping the genome and contributing to phenotypic diversity at clonal and subclonal levels.
+
+infobox{box-phylogeny-reconstruction.pdf}{box:phylogeny-reconstruction}{Tumour Life History rectionstruction from \ac{WGS} data}{
+    Remarkably, the deep \ac{WGS} data provide sufficient information to partially reconstruct the life history of the tumour cell population, from zygote formation to the day of tumour sampling \parencite{Nik-Zainal2012-zz,Dentro2017-jb}. This is possible because \acp{SNV} contains information about the population structure on population straucture that could be modelled computationally.
+
+    \subsubsection*{Somatic mutation calling}
+    The initial step entails differentiating genuine \acp{SNV} originating from cancer cells from normal germline cells and sequencing errors. The procedure can also extend to structural variants, which involves identifying corresponding sections of sequence reads. However, this task becomes more challenging when dealing with short-read sequencing.
+
+    \subsubsection*{Cancer Cell Fraction}
+    For bulk genomic sequence data, the \ac{VAF} for each mutation is calculated using read information:
+
+    \begin{equation}
+        VAF = \frac{r_{mutant}}{r_{total}}
+    \end{equation}
+
+    \ac{VAF} alone, however, fails to capture the tumour's subclonal architecture due to influences like tumour purity $\rho$ and local copy numbers $n_{loc, t}$ and $n_{loc, n}$. Instead, mutation copy number $n_i$ is used:
+
+    \begin{equation}
+        n_{i} = \frac{VAF_i}{\rho} [\rho n_{loc, t} + (1-\rho)n_{loc, n}]
+    \end{equation}
+
+    Algorithms such as Battenberg provide values for ($n_loc$) and ($\rho$), by partitioning the genome into distinct copy-number profiles.
+
+    In instances of multiple alleles or subclonal copy number changes, a complex model typically is necessary to accurately infer the number of chromosomes bearing the mutation. The \ac{CCF} is then calculated as:
+
+    \begin{equation}
+        CCF_i = n_i / n_{chr}
+    \end{equation}
+
+    Note, that a fully clonal mutation will have a \ac{CCF} of 1
+
+    \subsubsection*{Subclonal architecture inference from \acp{SNV}}
+
+    Clonal expansion within the evolving cell population results in mutations clustering according to their \ac{CCF}. A Dirichlet process serves well for the task of inference of unknown number of clusters. The model is as follows:
+
+    \begin{align}
+        r_i &\sim Binomial(r_{total,i},\zeta_i\pi_i) \\
+        \pi_i &\sim \mathcal{DP}(\alpha, P_0) 
+    \end{align}
+
+    Here $\zeta_i$  the proportion of reads expected for a fully clonal mutation, and $\pi_i$ is the true fraction of tumor cells carrying the mutation. $\pi_i$ is drawn from a stick-breaking process with the base distribution $P_0$ (locations of clusters) and concentration parameter $\alpha$ (the probability weights).
+
+    \subsubsection*{Subclonal architecture inference from \acp{CNA}}
+
+    \acp{CNA} can also inform subclonal population structures. These alterations are estimated by read depth and the disparity between maternal $n_A$  and paternal $n_B$ allelic reads. B-allele frequencies (BAF) indicate these changes:
+
+    \begin{equation}
+        BAF_i = \frac{n_B,i }{n_A,i + n_B,i} 
+    \end{equation}
+    
+    Deviations from expected BAF, adjusted for tumour purity, point to subclonal copy number changes. Usually, at least two subclonal populations differing by a single copy number change must be identified.
+
+    \subsubsection*{Phylogenetic tree reconstruction}
+
+    The ``pigeonhole principle" commonly applies to discern evolutionary relationships among subclones. It says that the sum of \acp{CCF} for subclones cannot exceed that of their ancestor. Trees assemble accordingly. Indistinguishable clusters with the same \ac{CCF} require either mutation phasing or additional samples for resolution. 
+
+    \subsubsection*{Beyond single sample \ac{WGS}}
+
+    Conducting the analysis on multiple samples enhances resolution. In a single sample, subclonal clusters may coincidentally exhibit similar \acp{CCF}. However, these clusters are likely to display different proportions in another sample. This variability enables the resolution of smaller clusters with lower presence.
+
+    Single-cell \ac{WGS} data can also serve to infer subclonal architecture. Although these data usually provide sufficient coverage for reconstructing copy number \ac{CNA} profiles, they are often too noisy for accurate phylogenetic tree construction based on \acp{SNV}. While tree inference from \acp{CNA} alone is possible, the results tend to be ambiguous due to the higher volatility of \acp{CNA} compared to \acp{SNV}.
+
+    \subsubsection*{Timing of evolutionary branches}
+    Upon constructing the phylogenetic tree, one can estimate a specific subclone's emergence time by evaluating the total number of mutations attributed to Signature 1, which is associated with a constant DNA deamination process, and sum the values for all the ancestral branches. It is also possible to time tumour genome rearrangements, as oulined in \textcite{Gerstung2020-sg}.
+    }
+
 Enhanced spatial resolution in sampling strategies, facilitated by techniques like tissue microdissections, enables more precise inquiries into breast cancer development \pcref{box:technologies}. In the study by \textcite{Casasent2018-gx}, \ac{LCM} isolated cells from both ductal and adjacent invasive regions of ductal carcinomas. Contrary to previous assumptions about breast cancer invasion, identical clones were found both inside and outside the ducts without significant changes. This suggests that the evolutionary changes necessary for invasion occur within the ducts and are initially contained by them. Another microdissection study paired with single-cell DNA sequencing by \textcite{Lips2022-kv}, which also employed single-cell DNA sequencing, concentrated on invasive recurrence. The study linked this recurrence to untreated clones that had been present for an extended period within \ac{DCIS}.
 
-The more comprehensive the microdissection strategy and study depth, the greater the number of parallel branches observed in the reconstructed phylogenetic trees. A detailed study by \parencite{Nishimura2023-mk} focused on the early evolution of \ac{DCIS}. The research revealed that many breast cancers exhibited a recurring chromosomal abnormality, der(1;16)\explain{}{\marginfig{side-plot-der1-16.pdf} Unbalanced translocation between Chr1 and Chr16 was frequently observed in study by \textcite{Nishimura2023-mk}}, acquired early in cancer evolution, roughly around puberty. These der(1;16)-positive clones expanded across large breast regions, spawning multiple independent cancer branches as well as non-cancerous lesions \pcref{fig:applications-evolution-tree}. Conversely, most der(1;16)-negative clones remained restricted to single lobules post-puberty. The findings imply that a branching, multifocal model of cancer progression might be more prevalent than previously thought linear models. Additionally, the study found no correlation between the number of driver events and histology, indicating some influence of local microenvironments and potentially epigenetic drivers in cancer development.
+The more comprehensive the microdissection strategy and study depth, the greater the number of parallel branches observed in the reconstructed phylogenetic trees. A detailed study by \parencite{Nishimura2023-mk} focused on the early evolution of \ac{DCIS}. The research revealed that many breast cancers exhibited a recurring chromosomal abnormality, der(1;16)\explain{}{\marginfig{side-plot-der1-16.pdf} Unbalanced translocation between Chr1 and Chr16 was frequently observed in study by \textcite{Nishimura2023-mk}}, acquired early in cancer evolution, roughly around puberty. These der(1;16)-positive clones expanded across large breast regions, spawning multiple independent cancer branches as well as non-cancerous lesions \pcref{fig:applications-evolution-tree}. Conversely, most der(1;16)-negative clones remained restricted to single lobules post-puberty. The findings imply that a branching, multifocal model of cancer progression might be more prevalent than previously thought linear models. Additionally, the study found no correlation between the number of driver events and histology, indicating some influence of local microenvironments in cancer development.
 
 \subsection{Microenvironment}
 
