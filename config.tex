@@ -312,27 +312,41 @@
 % Information Box
 
 \newcommand{\infobox}[4]{
-%   \afterpage{
+  \setcounter{tempsection}{\value{section}} % Save current section counter
+  \setcounter{tempsubsection}{\value{subsection}}
+  \setcounter{tempsubsubsection}{\value{subsubsection}}
+
+
+  % Your infobox code
   \clearpage
-  \refstepcounter{boxcounter} % Increment the custom counter
-  \label{#2} % Create a label for the box
+  \stepcounter{boxcounter}
+  \label{#2}
   \pagecolor{infoboxcolor}
   \KOMAoptions{BCOR=8.5mm, DIV=12}
   \recalctypearea
   \begin{multicols}{2}
-    \section*{Box \arabic{boxcounter}: #3}
+    \section*{Box \arabic{boxcounter}: #3} % Use a real section
     \vspace{10pt}
     #4
   \end{multicols}
   \includegraphics[width=\textwidth,center]{#1}
+  \KOMAoptions{BCOR=8.5mm, DIV=8}
   \recalctypearea
   \nopagecolor
   \clearpage
-  \KOMAoptions{BCOR=8.5mm, DIV=8}
-%   }
+
+  \setcounter{section}{\value{tempsection}} % Restore section counter
+  \setcounter{subsection}{\value{tempsubsection}}
+  \setcounter{subsubsection}{\value{tempsubsubsection}}
+
 }
 
+
 \newcounter{boxcounter}
+
+\newcounter{tempsection}
+\newcounter{tempsubsection}
+\newcounter{tempsubsubsection}
 
 \crefname{boxcounter}{Box}{Boxes}
 \Crefname{boxcounter}{Box}{Boxes}
