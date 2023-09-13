@@ -1,7 +1,53 @@
 \chapter{Supplementary Information to \texorpdfstring{\Cref{sec:chapter-basiss-applications}}{}}
 
-\section{Appendix Figures}
 
+\section{Appendix Tables and Figures}
+{
+\footnotesize
+\begin{longtable}{lp{3cm}p{3cm}}
+    \tabcap{case-descsription}{Patient clinical description}{Clinical information for the studied breast cancer cases} \\
+    \toprule
+    Parameter & P1 case & P2 case \\
+    \midrule
+    Manuscript ID & P1 & P2 \\
+    Case & PD9694 & PD14780 \\
+    Sex & Female & Female \\
+    Age at Diagnosis (Years) & 37 & 66 \\
+    Children & Unknown & Yes \\
+    Maximum Tumour Size (mm) & 26 & Not Recorded \\
+    Axillary Nodes & Micromets (1LN) & 3+ \\
+    Metastasis Status at Diagnosis & M0 & M0 \\
+    Histology & Invasive Carcinoma: No Special Type & Invasive Carcinoma: No Special Type \\
+    In Situ Component & Extensive Intermixed DCIS & No \\
+    Multifocal (Number of Invasive Foci) & Yes (2) & Yes (3) \\
+    Grade Primary & 2 & Unknown \\
+    ER Status Primary & Positive & Negative \\
+    PR Status Primary & Positive & Negative \\
+    HER2 Primary (IHC) & Negative & Negative \\
+    \bottomrule
+\end{longtable}
+}
+\clearpage
+{
+\begin{sidewaystable}
+    \footnotesize
+    \begin{longtable}{p{1.6cm}p{1.6cm}p{1.6cm}p{1.6cm}p{1.6cm}p{1.6cm}p{1.6cm}p{1.6cm}p{1.6cm}}
+    \tabcap{sample-descsription}{Sample clinical description}{Clinical data related to the studied breast cancer samples} \\
+    \toprule
+    Variable & P2-TN1 & P2-TN2 & P2-LN & P1-ER1 & P1-ER2 & P1-D1 & P1-D2 & P1-D3 \\
+    \midrule
+    Manuscript ID & P2 & P2 & P2 & P1 & P1 & P1 & P1 & P1 \\
+    Case & PD14780 & PD14780 & PD14780 & PD9694 & PD9694 & PD9694 & PD9694 & PD9694 \\
+    Sub-sample & a & d & e & a & c & d & l & m \\
+    Type & Primary invasive tumour & Primary invasive tumour & Lymph node with metastasis & Primary invasive tumour & Primary invasive tumour & DCIS & DCIS & DCIS \\
+    Path Review (Frozen H\&E Summary) & Admixed carcinoma, stroma and lymphocytes scattered throughout but in differing proportions. & Admixed carcinoma and stroma, lymphoid island and necrotic areas & Lymph node replaced by carcinoma, cannot see capsule. Dense islands of tumour, may be in sinuses or discrete deposits. & Mainly invasive tumour (NST) with areas of DCIS & Mainly invasive tumour (NST) with areas of DCIS & DCIS and cancerisation of lobules (cribiform features, necrosis, combination of intermediate grade and intermediate to high grade) & DCIS and cancerisation of lobules (cribiform features, necrosis, combination of intermediate grade and intermediate to high grade) & DCIS and cancerisation of lobules, several normal lobules and a duct transforming from DCIS to normal along length \\
+    Tissue Size (mm\textsuperscript{2}) & 38 & 68.5 & 44 & 62.36 & 51.3 & 132 & 34 & 58 \\
+    Nuclei Count & 224826 & 261305 & 394895 & 319925 & 298682 & 642256 & 173508 & 104523 \\
+    \bottomrule
+    \end{longtable}
+\end{sidewaystable}
+}
+\clearpage
 \appendixfigurefloat{appendix-applications-PBC-P1.pdf}{appendix-applications-PBC-P1}
     {Phenotype characterisation of histo-genomic states in sample P1 PBCs}
     {\textbf{a}, Broadly annotated H\&E tissue sections of the P1-ER1 and P1-ER2 primary breast cancers. \textbf{b}, Microregions selected for detailed analysis overlaid on \ac{BaSISS} maps (regions relate to heatmaps in Fig. 3a; numbers relate to histological annotations in Supplementary Table 2). c, Comparison of the \acf{CCF} of 9 regions of P1-ER1/P1-ER2 determined through both \ac{BaSISS} (top) and \acf{LCM} \acf{WGS} (bottom). \textbf{d}, Snapshots of \acf{IHC} staining in serial fresh frozen tissue cryosections from P1-ER2. Selected regions with confirmed clone compositions (by \ac{LCM}-\ac{WGS}) are presented. \protein{SMMHC}/\protein{P63} antibody stains myoepithelial cells red, \protein{PTEN} protein and the progesterone receptor (\protein{PR}) stain brown. \% reports proportion of positive nuclei stained, n reports number of nuclei in region assessed by QuPath digital software. Row 1–3 scale bars = 250 $\mu$m. Row 4 scale bar = 50 $\mu$m. \textbf{e}, Violin plots depict clone specific \protein{Ki67} \ac{IHC} staining rate posterior density of the generalised linear mixed model (glmm) with region specific random effect. Significant comparisons were controlled for \ac{FDR} using the \ac{BH} procedure. Analysis was limited to the 11 regions with confirmed clone compositions by WGS due to variation between \ac{IHC} and \ac{BaSISS} sections in z-stack morphology (relates to the bottom panel on \cref{fig:basiss-data-raw}). \textbf{f}, Violin plots depict clone specific gene expression contribution posterior density of the glmm with region specific random effect. A total of 36 regions of P1-ER2 with a dominant clone fraction > 0.7 were analysed. Significant comparisons were controlled for \ac{FDR} using the \ac{BH} procedure. \ac{DCIS} - Ductal carcinoma in situ.}
