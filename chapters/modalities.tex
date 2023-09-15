@@ -7,16 +7,76 @@
 
 bla bla bla, usually could be automated but ofte recuires tailored approach
 
+
+
 \section{Reuslts}
 
+Knowing the spatial distribution of clonal densities with the BaSISS model described in \cref{sec:chapter-basiss-model}, one may characterise the clones phenotypically based on additional spatially matched data. These include:
+
+\begin{itemize}
+    \item histopathological phenotype
+    \item \ac{ISS} expression signals assigned to nuclei
+    \item cell type annotations
+    \item IHC staining
+\end{itemize}
+
+These modalities of spatially resolved information are located on several consecutive slides of tissue which could be distorted from one layer to another. To integrate information among all the modalities, we annotated structurally similar areas of breast tissue on each slide which should be in physical proximity on the z-stack. 
+
 \subsection{\acl{ISS} data}
-predesigned probes
-sparse
+
+We used In Situ Sequencing (\ac{ISS}) technology to characterise the transcriptional phenotype of tissue samples. The \ac{ISS} dataset included two panels: a previously published 91-gene panel targeting oncology-related markers and a novel 62-gene immune panel designed for immune cell profiling. I assessed the immune panel's performance by correlating its expression levels with paired bulk RNA-seq data in the Triple Negative Breast Cancer (TNBC) case outlined in \cref{sec:applications-cohort-introduction}. The choice of this specific case stemmed from its elevated levels of immune cells, the panel's designed target. Once normalised for technological differences, data exhibited a significant correlation (R = 0.69–0.78, Pearson's) as shown in \pcref{fig:iss-immune-validation}.
+
+Transcript detection, particularly differential expression near clones, often provides functional insights if a gene has a clear association with a specific cell type. For instance, the presence of the \gene{MS4A1} gene strongly indicates the existence of B-cells. However, many genes lack a clear association with a cell type, complicating interpretation. The detection of \gene{ACTA2}, for example, could signify the presence of either smooth muscle cells, myofibroblasts, or basal epithelial cells. Additionally, functional interpretation is confounded by the cell signal's origin; epithelial-mesenchymal transition (EMT) markers in epithelial cells signify transition, whereas the same markers in stromal cells are standard. Therefore, accurate interpretation of \ac{ISS} data requires knowledge of the originating cell type.
+
+While the \ac{ISS} panel aimed to identify specific cell types and was partially based on the OncotypeDX panel, the gene selection process did not consult single-cell atlases. Instead, the chosen genes were primarily informed by the existing literature, which often focuses on protein characteristics unmeasurable by \ac{ISS}. Moreover, the data was generated using an older version of the \ac{ISS} technology based on sequencing by ligation, resulting in a low signal count per cell (fewer than 3 signals per cell when assigned).
+
+Given the data's sparsity, the use of sophisticated methods capable of resolving niche cell types based on expression signatures was impractical. Consequently, I opted for an alternative approach: employing \ac{scRNAseq} data to first identify cell markers that unequivocally define cell types, and subsequently using these markers for tissue profiling.
 
 \subsection{Hierarchical logisitc regression for cell marker discovery}
-\subsubsection*{hierarchies of single cell types}
-\subsubsection*{logistic regression as a marker discovery tool}
-\subsubsection*{hierarchical exntesnion of logistic regression}
+
+The objective is to identify easily usable cell type markers for classifying individual cells within a tissue. Ideally, these markers should be unique to a specific cell type or, alternatively, a unique combination of markers should denote a specific cell type. Identifying unique markers is challenging because most genes are involved in cellular programmes that multiple cell types share, particularly when the classification is granular. Current methods for discovering cell type markers rely on statistical tests, heuristic approaches for dimensionality reduction, or machine learning classification models coupled with feature importance analysis. These methods generally fail to explicitly incorporate the concept of combinatorial encoding of cell types.
+
+One natural approach to improving cell type identification exploits the hierarchical organisation of cell types. In this model, we assume that broad cell markers, such as those for epithelial or immune cells, are obligatorily expressed across their respective subtypes. Nonetheless, we permit subtypes to display non-unique markers that might be shared among multiple groups as soon as this group belongs to a different broad type. The key requirement is that the broad cell type remains identifiable.
+
+Consider, for example, the immune-cycling and epithelial-cycling cell subtypes. Both would express markers indicative of cell cycling. Traditional marker discovery methods often misidentify these as being too general and discard as both epithelila and immune groups types express them. However, in combination with the broad marker for immune cells, we can unambiguously categorise the cell as an immune-cycling subtype.
+
+To formalise this strategy, one could employ a marker selection model like logistic regression restricting the model to groups of cells that belong to the same broad cell type. Then, iterate repeat this approach across multiple layers of hierarchy. However, this isolated approach hinders information sharing across hierarchical levels and could yield suboptimal results. To address this limitation, I have restructured the standard logistic regression model to operate within the cell hierarchy framework, aiming to identify cell type markers at each hierarchical level.
+
+\subsubsection*{Multi-class logistic regression}
+
+Consider a Bayesian formulation of the logistic regression model for predicting cell types. Let $y_i$ represent the cell type label for cell $i$, which can assume one of $K$ possible classes, $\{1, 2, \ldots, K\}$. Define $\mathbf{x}_i$ as the $g$-dimensional vector of gene expression levels for cell $i$. The likelihood function for this model is given by:
+
+\begin{equation}
+    p(y_i = k | \mathbf{x}_i, \mathbf{w}) = \frac{\exp(\mathbf{w}_{k}^T \mathbf{x}_i)}{\sum_{k=1}^{K} \exp(\mathbf{w}_{k}^T \mathbf{x}_i)}
+\end{equation}
+
+Here, $\mathbf{w}_k$ is the weight vector corresponding to class $k$. To promote sparsity, we employ a zero-centred Laplace prior for the weights, characterised by scale parameter $\lambda$:
+
+\begin{equation}
+    p(\mathbf{w}_k) \sim \text{Laplace}(0, \lambda)
+\end{equation}
+
+We fit this model to an annotated \ac{scRNAseq} dataset using the \ac{VI} method, as detailed in \cref{sec:bayesian-intro}. This provides an approximation of the posterior distribution $p(\mathbf{w}_k | \mathbf{X}, \mathbf{y})$. The magnitude of each $w_{k,g}$ thereby affords a straightforward interpretation of gene $g$'s importance in classifying cell type $k$.
+
+\subsubsection*{Graph structure of annotated single-cell data}
+
+The graphical structure of single-cell data annotation hierarchies can be mathematically represented as a tree $T = (V, E)$, where $V$ is the set of vertices and $E$ is the set of edges. Each vertex $v \in V$ represents a particular cell type annotation, and each edge $(u, v) \in E$ represents a subclass relationship between cell types $u$ and $v$. 
+
+Let $r$ be the root node, representing the most general cell type encompassing all cells. Nodes directly connected to $r$ represent broad cell types; for example these could be ``Epithelial cells'', ``Immune cells'' or ``Stromal cells''. The set of all nodes connected to the root is denoted as $L_1$ and represents the first layer of the hierarchy. 
+
+Mathematically, a hierarchical layer $L_i$ consists of nodes that are equidistant from the root node $r$. That is, for any node $v$ in $L_i$, the shortest path from $r$ to $v$ has length $i$:
+
+\begin{equation}
+    L_i = \{v \in V : d(r, v) = i\}
+\end{equation}
+
+where $d(r,v)$ denotes the shortest path from $r$ to $v$ in tree $T$. Tracing the graph from $L_1$ to $L_3$ would denote more specific cell types, such as ``Immune cells'' $\rightarrow$ ``T cells'' $\rightarrow$ ``CD8+ T cells''.
+
+\subsubsection*{Hierarchical exntesnion of logistic regression}
+
+Now that we have defined the hierarchical structure of the cell type annotation, we can extend the logistic regression model to incorporate this information. We begin by defining a set of weights $\mathbf{w}_{L_i}$ for each layer $L_i$ of the hierarchy. 
+
+
 \subsubsection*{set of markers for each cell type}
 
 \subsection{Cell type assignmment in sparse signal setting}
@@ -24,9 +84,13 @@ sparse
 \subsection{GLMM for the Multiregion Quantitative Analysis}
 
 \subsubsection*{Cell type intrinsic expression}
+
 \subsubsection*{Cell type composition}
+
 \subsubsection*{IHC cell types}
 
 \subsection{Multimodal data visualisation}
 
 \section{Discussion}
+
+better technologies and better 
