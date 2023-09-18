@@ -47,12 +47,14 @@ To formalise this strategy, one could employ a marker selection model like logis
 Consider a Bayesian formulation of the logistic regression model for predicting cell types. Let $y_i$ represent the cell type label for cell $i$, which can assume one of $K$ possible classes, $\{1, 2, \ldots, K\}$. Define $\mathbf{x}_i$ as the $g$-dimensional vector of gene expression levels for cell $i$. The likelihood function for this model is given by:
 
 \begin{equation}
+    \label{eq:logistic-regression-likelihood}
     p(y_i = k | \mathbf{x}_i, \mathbf{w}) = \frac{\exp(\mathbf{w}_{k}^T \mathbf{x}_i)}{\sum_{k=1}^{K} \exp(\mathbf{w}_{k}^T \mathbf{x}_i)}
 \end{equation}
 
 Here, $\mathbf{w}_k$ is the weight vector corresponding to class $k$. To promote sparsity, we employ a zero-centred Laplace prior for the weights, characterised by scale parameter $\lambda$:
 
 \begin{equation}
+    \label{eq:logistic-regression-prior}
     p(\mathbf{w}_k) \sim \text{Laplace}(0, \lambda)
 \end{equation}
 
@@ -70,14 +72,53 @@ Mathematically, a hierarchical layer $L_i$ consists of nodes that are equidistan
     L_i = \{v \in V : d(r, v) = i\}
 \end{equation}
 
-where $d(r,v)$ denotes the shortest path from $r$ to $v$ in tree $T$. Tracing the graph from $L_1$ to $L_3$ would denote more specific cell types, such as ``Immune cells'' $\rightarrow$ ``T cells'' $\rightarrow$ ``CD8+ T cells''.
+where $d(r,v)$ denotes the shortest path from $r$ to $v$ in tree $T$. 
+
+For convinience, let's also define a function $f_{\text{p}}$ that retreives the parent $u$ of the child node $u$:
+
+\begin{equation}
+    f_{\text{parent}}(v) = u, \text{ where } (u, v) \in E
+\end{equation}
+
+The $f_{\text{s}}$ function returns the set of children of node $v$, that lie in the same layer as $v$ node, and belong to the same parent node $u$:
+
+\begin{equation}
+    f_{\text{s}}(v) = \{w \in V : f_{\text{p}}(w) = f_{\text{p}}(v)\}
+\end{equation}
+
+Taking an element in $L_3$, and iteratively applying $f_{\text{p}}$ until we reach $L_1$  would return it's hierachy ``CD8+ T cells'' $\rightarrow$ ``T cells'' $\rightarrow$ ``Immune cells''. Similarly, applying $f_{\text{s}}$ to this element would return all other cell types in that belong to the same parent node ``T cells'', such as ``CD4+ T cells'' and ``NK cells''.
 
 \subsubsection*{Hierarchical exntesnion of logistic regression}
 
-Now that we have defined the hierarchical structure of the cell type annotation, we can extend the logistic regression model to incorporate this information. We begin by defining a set of weights $\mathbf{w}_{L_i}$ for each layer $L_i$ of the hierarchy. 
+Now that we have defined the hierarchical structure of the cell type annotation, we can extend the logistic regression model to incorporate this information. Similar to standard logistic regression, $\mathbf{x}_i$ as the $g$-dimensional vector of gene expression levels for cell $i$. Let $\mathbf{y}_i = [y_{i,1}, y_{i,2}, \ldots, y_{i,H}]$ be the set of labels for cell $i$, corresponding to each of the $H$ hierarchical layers. Similarly, the weight vector for layer $L_h$ is denoted as $\mathbf{w}_{L_h}$, where $h \in {1, 2, \ldots, H}$.
 
+The probability of cell $i$ belonging to class $k$ at layer $L_h$ is now dependent on the hierarchical parents of this cell:
 
-\subsubsection*{set of markers for each cell type}
+\begin{equation}
+    p(y_{i,h} = k) = \begin{aligned}[t]
+        & p(y_{i,h} = k | y_{i,h-1} = f_{\text{p}}(k)) \times \\
+        & p(y_{i,h-1} = k | y_{i,h-2} = f_{\text{p}}(f_{\text{p}}(k))) \times \\
+        & \cdots \\
+        & p(y_{i,h_1} = f_{p}^{H-1}(k))
+    \end{aligned}
+\end{equation}
+
+Notice that the conditional term like $p(y_{i,h} = k | y_{i,h-1} = f_{\text{p}}(k))$ is equivalent to the standard logistic regression model, restricted to the $f_s(k)$, i.e. the siblings of label $k$. 
+
+Expanding the above equation using \cref{eq:logistic-regression-likelihood} yields the likelihood function for the hierarchical logistic regression model:
+
+\begin{equation}
+    p(y_{i,h} = k | \mathbf{x}_{i} \mathbf{w}) = \begin{aligned}[t]
+        & \frac{\exp(\mathbf{w}_{L_h, k}^T \mathbf{x}_i)}{\sum_{j \in f_s(k)} \exp(\mathbf{w}_{L_h, j}^T \mathbf{x}_i)} \\
+        & \frac{\exp(\mathbf{w}_{L_{h-1}, f_p(k)}^T \mathbf{x}_i)}{\sum_{j \in  f_s(f_p(k))} \exp(\mathbf{w}_{L_{h-1}, j}^T \mathbf{x}_i)} \\
+        & \cdots \\
+        & \frac{\exp(\mathbf{w}_{L_1, f_p^{H-1}(k)}^T \mathbf{x}_i)}{\sum_{j \in L_1} \exp(\mathbf{w}_{L_1, j}^T \mathbf{x}_i)}
+    \end{aligned}
+\end{equation}
+
+The prior distribution for the weights $\mathbf{w}$ is the same as in \cref{eq:logistic-regression-prior}. The posterior distribution is the 
+
+\subsubsection*{set of markers for each cell type} 
 
 \subsection{Cell type assignmment in sparse signal setting}
 
