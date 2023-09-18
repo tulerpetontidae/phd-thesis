@@ -77,7 +77,7 @@ where $d(r,v)$ denotes the shortest path from $r$ to $v$ in tree $T$.
 For convinience, let's also define a function $f_{\text{p}}$ that retreives the parent $u$ of the child node $u$:
 
 \begin{equation}
-    f_{\text{parent}}(v) = u, \text{ where } (u, v) \in E
+    f_{\text{p}}(v) = u, \text{ where } (u, v) \in E
 \end{equation}
 
 The $f_{\text{s}}$ function returns the set of children of node $v$, that lie in the same layer as $v$ node, and belong to the same parent node $u$:
@@ -116,21 +116,93 @@ Expanding the above equation using \cref{eq:logistic-regression-likelihood} yiel
     \end{aligned}
 \end{equation}
 
-The prior distribution for the weights $\mathbf{w}$ is the same as in \cref{eq:logistic-regression-prior}. The posterior distribution is the 
+The prior distribution for the weights $\mathbf{w}$ is the same Laplace distribution as in \cref{eq:logistic-regression-prior}. To address the issue of class imbalance, we now adjust the weights using the square root of the number of cells in each group. We employ square root scaling to moderate the penalty on larger groups, thereby maintaining a balanced emphasis across different classes.
 
-\subsubsection*{set of markers for each cell type} 
+This model is fit using \ac{ADVI}, and tha posterior distributions of the weights are used to asses the improtance of a gene to define a given class. 
+
+\subsubsection*{Set of markers}
+
+Running the model on the breast cancer atlas derived from \ac{scRNAseq} data, as described by \textcite{Wu2021-uq}, and subsetting the genes targeted by the two \ac{ISS} panels yielded a marker set with limited resolution. Specifically, the markers could distinguish only two hierarchical levels. At the first level, adequate markers allowed for differentiation among broad cell types: ``Immune", ``Epithelial'', and ``Stromal''. At the second level, the ``Immune" cells resolved further into ``B-cells", ``Myeloid", and ``T-cells". The ``Stromal" category subdivided into a mixed population of "Fibroblasts + PVL" and "Endothelial" cells. The analysis did not provide further resolution due to a poor choice of markers during panel design.
 
 \subsection{Cell type assignmment in sparse signal setting}
 
-\subsection{GLMM for the Multiregion Quantitative Analysis}
+We overlaid the ISS data with nuclei segmentation masks and allocated signals to the closest nuclei. We applied a conservative distance cut-off of 5$\mu$m — approximately double the nuclear radii — to minimise the likelihood of misannotation, resulting in approximately 30\% signal loss.
 
-\subsubsection*{Cell type intrinsic expression}
+Cell type classification occurred in two steps. In the first iteration, nuclei possessing any markers corresponding to the broad categories (``Epithelial", ``Immune", ``Stromal") were assigned accordingly. In the subsequent iteration, nuclei initially classified as ``immune" or ``stromal" underwent further categorisation based on the presence of specific markers. Nuclei lacking proximal markers or exhibiting conflicting assignments received an ``unknown" classification.
 
-\subsubsection*{Cell type composition}
+\subsection{\acs{GLMM} for Multiregional Quantitative Analysis}
 
-\subsubsection*{IHC cell types}
+The primary objective is to elucidate the phenotypic, transcriptional, and compositional differences between clones. Given that clones generally do not intermingle, we restricted our analysis to highly clonal regions based on specific \ac{CCF} thresholds: CCF\textsubscript{clone} > 0.7 for P1, and CCF\textsubscript{clone} > 0.15 and 0.05 for P2-TN1 and P2-LN1, respectively. The lower thresholds for P2-TN1 and P2-LN1 account for the high levels of non-epithelial cells present in these samples.
+
+Consequently, the dataset comprises regions categorised by dominant clone, with associated count or categorical data.
+
+Standard statistical tests like Fisher's exact test easily handle categorical data, such as histological annotations. However, these methods are less applicable for count data, which are subject to variations in cell numbers and likely overdispersion (e.g. region-specific expression variation). To address these challenges, I employed custom \acfp{GLMM} designed to account for variable cell numbers and data overdispersion.
+
+\subsubsection*{Intrinsic expression in specific cell types}
+
+To quantify differential expression associated with clonal regions for a specific cell type, we record \ac{ISS} signals corresponding to nuclei classified under that cell type. I We model the distribution of observed \ac{ISS} expression signals $Y_{rg}$ for genes $g$ in regions $r$ using a clonal-specific expression rate $\beta_{cg}$,
+
+\begin{equation}
+    \beta_{cg} \sim \text{Uniform}(-10,10)
+\end{equation}
+
+Acknowledging the possibility of region-specific variation in expression, let's introduce a random effect variable $\alpha_{rg}$. This variable has a clonal-specific hierarchical prior $\sigma_{cg}$. The binary matrix $A_{rc}$ maps dominant clones to their corresponding regions.
+
+\begin{align}
+    \sigma_{cg} &\sim \text{HalfNormal}(0.05) \\
+    \alpha_{rg} &\sim \text{Normal}(0, A_{rc}\sigma_{cg})
+\end{align}
+
+After adjusting for the number of nuclei of the relevant cell type 
+$x_r$, the likelihood becomes:
+
+\begin{equation}
+    Y_{rg} \sim \text{Poisson}\left(x_r e^{A_{rc}\beta_{cg} + \alpha_{rg}}\right)
+\end{equation}
+    
+This formulation accommodates both clone- and region-specific variations in gene expression, providing a more robust statistical model for analysing cell-type specific differential expression.
+
+\subsubsection*{Cell-type composition}
+
+To assess differential cellular composition between regions associated with clones, I computed the counts of nuclei categorised as specific cell types. I then modelled the distribution of nuclei counts $Y_{rt}$ attributed to cell type $t$ across regions $r$ as a mixed model. This model incorporates both a clone-specific frequency $\beta_{ct}$ and a region-specific random effect $\alpha_{rt}$, akin to the approach used for \textbf{cell-type specific expression}:
+
+\begin{align}
+\beta_{ct} &\sim \text{Uniform}(-10, 10) \\
+\sigma_{ct} &\sim \text{HalfNormal}(0.05) \\
+\alpha_{rt} &\sim \text{Normal}(0, A\sigma_{ct})
+\end{align}
+
+Given the sum-to-one constraint on cell type frequencies, I employed a softmax (logit) link function along with a Multinomial likelihood for the cell types:
+
+\begin{equation}
+\lambda_{rt} = A\beta_{ct} + \alpha_{rt}
+\end{equation}
+\begin{equation}
+Y_{rt} \sim \text{Multinomial}\left(n=x_r, p=\frac{e^{\lambda_{rt}}}{1 + \sum_{i=1}^{T-1} e^{\lambda_{rt}}}\right)
+\end{equation}
+
+By incorporating these formulations, I ensure that the model accounts for the inherent constraints and random effects in differential cellular composition across regions.
+
+\subsubsection*{IHC staining}
+We counted the number of IHC-positive and IHC-negative nuclei in each region using QuPath. To enable the application of the aforementioned \textbf{cell-type composition} model, I treated IHC\textsuperscript{+} and IHC\textsuperscript{-} nuclei as two distinct cell types.
+
+\subsubsection*{Inference and statistical testing}
+
+I implemented the models using the \ac{NumPyro} library and employed \acf{HMC} for parameter inference \pcref{sec:bayesian-intro}. To identify quantiatively differences, I performed pairwise comparisons of clone-specific expression rates $\beta_{cg}$, for each pairs of clones.
+
+\ac{HMC} generates empirical posterior distributions with a finite number of samples, limiting our ability to resolve small differences. Specifically, the quantiles are restricted to values of $1/n$, where $n$ is the sample size from the \ac{HMC} run. This limitation becomes particularly challenging when conducting multiple comparisons, as it necessitates the multiple testing correction. 
+
+To enable the calculations of more extreme quantiles, I approximated the posterior distribution using the square of the mean divided by the standard deviation, or $\left(\frac{\mu(\Delta)}{\sigma(\Delta)}\right)^2$. This approximation follows a $\chi_{1}^{2}$. For differential composition and protein expression, I used a similar approach with the softmax-transformed $\beta_{ct}$ values. 
+
+Although it diverges slightly from standard Bayesian principles, I treated the posterior distribution as analogous to a frequentist test statistic. I then applied multiple testing corrections to each comparison to maintain a \acf{FDR} below 0.1.
+
+To maximise statistical power in clone-specific differential expression analysis, we excluded genes with a clone-agnostic average number of detected signals per region less than 0.3.
 
 \subsection{Multimodal data visualisation}
+
+The challenge of visualising spatial multimodal data, particularly in the project that combines \ac{BaSISS}, \ac{ISS}, and histological data, requires a tailored approach. Current methods such as \ac{TissUUmaps}, \ac{Omero}, \ac{WebAtlas}, and \ac{Napari} fall short in meeting specific visualisation requirements, especially for clone fields inferred from \ac{BaSISS} data.
+
+To address this challenge, we created a specialised web-based tool, available at \href{https://www.cancerclonemaps.org/}{cancerclonemaps.org}. Our tool utilises a Flask backend and incorporates frontend technologies like `D3' for visual elements, `pixi.js' for efficient spot visualisation, `Leaflet' for tissue mapping, `Geoman' for map selection tools, and `Plotly.js' for the diagrams. This stack of technologies enables interactive exploration of our complex data sets, offering a unified platform to investigate histogenomic relationships. Consequently, this tool streamlines exploratory analysis and assists in identifying qualitative patterns across different data types.
 
 \section{Discussion}
 
