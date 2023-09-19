@@ -5,16 +5,14 @@
 
 \section{Multimodal Analsis}
 
-Improtance of spatial data in biology.
-As discussed in \cref{sec:chapter-introduction} and \cref{sec:applications-breast-intro}. Studying cancer requires integrating multiple layers of genetic and non-genetic information at the single-cell level, as cancer progression involves complex interplay between genetic diversity, cell state heterogeneity, epigenetic changes, spatial dynamics, and microenvironmental interactions.
+Studying cancer requires integrating multiple layers of genetic and non-genetic information at the single-cell level, as cancer progression involves complex interplay between the evolution of genome, cell state plasticity, spatial architecture, and interaction with the microenvironment \pcref{sec:chapter-introduction,sec:applications-breast-intro}. Unimodal analyses, which focus solely on one aspect such as genetics or transcription, offer an incomplete view. To capture the various axes of variation, integrative multi-omics approaches become essential.
 
-Unimodal analyses, such as only looking at mutations or only gene expression, provide an incomplete picture. Integrative multi-omics approaches are needed to link different axes of variation like genotype, phenotype, epigenetics, spatial patterning, etc. The mojor issue is of technologica nature. Different modalities of data are generated using different technologies and are not directly comparable.
+Although ideal measurements would capture all modalities in the same cells simultaneously, current technologies fall short. Existing multi-omics technologies face limitations in throughput and the number of modalities they can measure concurrently. Consequently, researchers often acquire unmatched single-cell information modalities across several biological samples. They then infer a joint representation in latent space, using techniques conceptually akin to canonical correlation analysis or non-linear matrix factorisation. However, this strategy suffers from inevitable information loss when aligning distinct feature spaces.
+\explain{}{Louis Philippe Morency talk}
 
-There are generally two solutions - to try to generate methods to read out from the same biological object, or to integrate data from different sources. The first approach is limited by the technologies available, and the second approach is limited by the ability to integrate data from different sources and the ambiguity of such intergration.
+Current multi-omics methods typically measure two modalities, one of which is usually the transcriptome. Examples include CITE-seq (protein and transcription), scATAC-seq (DNA-accessibility and transcriptome), and G\&T-seq (genome and transcriptome). While these pairs are naturally integrated, they often exhibit low multiplexity and biases; for instance, CITE-seq generally measures only around 300 surface proteins. Nonetheless, one can use common dimensions as pivots for data integration and imputation, thereby better preserving information than when integrating over distinct feature spaces.
 
-Multimodal approach and technologeis that allow screening of multiple modalities in single cell and spatial data.
-
-Mathematical models for multimodal data integration. Relations between modalities.
+Spatial data provides a unique opportunity to measure feautres in tissue space. Integrating over consequative section which is registrable... \pcref{box:analysis,box:technologies}
 
 even though there are holistic tools to discover unified patterns they are ofåten too general , and more tailored approaches are required to answer specific questions.
 
