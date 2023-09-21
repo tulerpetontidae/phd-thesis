@@ -5,30 +5,53 @@
 
 \section{Multimodal Analsis}
 
-Studying cancer requires integrating multiple layers of genetic and non-genetic information at the single-cell level, as cancer progression involves complex interplay between the evolution of genome, cell state plasticity, spatial architecture, and interaction with the microenvironment \pcref{sec:chapter-introduction,sec:applications-breast-intro}. Unimodal analyses, which focus solely on one aspect such as genetics or transcription, offer an incomplete view. To capture the various axes of variation, integrative multi-omics approaches become essential.
+Studying cancer requires integrating multiple layers of genetic and non-genetic information at the single-cell level, as cancer progression involves complex interplay between the evolution of genome, cell state plasticity, spatial architecture, and interaction with the microenvironment \pcref{sec:chapter-introduction,sec:applications-breast-intro}. Unimodal analyses, which focus solely on one aspect such as genetics or transcription, offer an incomplete view. To capture the various axes of variation, integrative multi-omics approaches become essential \parencite{Nam2021-xt,Baysoy2023-qr}.
 
-Although ideal measurements would capture all modalities in the same cells simultaneously, current technologies fall short. Existing multi-omics technologies face limitations in throughput and the number of modalities they can measure concurrently. Consequently, researchers often acquire unmatched single-cell information modalities across several biological samples. They then infer a joint representation in latent space, using techniques conceptually akin to canonical correlation analysis or non-linear matrix factorisation. However, this strategy suffers from inevitable information loss when aligning distinct feature spaces.
-\explain{}{Louis Philippe Morency talk}
+Although ideal measurements would capture all modalities in the same cells simultaneously, current technologies fall short. Existing multi-omics technologies face limitations in throughput and the number of modalities they can measure concurrently \parencite{Baysoy2023-qr}. Consequently, researchers often acquire unmatched single-cell information modalities across several biological samples. They then infer a joint representation in latent space, using techniques conceptually akin to canonical correlation analysis \parencite{Stuart2019-mi} or non-linear matrix factorisation \parencite{Argelaguet2018-oz,Velten2022-gc}. However, this strategy suffers from inevitable information loss when aligning distinct feature spaces.
+\explain{}{\marginfig{side-plot-multimodal-morency.pdf} Two common ways of multimodal data representation that reflect cross-modal interactions. From \textcite{Liang2022-gp}}
 
-Current multi-omics methods typically measure two modalities, one of which is usually the transcriptome. Examples include CITE-seq (protein and transcription), scATAC-seq (DNA-accessibility and transcriptome), and G\&T-seq (genome and transcriptome). While these pairs are naturally integrated, they often exhibit low multiplexity and biases; for instance, CITE-seq generally measures only around 300 surface proteins. Nonetheless, one can use common dimensions as pivots for data integration and imputation, thereby better preserving information than when integrating over distinct feature spaces.
+Current multi-omics methods typically measure two modalities, one of which is usually the transcriptome. Examples include CITE-seq (protein and transcription, \textcite{Stoeckius2017-rz}), scATAC-seq (DNA-accessibility and transcriptome, \textcite{Lareau2019-xr}), and G\&T-seq (genome and transcriptome, \textcite{Macaulay2015-gh}). While these pairs are naturally integrated in the correspoding assays, they often exhibit low multiplexity and biases; for instance, CITE-seq generally measures only around 300 surface proteins. Nonetheless, one can use common dimensions as pivots for data integration and imputation, thereby better preserving information than when integrating over distinct feature spaces \parencite{Hao2021-qn}.
 
-Spatial data provides a unique opportunity to measure feautres in tissue space. Integrating over consequative section which is registrable... \pcref{box:analysis,box:technologies}
+The methods outlined above offer a multimodal depiction of tissues. However, because these assays are dissociative, they compromise the spatial structure. In contrast, spatial omics methods uniquely maintain the tissue context of cellular measurements \pcref{box:technologies}. Yet, they encounter similar challenges to those faced by single-cell multi-omics methods. Specifically, these methods share issues of sparsity and often necessitate integration with single-cell reference data obtained from dissociative studies \pcref{box:analysis}. 
 
-even though there are holistic tools to discover unified patterns they are ofåten too general , and more tailored approaches are required to answer specific questions.
+It is generally easier to inrgerate infomration over the same feature space. For spatial omics method, integration of multiple spatially-resolved modalities is feasible across consecutive tissue sections, assuming local similarities in properties \pcref{box:analysis}. Algorithms for image registration enable the alignment of moderatly distorted sections and the 3D reconstruction of a tissue block \parencite{Kiemen2020-dc} unifying information obtained in different experiments. 
 
+Spatial genomics tools offer valuable context for cellular functions, exceeding the phenotypic descriptions available through traditional genomics. These tools elucidate the spatial organisation of cells within tissues, and its impact on cellular behaviour \pcref{sec:mapping-the-cancer-ecosystem}. Analysis tools range from simple statistical tests that examine differences in cellular composition to more complex unsupervised clustrering models like topic models \parencite{Nirmal2022-sq} and spatial graphs \parencite{Danenberg2022-zb}. For information-rich data, more explicit models of cell interaction are possible \parencite{Fischer2023-go}.
+
+In summary, a nuanced understanding of cancer necessitates the integration of multiple data modalities, including spatial information. Although multi-purpose tools like Seurat, MOFA \parencite{Argelaguet2018-oz}, and MEFISTO \parencite{Velten2022-gc} offer valuable platforms for data exploration, they may lack the specificity required to answer targeted questions in cancer biology, particularly when data quality is suboptimal. In this chapter, I will outline the spatial data collected alongside \ac{BaSISS}, describe the integration methods employed to define and locate cell types, and present customised statistical tests designed to answer the specific question: \textbf{``What are the phenotypic and microenvironmental differences between cancer clones?"}
 
 \section{Reuslts}
 
 Knowing the spatial distribution of clonal densities with the BaSISS model described in \cref{sec:chapter-basiss-model}, one may characterise the clones phenotypically based on additional spatially matched data. These include:
 
 \begin{itemize}
-    \item histopathological phenotype
+    \item Histopathological phenotype
+    \item \ac{IHC} staining
     \item \ac{ISS} expression signals assigned to nuclei
-    \item cell type annotations
-    \item IHC staining
+    \item Cell type annotations
 \end{itemize}
 
-These modalities of spatially resolved information are located on several consecutive slides of tissue which could be distorted from one layer to another. To integrate information among all the modalities, we annotated structurally similar areas of breast tissue on each slide which should be in physical proximity on the z-stack. 
+\explain{}{\marginfig{side-plot-tissue-block.pdf} The tissue block undergoes sectioning to yield material for the designated experiment. Subsequently, the various data modalities are spatially aligned. The thickness of each slide measures 10 $\mu$m.}
+
+The modalities of spatially resolved information exist across multiple consecutive tissue slides. These slides exhibit distortions from one layer to another, complicating the registration process. To integrate information across all modalities, we manually annotated regions of breast tissue. Our annotations targeted areas with similar histopathological phenotypes, which should be in close physical proximity on the z-stack.
+
+\subsection{Histopathological phenotype}
+
+In our study, histology served dual purposes: it helped define micro-anatomical and cellular features, and designate microregions for feature projection across consecutive slides and assays \pcref{sec:intro-histology}. Skilled histopathologists annotated microregions on \acf{H\&E} stained fresh-frozen samples, uninfluenced by prior knowledge of the sample's genetic clonal structure.
+
+For ductal carcinoma in situ (DCIS) cases, annotation focused on regions presumed to be myoepithelially enclosed, as indicated by \ac{H\&E} or other histological images (refer to \cref{fig:applications-breast-structure} for details). Due to the limitations imposed by fresh freezing, certain features like mitotic activity and chromatin structure were difficult to assess. Consequently, nuclear grade (see \cref{sec:applications-breast-intro}) in \ac{DCIS} relied mainly on nuclear size. The histopathologist assessed the presence or absence of nuclear vacuoles using a 20\% cut-off criterion. Challenges in identifying \ac{TDLU} and ducts were resolved by considering the presence of branches in morphology \pcref{fig:applications-breast-structure}.
+
+For invasive tumour sections lacking clear histological structures, we manually demarcated similarly sized regions of invasive tissue. This approach enabled uniform sampling across the entire tissue surface area.
+
+In specific samples, P2-TN1 and P2-LN1, the histopathologist reported multiple growth patterns independently. For P2-LN1, areas were selected based on these growth patterns, with the aim of creating regions of similar size. In the case of P2-TN1, where different growth structures were less distinctly demarcated, we reported the proportion of cells belonging to each growth pattern within predefined regions.
+
+\subsection{\acl{IHC} data}
+
+\acl{IHC} serves as a robust method for localising specific proteins within tissue sections. While the technique offers limited multiplexing capabilities, it remains a standard approach for obtaining spatial information on protein expression levels.
+
+We incubated tissue sections with antibodies targeting \protein{PanCK}, \protein{CD45}, and \protein{HER2}. These slides underwent both BaSISS and ISS protocols. In subsequent slides, we targeted additional proteins, such as \protein{SM-MHC}, \protein{P63}, \protein{PR}, \protein{Ki-67}, and \protein{PTEN}. For further context on the role of these proteins in breast cancer, refer to Section \cref{sec:applications-breast-intro}.
+
+We utilised Qupath digital software for the quantitative evaluation of stained nuclei. Our focus lay on assessing the expression of \protein{Ki-67}, \protein{PTEN}, and \protein{PR} in selected regions.
 
 \subsection{\acl{ISS} data}
 
@@ -214,4 +237,6 @@ To address this challenge, we created a specialised web-based tool, available at
 
 \section{Discussion}
 
-better technologies and better 
+In \cref{sec:chapter-basiss-model}, I detail experimental methods and statistical algorithms for identifying genomically-defined cancer subclones. \cref{sec:chapter-basiss-multimodal} extends this discussion by explaining how to integrate genetic information with spatial data on transcription, proteomics, and histology. By combining these approaches, the assembled toolkit aims to shed light on both the intrinsic cellular properties and the tumour microenvironment. Specifically, it seeks to identify differences between cancer clones in terms of their intrinsic features and their respective habitats.
+
+While some assays discussed here lack multiplexing capability and may appear outdated in the fast-evolving field of spatial genomics, they can still provide valuable insights. When interpreted carefully, the generated data can reveal intricate details about the spatial evolution and ecology of tumours. The following section \pcref{sec:chapter-basiss-applications} demonstrates the utility of these methods through a case study on breast cancer.
