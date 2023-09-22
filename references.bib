@@ -15367,3 +15367,169 @@
   primaryClass  = "cs.LG",
   eprint        = "2209.03430"
 }
+
+
+@ARTICLE{Wolf2018-kx,
+  title    = "{SCANPY}: large-scale single-cell gene expression data analysis",
+  author   = "Wolf, F Alexander and Angerer, Philipp and Theis, Fabian J",
+  abstract = "SCANPY is a scalable toolkit for analyzing single-cell gene
+              expression data. It includes methods for preprocessing,
+              visualization, clustering, pseudotime and trajectory inference,
+              differential expression testing, and simulation of gene
+              regulatory networks. Its Python-based implementation efficiently
+              deals with data sets of more than one million cells (
+              https://github.com/theislab/Scanpy ). Along with SCANPY, we
+              present ANNDATA, a generic class for handling annotated data
+              matrices ( https://github.com/theislab/anndata ).",
+  journal  = "Genome Biol.",
+  volume   =  19,
+  number   =  1,
+  pages    = "15",
+  month    =  feb,
+  year     =  2018,
+  keywords = "Bioinformatics; Clustering; Differential expression testing;
+              Graph analysis; Machine learning; Pseudotemporal ordering;
+              Scalability; Single-cell transcriptomics; Trajectory inference;
+              Visualization",
+  language = "en"
+}
+
+@ARTICLE{Dumitrascu2021-dg,
+  title    = "Optimal marker gene selection for cell type discrimination in
+              single cell analyses",
+  author   = "Dumitrascu, Bianca and Villar, Soledad and Mixon, Dustin G and
+              Engelhardt, Barbara E",
+  abstract = "Single-cell technologies characterize complex cell populations
+              across multiple data modalities at unprecedented scale and
+              resolution. Multi-omic data for single cell gene expression, in
+              situ hybridization, or single cell chromatin states are
+              increasingly available across diverse tissue types. When
+              isolating specific cell types from a sample of disassociated
+              cells or performing in situ sequencing in collections of
+              heterogeneous cells, one challenging task is to select a small
+              set of informative markers that robustly enable the
+              identification and discrimination of specific cell types or cell
+              states as precisely as possible. Given single cell RNA-seq data
+              and a set of cellular labels to discriminate, scGeneFit selects
+              gene markers that jointly optimize cell label recovery using
+              label-aware compressive classification methods. This results in a
+              substantially more robust and less redundant set of markers than
+              existing methods, most of which identify markers that separate
+              each cell label from the rest. When applied to a data set given a
+              hierarchy of cell types as labels, the markers found by our
+              method improves the recovery of the cell type hierarchy with
+              fewer markers than existing methods using a computationally
+              efficient and principled optimization.",
+  journal  = "Nat. Commun.",
+  volume   =  12,
+  number   =  1,
+  pages    = "1186",
+  month    =  feb,
+  year     =  2021,
+  language = "en"
+}
+
+@ARTICLE{Nelson2022-vg,
+  title    = "{SMaSH}: a scalable, general marker gene identification framework
+              for single-cell {RNA-sequencing}",
+  author   = "Nelson, M E and Riva, S G and Cvejic, A",
+  abstract = "BACKGROUND: Single-cell RNA-sequencing is revolutionising the
+              study of cellular and tissue-wide heterogeneity in a large number
+              of biological scenarios, from highly tissue-specific studies of
+              disease to human-wide cell atlases. A central task in single-cell
+              RNA-sequencing analysis design is the calculation of cell
+              type-specific genes in order to study the differential impact of
+              different replicates (e.g. tumour vs. non-tumour environment) on
+              the regulation of those genes and their associated networks. The
+              crucial task is the efficient and reliable calculation of such
+              cell type-specific 'marker' genes. These optimise the ability of
+              the experiment to isolate highly-specific cell phenotypes of
+              interest to the analyser. However, while methods exist that can
+              calculate marker genes from single-cell RNA-sequencing, no such
+              method places emphasise on specific cell phenotypes for
+              downstream study in e.g. differential gene expression or other
+              experimental protocols (spatial transcriptomics protocols for
+              example). Here we present SMaSH, a general computational
+              framework for extracting key marker genes from single-cell
+              RNA-sequencing data which reliably characterise highly-specific
+              and niche populations of cells in numerous different biological
+              data-sets. RESULTS: SMaSH extracts robust and biologically
+              well-motivated marker genes, which characterise a given
+              single-cell RNA-sequencing data-set better than existing
+              computational approaches for general marker gene calculation. We
+              demonstrate the utility of SMaSH through its substantial
+              performance improvement over several existing methods in the
+              field. Furthermore, we evaluate the SMaSH markers on spatial
+              transcriptomics data, demonstrating they identify highly
+              localised compartments of the mouse cortex. CONCLUSION: SMaSH is
+              a new methodology for calculating robust markers genes from large
+              single-cell RNA-sequencing data-sets, and has implications for
+              e.g. effective gene identification for probe design in downstream
+              analyses spatial transcriptomics experiments. SMaSH has been
+              fully-integrated with the ScanPy framework and provides a
+              valuable bioinformatics tool for cell type characterisation and
+              validation in every-growing data-sets spanning over 50 different
+              cell types across hundreds of thousands of cells.",
+  journal  = "BMC Bioinformatics",
+  volume   =  23,
+  number   =  1,
+  pages    = "328",
+  month    =  aug,
+  year     =  2022,
+  keywords = "Feature selection; Marker genes; Single-cell RNA-sequencing",
+  language = "en"
+}
+
+@ARTICLE{Dai2022-ve,
+  title    = "Accurate and fast cell marker gene identification with {COSG}",
+  author   = "Dai, Min and Pei, Xiaobing and Wang, Xiu-Jie",
+  abstract = "Accurate cell classification is the groundwork for downstream
+              analysis of single-cell sequencing data, yet how to identify true
+              marker genes for different cell types still remains a big
+              challenge. Here, we report COSine similarity-based marker Gene
+              identification (COSG) as a cosine similarity-based method for
+              more accurate and scalable marker gene identification. COSG is
+              applicable to single-cell RNA sequencing data, single-cell ATAC
+              sequencing data and spatially resolved transcriptome data. COSG
+              is fast and scalable for ultra-large datasets of million-scale
+              cells. Application on both simulated and real experimental
+              datasets showed that the marker genes or genomic regions
+              identified by COSG have greater cell-type specificity,
+              demonstrating the superior performance of COSG in terms of both
+              accuracy and efficiency as compared with other available methods.",
+  journal  = "Brief. Bioinform.",
+  volume   =  23,
+  number   =  2,
+  month    =  mar,
+  year     =  2022,
+  keywords = "cell marker gene; cosine similarity; single-cell ATAC-seq;
+              single-cell RNA-seq; spatially resolved transcriptomics",
+  language = "en"
+}
+
+@ARTICLE{Missarova2021-vg,
+  title    = "geneBasis: an iterative approach for unsupervised selection of
+              targeted gene panels from {scRNA-seq}",
+  author   = "Missarova, Alsu and Jain, Jaison and Butler, Andrew and
+              Ghazanfar, Shila and Stuart, Tim and Brusko, Maigan and
+              Wasserfall, Clive and Nick, Harry and Brusko, Todd and Atkinson,
+              Mark and Satija, Rahul and Marioni, John C",
+  abstract = "scRNA-seq datasets are increasingly used to identify gene panels
+              that can be probed using alternative technologies, such as
+              spatial transcriptomics, where choosing the best subset of genes
+              is vital. Existing methods are limited by a reliance on
+              pre-existing cell type labels or by difficulties in identifying
+              markers of rare cells. We introduce an iterative approach,
+              geneBasis, for selecting an optimal gene panel, where each newly
+              added gene captures the maximum distance between the true
+              manifold and the manifold constructed using the currently
+              selected gene panel. Our approach outperforms existing strategies
+              and can resolve cell types and subtle cell state differences.",
+  journal  = "Genome Biol.",
+  volume   =  22,
+  number   =  1,
+  pages    = "333",
+  month    =  dec,
+  year     =  2021,
+  language = "en"
+}
