@@ -3,7 +3,21 @@
 
 \section*{Declaration}
 
+This chapter is based on the supplementary methods and technical results from:
+\\~\\
+ \fullauthcite{Lomakin2022-ks}. 
+\\~\\
+The work I present here is primarily my own contribution. I focused on developing and implementing the core mathematical and algorithmic toolkit to interpret \acs{BaSISS}, \acs{ISS}, \acs{IHC} and histopathologic data under the supervision of \ac{moritz} and with inputs from \ac{artem1} and \ac{vitalii}. 
+
+I analysed and interpreted the data, and drafted the original article and figures, again under the supervision of \ac{moritz} and \ac{lucy}. You can find all the code on \href{https://github.com/gerstung-lab/BaSISS}{Github}. The code for hierarchical logistic regression I wrote together with \ac{vitalii}. It is available at \href{https://github.com/dissatisfaction-ai/scHierarchy}{scHierarchy} repo.
+
+Another first author of this paper, \ac{jessica}, in collaboration with \ac{peter}, \ac{mats}, and \ac{lucy}, designed the initial study of \acs{BaSISS} and \acs{ISS}. \ac{jessica}, \ac{mats}, and \ac{carina} conducted \acs{BaSISS}, \acs{ISS} and \acs{IHC} experiments and provided the raw data. \ac{junsung}, \ac{vasyl}, \ac{tong}, and \ac{milana} preprocessed and decoded \acs{ISS} and \acs{BaSISS} data. I had access to the decoded \acs{ISS} and \acs{BaSISS} data. \ac{hege} provided histopathological description of the microregions.
+
+The Introductory \cref{sec:modalities-multimodal-intro}, Data Characterisation \cref{sec:modalities-iss}, Hierarchical Logistic Regression \cref{sec:modalities-schierarchy}, Multimodal Visualisation \cref{sec:modalities-cancerclonemaps} and Summary \cref{sec:modalities-summary} are original. I reworked the rest of the sections to fit the thesis format, rewording, expanding and illustrating them for clarity. All the main and margin figures are original except \cref{fig:multimodal-iss} and \cref{fig:multimodal-markers}, which I borrowed from the original paper with stylistic and compositional adjustements. 
+
 \section{Multimodal Analsis}
+
+\label{sec:modalities-multimodal-intro}
 
 Studying cancer requires integrating multiple layers of genetic and non-genetic information at the single-cell level, as cancer progression involves complex interplay between the evolution of genome, cell state plasticity, spatial architecture, and interaction with the microenvironment \pcref{sec:chapter-introduction,sec:applications-breast-intro}. Unimodal analyses, which focus solely on one aspect such as genetics or transcription, offer an incomplete view. To capture the various axes of variation, integrative multi-omics approaches become essential \parencite{Nam2021-xt,Baysoy2023-qr}.
 
@@ -22,6 +36,8 @@ In summary, a nuanced understanding of cancer necessitates the integration of mu
 
 \section{Reuslts}
 
+\label{sec:modalities-multimodal-results}
+
 Knowing the spatial distribution of clonal densities with the BaSISS model described in \cref{sec:chapter-basiss-model}, one may characterise the clones phenotypically based on additional spatially matched data. These include:
 
 \begin{itemize}
@@ -36,6 +52,7 @@ Knowing the spatial distribution of clonal densities with the BaSISS model descr
 The modalities of spatially resolved information exist across multiple consecutive tissue slides. These slides exhibit distortions from one layer to another, complicating the registration process. To integrate information across all modalities, we manually annotated regions of breast tissue. Our annotations targeted areas with similar histopathological phenotypes, which should be in close physical proximity on the z-stack.
 
 \subsection{Histopathological phenotype}
+\label{sec:modalities-histopath}
 
 In our study, histology served dual purposes: it helped define micro-anatomical and cellular features, and designate microregions for feature projection across consecutive slides and assays \pcref{sec:intro-histology}. Skilled histopathologists annotated microregions on \acf{H\&E} stained fresh-frozen samples, uninfluenced by prior knowledge of the sample's genetic clonal structure.
 
@@ -43,9 +60,10 @@ For ductal carcinoma in situ (DCIS) cases, annotation focused on regions presume
 
 For invasive tumour sections lacking clear histological structures, we manually demarcated similarly sized regions of invasive tissue. This approach enabled uniform sampling across the entire tissue surface area.
 
-In specific samples, P2-TN1 and P2-LN1, the histopathologist reported multiple growth patterns independently. For P2-LN1, areas were selected based on these growth patterns, with the aim of creating regions of similar size. In the case of P2-TN1, where different growth structures were less distinctly demarcated, we reported the proportion of cells belonging to each growth pattern within predefined regions.
+In specific samples, P2-TN1 and P2-LN1, the histopathologist reported multiple independent growth patterns. For P2-LN1, areas were selected based on these growth patterns, with the aim of creating regions of similar size \pcref{fig:multimodal-iss}. In the case of P2-TN1, where different growth structures were less distinctly demarcated, the histopathologist reported the proportion of cells belonging to each growth pattern within predefined regions.
 
 \subsection{\acl{IHC} data}
+\label{sec:modalities-ihc}
 
 \acl{IHC} serves as a robust method for localising specific proteins within tissue sections. While the technique offers limited multiplexing capabilities, it remains a standard approach for obtaining spatial information on protein expression levels.
 
@@ -54,16 +72,20 @@ We incubated tissue sections with antibodies targeting \protein{PanCK}, \protein
 We utilised Qupath digital software for the quantitative evaluation of stained nuclei. Our focus lay on assessing the expression of \protein{Ki-67}, \protein{PTEN}, and \protein{PR} in selected regions.
 
 \subsection{\acl{ISS} data}
+\label{sec:modalities-iss}
 
-We used In Situ Sequencing (\ac{ISS}) technology to characterise the transcriptional phenotype of tissue samples. The \ac{ISS} dataset included two panels: a previously published 91-gene panel targeting oncology-related markers and a novel 62-gene immune panel designed for immune cell profiling. I assessed the immune panel's performance by correlating its expression levels with paired bulk RNA-seq data in the Triple Negative Breast Cancer (TNBC) case outlined in \cref{sec:applications-cohort-introduction}. The choice of this specific case stemmed from its elevated levels of immune cells, the panel's designed target. Once normalised for technological differences, data exhibited a significant correlation (R = 0.69–0.78, Pearson's) as shown in \pcref{fig:iss-immune-validation}.
+\figurefloat{multimodal-iss.pdf}{multimodal-iss}{\acl{ISS} data for the lymph node breast cancer sample}{\textit{\textbf{top}}, Display of \ac{BaSISS} fields alongside two selected \ac{ISS} panels, focusing on selected genes (\gene{HER2}, \gene{CD24} - onco panel and \gene{MS4A1}, \gene{CD68}, \gene{CD3D} - immune panel). White outlines mark microregions, identified by a histopathologist, based on histological growth patterns. \textit{\textbf{bottom}}, Scatterplots show the log$_2$-fold change in gene expression between samples, as measured by RNAseq and combined \ac{ISS} oncology and immune experiments. High correlation values (r = Pearson's correlation) confirm on-target probe performance. The analysis includes genes that meet the following criteria: a Transcripts Per Million (TPM) count greater than 25 in RNAseq and over 1000 detections per million cells in \ac{ISS}, minimising deviations due to low counts.}
+
+We used In Situ Sequencing (\ac{ISS}) technology to characterise the transcriptional phenotype of tissue samples. The \ac{ISS} dataset included two panels: a previously published 91-gene panel targeting oncology-related markers and a novel 62-gene immune panel designed for immune cell profiling \pcref{fig:multimodal-iss}. I assessed the immune panel's performance by correlating its expression levels with paired bulk RNA-seq data in the Triple Negative Breast Cancer (TNBC) case outlined in \cref{sec:applications-cohort-introduction}. The choice of this specific case stemmed from its elevated levels of immune cells, the panel's designed target. Once normalised for technological differences, data exhibited a significant correlation (R = 0.69–0.78, Pearson's) as shown in \pcref{fig:multimodal-iss}.
 
 Transcript detection, particularly differential expression near clones, often provides functional insights if a gene has a clear association with a specific cell type. For instance, the presence of the \gene{MS4A1} gene strongly indicates the existence of B-cells. However, many genes lack a clear association with a cell type, complicating interpretation. The detection of \gene{ACTA2}, for example, could signify the presence of either smooth muscle cells, myofibroblasts, or basal epithelial cells. Additionally, functional interpretation is confounded by the cell signal's origin; epithelial-mesenchymal transition (EMT) markers in epithelial cells signify transition, whereas the same markers in stromal cells are standard. Therefore, accurate interpretation of \ac{ISS} data requires knowledge of the originating cell type.
 
-While the \ac{ISS} panel aimed to identify specific cell types and was partially based on the OncotypeDX panel, the gene selection process did not consult single-cell atlases. Instead, the chosen genes were primarily informed by the existing literature, which often focuses on protein characteristics unmeasurable by \ac{ISS}. Moreover, the data was generated using an older version of the \ac{ISS} technology based on sequencing by ligation, resulting in a low signal count per cell (fewer than 3 signals per cell when assigned).
+While the \ac{ISS} panel aimed to identify specific cell types and was partially based on the OncotypeDX panel, the gene selection process did not consult single-cell atlases. Instead, the chosen genes were primarily informed by the existing literature, which often focuses on protein characteristics unmeasurable by \ac{ISS}. Moreover, the data was generated using an older version of the \ac{ISS} technology based on sequencing by ligation, resulting in a low signal count per cell (fewer than 3 signals per cell when assigned) [link to the protocol].
 
 Given the data's sparsity, the use of sophisticated methods capable of resolving niche cell types based on expression signatures was impractical. Consequently, I opted for an alternative approach: employing \ac{scRNAseq} data to first identify cell markers that unequivocally define cell types, and subsequently using these markers for tissue profiling.
 
 \subsection{Hierarchical logisitc regression for cell marker discovery}
+\label{sec:modalities-schierarchy}
 
 The objective is to identify easily usable cell type markers for classifying individual cells within a tissue. Ideally, these markers should be unique to a specific cell type or, alternatively, a unique combination of markers should denote a specific cell type. Identifying unique markers is challenging because most genes are involved in cellular programmes that multiple cell types share, particularly when the classification is granular. Current methods for discovering cell type markers rely on statistical tests, heuristic approaches for dimensionality reduction, or machine learning classification models coupled with feature importance analysis. These methods generally fail to explicitly incorporate the concept of combinatorial encoding of cell types.
 
@@ -71,7 +93,9 @@ One natural approach to improving cell type identification exploits the hierarch
 
 Consider, for example, the immune-cycling and epithelial-cycling cell subtypes. Both would express markers indicative of cell cycling. Traditional marker discovery methods often misidentify these as being too general and discard as both epithelila and immune groups types express them. However, in combination with the broad marker for immune cells, we can unambiguously categorise the cell as an immune-cycling subtype.
 
-To formalise this strategy, one could employ a marker selection model like logistic regression restricting the model to groups of cells that belong to the same broad cell type. Then, iterate repeat this approach across multiple layers of hierarchy. However, this isolated approach hinders information sharing across hierarchical levels and could yield suboptimal results. To address this limitation, I have restructured the standard logistic regression model to operate within the cell hierarchy framework, aiming to identify cell type markers at each hierarchical level.
+To formalise this strategy, one could employ a marker selection model like logistic regression restricting the model to groups of cells that belong to the same broad cell type. Then, iterate repeat this approach across multiple layers of hierarchy. However, this isolated approach hinders information sharing across hierarchical levels and could yield suboptimal results. To address this limitation, I have restructured the standard logistic regression model to operate within the cell hierarchy framework, aiming to identify cell type markers at each hierarchical level \pcref{fig:multimodal-tree-math}.
+
+\figuretextwidth{multimodal-tree-math.pdf}{multimodal-tree-math}{Hierarchical logistic regression conceptual description}{The hierarchical logistic regression model utilises a tree that  represents the hierarchical relationships among different cell types. Each node in this tree corresponds to a specific cell type, and edges signify subclass relationships. Mathematically, the likelihood conditions the probability of a cell belonging to a specific type based on its hierarchical ancestors, leveraging an array of weight vectors corresponding to each hierarchical layer. This structure introduces conditional dependencies between cell types, allowing contextual cell-type marker predictions}
 
 \subsubsection*{Multi-class logistic regression}
 
@@ -105,13 +129,13 @@ Mathematically, a hierarchical layer $L_i$ consists of nodes that are equidistan
 
 where $d(r,v)$ denotes the shortest path from $r$ to $v$ in tree $T$. 
 
-For convinience, let's also define a function $f_{\text{p}}$ that retreives the parent $u$ of the child node $u$:
+For convinience, let's also define a function $f_{\text{p}}$ \pcref{fig:multimodal-tree-math} that retreives the parent $u$ of the child node $u$:
 
 \begin{equation}
     f_{\text{p}}(v) = u, \text{ where } (u, v) \in E
 \end{equation}
 
-The $f_{\text{s}}$ function returns the set of children of node $v$, that lie in the same layer as $v$ node, and belong to the same parent node $u$:
+The $f_{\text{s}}$ function \pcref{fig:multimodal-tree-math} returns the set of children of node $v$, that lie in the same layer as $v$ node, and belong to the same parent node $u$:
 
 \begin{equation}
     f_{\text{s}}(v) = \{w \in V : f_{\text{p}}(w) = f_{\text{p}}(v)\}
@@ -121,7 +145,7 @@ Taking an element in $L_3$, and iteratively applying $f_{\text{p}}$ until we rea
 
 \subsubsection*{Hierarchical exntesnion of logistic regression}
 
-Now that we have defined the hierarchical structure of the cell type annotation, we can extend the logistic regression model to incorporate this information. Similar to standard logistic regression, $\mathbf{x}_i$ as the $g$-dimensional vector of gene expression levels for cell $i$. Let $\mathbf{y}_i = [y_{i,1}, y_{i,2}, \ldots, y_{i,H}]$ be the set of labels for cell $i$, corresponding to each of the $H$ hierarchical layers. Similarly, the weight vector for layer $L_h$ is denoted as $\mathbf{w}_{L_h}$, where $h \in {1, 2, \ldots, H}$.
+Now that we have defined the hierarchical structure of the cell type annotation, we can extend the logistic regression model to incorporate this information \pcref{multimodal-tree-math}. Similar to standard logistic regression, $\mathbf{x}_i$ as the $g$-dimensional vector of gene expression levels for cell $i$. Let $\mathbf{y}_i = [y_{i,1}, y_{i,2}, \ldots, y_{i,H}]$ be the set of labels for cell $i$, corresponding to each of the $H$ hierarchical layers. Similarly, the weight vector for layer $L_h$ is denoted as $\mathbf{w}_{L_h}$, where $h \in {1, 2, \ldots, H}$.
 
 The probability of cell $i$ belonging to class $k$ at layer $L_h$ is now dependent on the hierarchical parents of this cell:
 
@@ -151,17 +175,21 @@ The prior distribution for the weights $\mathbf{w}$ is the same Laplace distribu
 
 This model is fit using \ac{ADVI}, and tha posterior distributions of the weights are used to asses the improtance of a gene to define a given class. 
 
+\figuretextwidth{multimodal-markers.pdf}{multimodal-markers}{Hierarchical cell-type markers for \ac{ISS} panels}{The result of running hierarchical logistic regression to select marker genes for cell typing, employing Breast Cancer \ac{scRNAseq} Atlas \parencite{Wu2021-uq} as input dataset. The analysis was limited to genes from \ac{ISS} oncology and immune panels. The figure displays genes with the highest weights for each hierarhical layer. PVL = perivascular-like cells. CAF = cancer associated fibroblasts}
+
 \subsubsection*{Set of markers}
 
-Running the model on the breast cancer atlas derived from \ac{scRNAseq} data, as described by \textcite{Wu2021-uq}, and subsetting the genes targeted by the two \ac{ISS} panels yielded a marker set with limited resolution. Specifically, the markers could distinguish only two hierarchical levels. At the first level, adequate markers allowed for differentiation among broad cell types: ``Immune", ``Epithelial'', and ``Stromal''. At the second level, the ``Immune" cells resolved further into ``B-cells", ``Myeloid", and ``T-cells". The ``Stromal" category subdivided into a mixed population of "Fibroblasts + PVL" and "Endothelial" cells. The analysis did not provide further resolution due to a poor choice of markers during panel design.
+Running the model on the breast cancer atlas derived from \ac{scRNAseq} data, as described by \textcite{Wu2021-uq}, and subsetting the genes targeted by the two \ac{ISS} panels yielded a marker set with limited resolution \pcref{fig:multimodal-markers}. Specifically, the markers could distinguish only two hierarchical levels. At the first level, adequate markers allowed for differentiation among broad cell types: ``Immune", ``Epithelial'', and ``Stromal''. At the second level, the ``Immune" cells resolved further into ``B-cells", ``Myeloid", and ``T-cells". The ``Stromal" category subdivided into a mixed population of "Fibroblasts + PVL" and "Endothelial" cells. The analysis did not provide further resolution due to a poor choice of markers during panel design.
 
 \subsection{Cell type assignmment in sparse signal setting}
+\label{sec:modalities-celltype}
 
 We overlaid the ISS data with nuclei segmentation masks and allocated signals to the closest nuclei. We applied a conservative distance cut-off of 5$\mu$m — approximately double the nuclear radii — to minimise the likelihood of misannotation, resulting in approximately 30\% signal loss.
 
 Cell type classification occurred in two steps. In the first iteration, nuclei possessing any markers corresponding to the broad categories (``Epithelial", ``Immune", ``Stromal") were assigned accordingly. In the subsequent iteration, nuclei initially classified as ``immune" or ``stromal" underwent further categorisation based on the presence of specific markers. Nuclei lacking proximal markers or exhibiting conflicting assignments received an ``unknown" classification.
 
 \subsection{\acs{GLMM} for Multiregional Quantitative Analysis}
+\label{sec:modalities-glmm}
 
 The primary objective is to elucidate the phenotypic, transcriptional, and compositional differences between clones. Given that clones generally do not intermingle, we restricted our analysis to highly clonal regions based on specific \ac{CCF} thresholds: CCF\textsubscript{clone} > 0.7 for P1, and CCF\textsubscript{clone} > 0.15 and 0.05 for P2-TN1 and P2-LN1, respectively. The lower thresholds for P2-TN1 and P2-LN1 account for the high levels of non-epithelial cells present in these samples.
 
@@ -171,7 +199,7 @@ Standard statistical tests like Fisher's exact test easily handle categorical da
 
 \subsubsection*{Intrinsic expression in specific cell types}
 
-To quantify differential expression associated with clonal regions for a specific cell type, we record \ac{ISS} signals corresponding to nuclei classified under that cell type. I We model the distribution of observed \ac{ISS} expression signals $Y_{rg}$ for genes $g$ in regions $r$ using a clonal-specific expression rate $\beta_{cg}$,
+To quantify differential expression associated with clonal regions for a specific cell type, we record \ac{ISS} signals corresponding to nuclei classified under that cell type. I model the distribution of observed \ac{ISS} expression signals $Y_{rg}$ for genes $g$ in regions $r$ using a clonal-specific expression rate $\beta_{cg}$,
 
 \begin{equation}
     \beta_{cg} \sim \text{Uniform}(-10,10)
@@ -229,13 +257,17 @@ Although it diverges slightly from standard Bayesian principles, I treated the p
 
 To maximise statistical power in clone-specific differential expression analysis, we excluded genes with a clone-agnostic average number of detected signals per region less than 0.3.
 
+\figuretextwidth{multimodal-cancerclonemaps.pdf}{multimodal-cancerclonemaps}{Multimodal data visualisation web-tool at \href{https://www.cancerclonemaps.org/}{cancerclonemaps.org}}{The web tool visualises multimodal data, specifically designed to meet the requirements of the \ac{BaSISS} experiment. This web tool interactively displays microregion borders, histological features, \ac{ISS} and \ac{BaSISS} data, inferred clonal maps, and \ac{ISS}-based cell type locations for all samples analysed in the study from \textcite{Lomakin2022-ks}}
+
 \subsection{Multimodal data visualisation}
+\label{sec:modalities-cancerclonemaps}
 
 The challenge of visualising spatial multimodal data, particularly in the project that combines \ac{BaSISS}, \ac{ISS}, and histological data, requires a tailored approach. Current methods such as \ac{TissUUmaps}, \ac{Omero}, \ac{WebAtlas}, and \ac{Napari} fall short in meeting specific visualisation requirements, especially for clone fields inferred from \ac{BaSISS} data.
 
 To address this challenge, we created a specialised web-based tool, available at \href{https://www.cancerclonemaps.org/}{cancerclonemaps.org}. Our tool utilises a Flask backend and incorporates frontend technologies like `D3' for visual elements, `pixi.js' for efficient spot visualisation, `Leaflet' for tissue mapping, `Geoman' for map selection tools, and `Plotly.js' for the diagrams. This stack of technologies enables interactive exploration of our complex data sets, offering a unified platform to investigate histogenomic relationships. Consequently, this tool streamlines exploratory analysis and assists in identifying qualitative patterns across different data types.
 
-\section{Discussion}
+\section{Summary}
+\label{sec:modalities-summary}
 
 In \cref{sec:chapter-basiss-model}, I detail experimental methods and statistical algorithms for identifying genomically-defined cancer subclones. \cref{sec:chapter-basiss-multimodal} extends this discussion by explaining how to integrate genetic information with spatial data on transcription, proteomics, and histology. By combining these approaches, the assembled toolkit aims to shed light on both the intrinsic cellular properties and the tumour microenvironment. Specifically, it seeks to identify differences between cancer clones in terms of their intrinsic features and their respective habitats.
 
