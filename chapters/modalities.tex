@@ -87,6 +87,8 @@ Given the data's sparsity, the use of sophisticated methods capable of resolving
 \subsection{Hierarchical logisitc regression for cell marker discovery}
 \label{sec:modalities-schierarchy}
 
+\explain{}{\marginfig{side-plot-atlas.pdf} Cell-type organisation inherently exhibits a hierarchical structure, often reflected in single-cell atlases annotations. Data from \textcite{Wu2021-uq}}
+
 The objective is to identify easily usable cell type markers for classifying individual cells within a tissue. Ideally, these markers should be unique to a specific cell type or, alternatively, a unique combination of markers should denote a specific cell type. Identifying unique markers is challenging because most genes are involved in cellular programmes that multiple cell types share, particularly when the classification is granular. Current methods for discovering cell type markers rely on statistical tests, heuristic approaches for dimensionality reduction, or machine learning classification models coupled with feature importance analysis. These methods generally fail to explicitly incorporate the concept of combinatorial encoding of cell types.
 
 One natural approach to improving cell type identification exploits the hierarchical organisation of cell types. In this model, we assume that broad cell markers, such as those for epithelial or immune cells, are obligatorily expressed across their respective subtypes. Nonetheless, we permit subtypes to display non-unique markers that might be shared among multiple groups as soon as this group belongs to a different broad type. The key requirement is that the broad cell type remains identifiable.
@@ -186,16 +188,18 @@ Running the model on the breast cancer atlas derived from \ac{scRNAseq} data, as
 
 We overlaid the ISS data with nuclei segmentation masks and allocated signals to the closest nuclei. We applied a conservative distance cut-off of 5$\mu$m — approximately double the nuclear radii — to minimise the likelihood of misannotation, resulting in approximately 30\% signal loss.
 
-Cell type classification occurred in two steps. In the first iteration, nuclei possessing any markers corresponding to the broad categories (``Epithelial", ``Immune", ``Stromal") were assigned accordingly. In the subsequent iteration, nuclei initially classified as ``immune" or ``stromal" underwent further categorisation based on the presence of specific markers. Nuclei lacking proximal markers or exhibiting conflicting assignments received an ``unknown" classification.
+Cell type classification occurred in two steps. In the first iteration, nuclei possessing any markers corresponding to the broad categories (``Epithelial", ``Immune", ``Stromal") were assigned accordingly. In the subsequent iteration, nuclei initially classified as ``immune" or ``stromal" underwent further categorisation based on the presence of specific markers. Nuclei lacking proximal markers or exhibiting conflicting assignments received an ``unknown" classification. The annotated maps for the lymph node case appear in \cref{appfig:appendix-applications-LN}
+
+\figuretextwidth{multimodal-glmm.pdf}{multimodal-glmm}{Modelling clone-specificepxression and composition using \acs{GLMM}}{On of the objectives of this study is to characterise the phenotypic, transcriptional, and compositional differences among cancer clones. I record cell-type composition and \ac{ISS} signal counts, attributing them to cells with known cell types. I then model these data using a \acf{GLMM} that incorporates a clone-specific fixed effect, denoted as $\beta$, and a clone-specific regional random effect, denoted as $\alpha$. Inferred posterior distriubtion of $\beta$ is then used to compute statistics and reason about differences between clones.}
 
 \subsection{\acs{GLMM} for Multiregional Quantitative Analysis}
 \label{sec:modalities-glmm}
 
 The primary objective is to elucidate the phenotypic, transcriptional, and compositional differences between clones. Given that clones generally do not intermingle, we restricted our analysis to highly clonal regions based on specific \ac{CCF} thresholds: CCF\textsubscript{clone} > 0.7 for P1, and CCF\textsubscript{clone} > 0.15 and 0.05 for P2-TN1 and P2-LN1, respectively. The lower thresholds for P2-TN1 and P2-LN1 account for the high levels of non-epithelial cells present in these samples.
 
-Consequently, the dataset comprises regions categorised by dominant clone, with associated count or categorical data.
+Consequently, the dataset comprises regions categorised by dominant clone, with associated count or categorical data \pcref{fig:multimodal-glmm}.
 
-Standard statistical tests like Fisher's exact test easily handle categorical data, such as histological annotations. However, these methods are less applicable for count data, which are subject to variations in cell numbers and likely overdispersion (e.g. region-specific expression variation). To address these challenges, I employed custom \acfp{GLMM} designed to account for variable cell numbers and data overdispersion.
+Standard statistical tests like Fisher's exact test easily handle categorical data, such as histological annotations. However, these methods are less applicable for count data, which are subject to variations in cell numbers and likely overdispersion (e.g. region-specific expression variation). To address these challenges, I employed custom \acfp{GLMM} designed to account for variable cell numbers and data overdispersion \pcref{fig:multimodal-glmm}.
 
 \subsubsection*{Intrinsic expression in specific cell types}
 
@@ -219,7 +223,7 @@ $x_r$, the likelihood becomes:
     Y_{rg} \sim \text{Poisson}\left(x_r e^{A_{rc}\beta_{cg} + \alpha_{rg}}\right)
 \end{equation}
     
-This formulation accommodates both clone- and region-specific variations in gene expression, providing a more robust statistical model for analysing cell-type specific differential expression.
+This formulation accommodates both clone- and region-specific variations in gene expression, providing a more robust statistical model for analysing cell-type specific differential expression \pcref{fig:multimodal-glmm}.
 
 \subsubsection*{Cell-type composition}
 
@@ -240,24 +244,28 @@ Given the sum-to-one constraint on cell type frequencies, I employed a softmax (
 Y_{rt} \sim \text{Multinomial}\left(n=x_r, p=\frac{e^{\lambda_{rt}}}{1 + \sum_{i=1}^{T-1} e^{\lambda_{rt}}}\right)
 \end{equation}
 
-By incorporating these formulations, I ensure that the model accounts for the inherent constraints and random effects in differential cellular composition across regions.
+By incorporating these formulations, I ensure that the model accounts for the inherent constraints and random effects in differential cellular composition across regions \pcref{fig:multimodal-glmm}.
 
 \subsubsection*{IHC staining}
 We counted the number of IHC-positive and IHC-negative nuclei in each region using QuPath. To enable the application of the aforementioned \textbf{cell-type composition} model, I treated IHC\textsuperscript{+} and IHC\textsuperscript{-} nuclei as two distinct cell types.
 
 \subsubsection*{Inference and statistical testing}
 
-I implemented the models using the \ac{NumPyro} library and employed \acf{HMC} for parameter inference \pcref{sec:bayesian-intro}. To identify quantiatively differences, I performed pairwise comparisons of clone-specific expression rates $\beta_{cg}$, for each pairs of clones.
+I implemented the models using the \ac{NumPyro} library and employed \acf{HMC} for parameter inference \pcref{sec:bayesian-intro}. To identify quantiatively differences, I performed pairwise comparisons of clone-specific expression rates $\beta_{cg}$, for each pairs of clones. Examples of posteriors for expression rates appear in \cref{appfig:appendix-applications-PBC-P1}
 
 \ac{HMC} generates empirical posterior distributions with a finite number of samples, limiting our ability to resolve small differences. Specifically, the quantiles are restricted to values of $1/n$, where $n$ is the sample size from the \ac{HMC} run. This limitation becomes particularly challenging when conducting multiple comparisons, as it necessitates the multiple testing correction. 
 
-To enable the calculations of more extreme quantiles, I approximated the posterior distribution using the square of the mean divided by the standard deviation, or $\left(\frac{\mu(\Delta)}{\sigma(\Delta)}\right)^2$. This approximation follows a $\chi_{1}^{2}$. For differential composition and protein expression, I used a similar approach with the softmax-transformed $\beta_{ct}$ values. 
+To enable the calculations of more extreme quantiles, I approximated the posterior distribution using the square of the mean divided by the standard deviation, or $\left(\frac{\mu(\Delta)}{\sigma(\Delta)}\right)^2$. This approximation follows a $\chi_{1}^{2}$. Results appear on the vulcano plots on \cref{fig:applications-maps-LN} and \cref{appfig:appendix-applications-PBC-P2,appfig:appendix-applications-DCIS-expression}. For differential composition and protein expression, I used a similar approach with the softmax-transformed $\beta_{ct}$ values. Examples of $\beta_{ct}$ posteriors appear in \cref{fig:applications-maps-LN} and \cref{appfig:appendix-applications-PBC-P1,appfig:appendix-applications-PBC-P2}. 
 
 Although it diverges slightly from standard Bayesian principles, I treated the posterior distribution as analogous to a frequentist test statistic. I then applied multiple testing corrections to each comparison to maintain a \acf{FDR} below 0.1.
 
 To maximise statistical power in clone-specific differential expression analysis, we excluded genes with a clone-agnostic average number of detected signals per region less than 0.3.
 
 \figuretextwidth{multimodal-cancerclonemaps.pdf}{multimodal-cancerclonemaps}{Multimodal data visualisation web-tool at \href{https://www.cancerclonemaps.org/}{cancerclonemaps.org}}{The web tool visualises multimodal data, specifically designed to meet the requirements of the \ac{BaSISS} experiment. This web tool interactively displays microregion borders, histological features, \ac{ISS} and \ac{BaSISS} data, inferred clonal maps, and \ac{ISS}-based cell type locations for all samples analysed in the study from \textcite{Lomakin2022-ks}}
+
+\subsection{Approach limitations}
+
+
 
 \subsection{Multimodal data visualisation}
 \label{sec:modalities-cancerclonemaps}
