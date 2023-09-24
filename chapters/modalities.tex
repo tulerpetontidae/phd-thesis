@@ -69,7 +69,7 @@ In specific samples, P2-TN1 and P2-LN1, \acs{hege} reported multiple independent
 
 \acf{carina} incubated tissue sections with antibodies targeting \protein{PanCK}, \protein{CD45}, and \protein{HER2}. These slides underwent both \ac{BaSISS} and \ac{ISS} protocols. In subsequent slides, \acs{carina} and \acs{sandro} targeted additional proteins, such as \protein{SM-MHC}, \protein{P63}, \protein{PR}, \protein{Ki-67}, and \protein{PTEN}. For further context on the role of these proteins in breast cancer, refer to \cref{sec:applications-breast-intro}.
 
-\ac{lucy} utilised Qupath digital software for the quantitative evaluation of stained nuclei. The analysis focused on assessing the expression of \protein{Ki-67}, \protein{PTEN}, and \protein{PR} in selected regions \pcref{appfig:appendix-applications-PBC-P1}.
+\ac{lucy} utilised Qupath digital software for the quantitative evaluation of stained nuclei \parencite{Bankhead2017-px}. The analysis focused on assessing the expression of \protein{Ki-67}, \protein{PTEN}, and \protein{PR} in selected regions \pcref{appfig:appendix-applications-PBC-P1}.
 
 \subsection{\acl{ISS} data}
 \label{sec:modalities-iss}
@@ -277,7 +277,7 @@ Y_{rt} \sim \text{Multinomial}\left(n=x_r, p=\frac{e^{\lambda_{rt}}}{1 + \sum_{i
 By incorporating these constrains, I ensure that the model accounts for the inherent constraints and random effects in differential cellular composition across regions \pcref{fig:multimodal-glmm}.
 
 \subsubsection*{IHC staining}
-\ac{lucy} counted the number of IHC-positive and IHC-negative nuclei in each region using QuPath. To enable the application of the aforementioned \textbf{cell-type composition} model, I treated IHC\textsuperscript{+} and IHC\textsuperscript{-} nuclei as two distinct cell types.
+\ac{lucy} counted the number of IHC-positive and IHC-negative nuclei in each region using QuPath \parencite{Bankhead2017-px}. To enable the application of the aforementioned \textbf{cell-type composition} model, I treated IHC\textsuperscript{+} and IHC\textsuperscript{-} nuclei as two distinct cell types.
 
 \subsubsection*{Inference and statistical testing}
 

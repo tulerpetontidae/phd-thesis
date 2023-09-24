@@ -1,0 +1,260 @@
+\chapter{Supplementary protocols for experiments and analysis}
+
+\section*{Declaration}
+
+This supplementary chapter outlines the specific experimental protocols and initial data preparation that generated the data used in this thesis. The content is entirely taken from the supplementary methods section of \textcite{Lomakin2022-ks}, with small stylistic adjustements.
+
+\ac{jessica}, \ac{peter}, \ac{mats} and \ac{lucy} designed the initial study and planned experiments. \ac{jessica}, \ac{mats} and \ac{carina} acquired the \ac{ISS} data \pcref{sec:protocol-suppl-basiss-iss}. \ac{artem1} contributed to image segmentation and processing. \ac{andrea} and \ac{sandro} provided tissue samples \pcref{sec:protocol-suppl-tissues}. \ac{sandro} and \ac{carina} performed \ac{IHC} \pcref{sec:protocol-suppl-ihc}. \ac{young} contributed RNA sequencing expertise \pcref{sec:protocol-suppl-bulk-seq}. \ac{stefan} performed \ac{WGS} subclonality analysis \pcref{sec:protocol-suppl-evo-history,sec:protocol-suppl-lcm-wgs}. \ac{lucy} conducted \ac{LCM}-\ac{WGS} experiments \pcref{sec:protocol-suppl-lcm-wgs}. \ac{junsung}, \ac{vasyl}, \ac{tong}, \ac{omer} and \ac{milana} contributed to the development of bespoke \ac{ISS} analysis pipelines \pcref{sec:protocol-suppl-image-processing,sec:protocol-suppl-image-deconvolution}.
+
+While I did not participate in the execution of these protocols — except for the \cref{sec:protocol-suppl-image-align} — this chapter is included for completeness. Detailed experimental protocols and data analysis methods are critical for decisions made in the statistical analysis design, as discussed in \cref{sec:chapter-basiss-model,sec:chapter-basiss-multimodal}. These details are also improtant for the interpretation of results presented in \cref{sec:chapter-basiss-applications}.
+
+\section{Tissue samples}
+\label{sec:protocol-suppl-tissues}
+
+Breast tissue samples were obtained from mastectomies performed for the diagnosis of multifocal primary breast cancer. Patients provided written informed consent for tissue and clinical data use in research studies.  Samples and data were obtained and managed in line with the declaration of Helsinki under “project SHARE” \#93-085, approved by the Dana-Farber Harvard Cancer Center Institutional Review Board.  Sample and data handling at the Wellcome Sanger Institute, Cambridgeshire, UK was performed under the wider framework and approval for the Breast Cancer Genome Analyses for the International Cancer Genome Consortium Working Group under REC reference: 09/H0306/36 (Cambridgeshire 3 Research Ethics Committee). The study was later transferred to a protocol REC: 20/PR/0905 approved by London-Harrow Research Ethics Committee.
+
+Tissue blocks were first sliced to obtain sufficient nucleic acids for bulk \acf{WGS} and RNAseq analysis. Subsequent serial 10$\mu$m sections were obtained from the same tissue block and orientation for \acf{BaSISS}, \acf{ISS}, histological assessment and \acf{IHC}.
+
+\section{\acl{IHC}}
+\label{sec:protocol-suppl-ihc}
+
+For \acl{IHC} staining after \ac{ISS}, cover glasses were detached by overnight incubation in TBS-Tween20 (0.05\%). Slides were fixed for 10 min with 3.7\% formaldehyde (Sigma Aldrich, Munich, Germany). Endogenous peroxidases were blocked with DAKO REAL peroxidase-blocking solution (Agilent, Glostrup, Denmark) for 10 min at room temperature, followed by incubation with DAKO serum-free protein blocking solution (Agilent) for 30 min.
+
+Sections were incubated with mouse monoclonal PanCK antibody (clone AE1/AE3, Agilent) diluted 1:100 in DAKO REAL antibody diluent (Agilent) overnight at 4°C in a humidity chamber. Thereafter, ready-to-use secondary ImmPRESS HRP Anti-mouse IgG (VectorLaboratories, Orton Southgate Peterborough, UK) reagent was applied for 30min and chromogenic visualisation was performed with DAB Peroxidase substrate kit (Vector laboratories) according to the manufacturer’s instructions. Slides were counterstained with Mayer’s HTX Haematoxylin (Histolab, Gothenburg, Sweden) for 30 seconds, dehydrated and permanently mounted (Vecta Mount, Vector laboratories). A similar procedure was performed for CD45 (2B11+PD7126, mouse monoclonal DAKO Agilent; dilution 1:100, detection with secondary ImmPRESS HRP Anti-mouse IgG) and HER2 (D8F12, rabbit monoclonal; CellSignalling dilution 1:50, detection with secondary ImmPRESS HRP Anti-rabbit IgG (Vector Laboratories)). 
+
+Standard immunohistochemistry staining on non-\ac{ISS} sequenced sections was performed for the following proteins: SM-MHC (BioCare Medical LLC, cat\# CM 420B, mouse monoclonal, clone: SMMS-1, dilution 1:100), P63 (BioCare Medical LLC, cat\# CM 163C, mouse monoclonal, clone: BC4A4, dilution 1:150), PR (DakoCytomation, cat\# M3569, mouse monoclonal, clone:PgR636, dilution 1:75), Ki67 (DakoCytomation, cat\# M7240, mouse monoclonal, clone: MIB-1, dilution 1:400) and PTEN (Abcam Anti-PTEN antibody [EPR22636-122] (ab267787) 1:500 pc). Secondary antibody detection was performed using polymer-M (Labelled polymer-HRP anti-mouse: DakoCytomation, Code: K4007) for PR, Ki67, P63 and PTEN (EPR22636-122) and poly-AP-M (Poly-AP anti-mouse IgG : Leica, cat\# PV6110) for SMMHC and Labelled polymer-HRP anti-mouse: DakoCytomation, Code: K4007) for PR, Ki67, P63 and PTEN (EPR22636-122) and poly-AP-M (Poly-AP anti-mouse IgG : Leica, cat\# PV6110) for SMMHC.
+
+In selected regions (with LCM WGS validated subclone compositions) the total number and number of positive stained nuclei (Ki-67, PTEN and PR antibodies) were counted using Qupath digital software (Version 0.3.0) \parencite{Bankhead2017-px}.
+
+\section{Bulk tissue sequencing}
+\label{sec:protocol-suppl-bulk-seq}
+
+To generate DNA and RNA sequence data 10 x 10-20um serial slices of tissue blocks were pooled and homogenised followed by nucleic acid extraction. Short insert whole genome and targeted capture paired-end libraries and 350bp poly-A selected RNA libraries were created, flow cells prepared and sequencing clusters generated according to Illumina protocols \parencite{Kozarewa2009-yj}. 100 base whole genome sequence data, 150 base targeted capture genomic data and 75 base RNA sequence data was generated using Illumina HiSeq 2000® genome analysers. Genomic and RNA sequence data were mapped to the reference human genome (GRCh37 Ensembl 58) using Burrows Wheeler Aligner \parencite{Li2009-aq} and \href{http://ccb.jhu.edu/software/tophat/index.shtml}{TopHat (v1.3.3)}, respectively. Original data associated with the prior publication datasets from which these samples derive are deposited in the European Genome Phenome Archive (EGA) with the following accessions: EGAD00001002696 and EGAD00001000898.
+
+\subsubsection*{Somatic Mutation Identification}
+Genome-wide somatic substitutions were called using \href{http://cancerit.github.io/CaVEMan/}{CaVEMan} (Cancer Variants Through Expectation Maximisation). Rearrangements were identified from discordantly mapping reads using \href{https://github.com/cancerit/BRASS}{BRASSII} (BReakpoint AnalySiS). 
+
+\section{Inferring subclone composition and evolutionary histories from bulk genomic data}
+\label{sec:protocol-suppl-evo-history}
+
+Subclone composition was determined from multi-region \ac{WGS} somatic substitution and copy number data as reported in the original publications \textcite{Yates2015-xk} and {Yates2017-xc}. The approach detects a finite number of subclones each with defined parameters including the number of mutations within that subclone and the fraction of cells from each sample that contain those subclone specific mutations \pcref{box:phylogeny-reconstruction}.
+
+\subsection{\aclp{CCF}}
+
+For bulk genomic sequence data the \acf{VAF} of each mutation, $i$, is calculated from the number of reads reporting the mutant $r_{mut}$ and the number of reference, or wild-type reads $r_{wt}$ is calculated as
+
+\begin{equation}
+    VAF_i = \frac{r_{mut,i}}{r_{mut,i} + r_{wt,i}}
+\end{equation}
+
+However, the \ac{VAF} cannot be used directly to infer subclonal architecture because in addition to reflecting the proportion of cells that carry that mutation it is also influenced by the tumour purity and the local copy number – with the latter encompassing both the total number of alleles and the number of alleles that carry the mutation \parencite{Dentro2017-jb}. Consequently, mutations from the same subclone may have different \acp{VAF} reflecting their different copy number states, also termed their ``multiplicity". To allow a comparison of mutations across related samples with different copy number profiles and tumour purity levels we derive the mutation copy number. For mutation $i$, the mutation copy number $n_i$ is obtained as
+
+\begin{equation}
+    n_i = VAF_i\frac{1}{\rho}\left[\rho n_{locus,t} + n_{locus,n}(1-\rho)\right]
+\end{equation}
+
+Where $\rho$ is tumour purity, and $n_{locus,t}$ and $n_{locus,n}$ are the locus specific total copy numbers in the tumour and normal sample respectively. Subclonal copy-number changes and tumour purity are defined using the \href{https://github.com/cancerit/cgpBattenberg}{Battenberg} algorithm as previously described. Confidence intervals for mutation copy numbers are generated using bootstrap resampling of mutant and wildtype reads from each mutant locus (10,000 times) and applying the above formula to resampled reads. 
+
+For mutations that are present on multiple alleles arising through duplication (multiplicity $\neq$ 1) or in regions of subclonal copy number change, the mutation copy number may not accurately reflect the fraction of cells in which the mutation resides. To group mutations by the number of cells containing those mutations, the number of chromosomes bearing a mutation, nchr, must be determined. For each mutation within a region of amplified major copy number $C$, the observed number of mutant and wild-type reads are compared to the expected $VAF_i$ that would result from the mutation being present in $1, 2 \ldots C$ chromosome copies also allowing for non-integer values in regions with subclonal copy number values, assuming a binomial distribution. The value of nchr is determined to be that with the maximum likelihood. The fraction of cells bearing mutation $i$, termed the $CCF$ can then be calculated as 
+
+\begin{equation}
+    CCF_i = \frac{n_i}{n_{chr}}
+\end{equation}
+
+Applying this approach to cancers that are believed to derive from a common ancestor, one would therefore expect to identify some clonal mutations that are present in all cancer cells and at a certain multiplicity result in a \ac{CCF} around 1. 
+
+\subsection{Multidimensional mutation clustering}
+
+A Bayesian Dirichlet Process was used to model clusters of clonal and subclonal point mutations to permit the inference of the number of subclones and the fraction of cells (\ac{CCF}) within each subclone \pcref{box:phylogeny-reconstruction}. The original model was developed for single samples \parencite{Nik-Zainal2012-zz}. Within this model the number of reads $y$, bearing the $i$th mutation is drawn from a binomial distribution as follows
+
+\begin{align}
+    y_i &\sim \text{Binom}(\pi_i,N_i)\\
+    \pi_i &\sim \mathcal{DP}(\alpha P_0) 
+\end{align}
+
+Where $N_i$ is the number of mutant reads and $\zeta_i$ is the expected fraction of reads that would report a mutation if it was present in 100\% of cells (at that specific locus given the copy number state and tumour purity). The fraction of tumour cells carrying mutation $i$, $\pi_i$, is modelled as arising from a \acf{DP} with a given probability distribution $P_0$ and a dispersion parameter α. The approach allows co-estimation of the number of cellular populations and their properties using the stick-breaking representation of the \ac{DP} as described in \textcite{Dentro2017-jb}.
+
+To accommodate multi-region samples, the model is extended into multiple dimensions as previously described \parencite{Yates2015-xk, Bolli2014-ph}. Essentially, the number of mutant reads obtained from different tumour region samples are modelled as independent binomial distributions with independent π drawn with a Dirichlet process. Gibbs sampling is used to estimate posterior distributions of the features of interest. The Markov chain is run for 10,000 iterations (excluding the first 2,000 iterations). The median densities for \acp{CCF} is estimated using a Gaussian kernel implemented in R (stats and kernSmooth libraries). The clustering procedure is implemented in the \href{https://github.com/Wedge-Oxford/dpclust}{DPClust} software package. Version 2.2.8 was used to obtain the analysis presented.
+
+In P2 (samples P2-TN1, P2-TN2, P2-LN1) the final DPClust solution identified a single subclone within the lymph node sample (P2-LN1) however there was evidence supporting the possible existence of a subclone albeit with lower confidence, understood in the context of low tumour purity ($\sim$11\%). This is most convincing from copy number analysis that identified multiple sub-chromosomal copy number changes (chromosome 1,9, 11,12,20) in addition to a 50\% subclone at the telomeric portion of 17q in association with the \gene{HER2} amplifying breakage fusion bridge event \pcref{fig:applications-LN-genome}. This was further supported by a build-up of posterior density in P2-LN1, indicating that across some iterations DPClust has explored the presence of a subclone in this sample was explored, although ultimately it decided the subclone wasn't required to explain the observed point mutation data.
+
+\subsection{Principles of phylogenetic tree construction}
+
+To infer the evolutionary relationship between subclones, phylogenetic trees were constructed using the ``pigeonhole principle" which states that if there are $n$ objects that are placed in $m$ containers if $n > m$ then at least one container must contain more than one object \pcref{box:phylogeny-reconstruction}. Extending this to subclonal reconstruction we can appreciate that the sum of subclone \acp{CCF} cannot exceed the \ac{CCF} of their ancestor. For example, if there are 3 subclones with \acp{CCF} of 1, 0.9 and 0.5 then there must be a linear evolution – as 1 + 0.9 > 1, \ac{CCF} subclone 0.9 must be a descendant of the \ac{CCF} subclone 1; furthermore, as 0.9 + 0.5 > 1, \ac{CCF} subclone 0.5 must be a descendant of the \ac{CCF} subclone 0.9. In contrast one may see the possibility of branching evolution where the sum of subclone populations is less than 1. For example, 3 subclones with \acp{CCF} of 1, 0.5 and 0.4 could arise either through linear evolution: 1 > 0.5 > 0.4 or along separate ancestral lines because 0.5 + 0.4 < 1. When applying these principles across multi-region samples the compatible underlying tree structures is usually greatly restricted because of the requirement that the same tree structure must be compatible across all samples. Applying these principles one can identify the phylogenetic tree structure(s) most compatible with the underlying data. 
+
+\section{\acs{BaSISS} and \acs{ISS} protocols}
+\label{sec:protocol-suppl-basiss-iss}
+
+\subsection{Tissue specimens}
+Serial 10$\mu$m tissue sections were cut from fresh frozen tumour tissue blocks mounted on superfrost slides and sent from DFCI to ScilifeLab Stockholm, Sweden where \ac{ISS} and \ac{IHC} was performed under Karolinska Institutes rules for the handling of blood and other human sample material, reference number 1-31/2019 (with a local HUMRA risk assessment form). Tissue blocks included the same ones used for the \ac{WGS} and RNAseq experiments and additional tumour blocks were identified where applicable.
+
+\subsection{Padlock probe design}
+
+The padlock probe consists of a single stranded DNA oligo with two target recognition arms in the 3' and 5' end of the oligo, enabling circularization of the padlock probe upon target hybridization. Each target recognition arm typically has a length of 15-25 nucleotides. The two arms are interspaced with a linker sequence comprising a 20-nucleotide anchor primer sequence and a target-specific 4 nucleotide barcode followed by a 5 nucleotide stabilising sequence for sequencing-by-ligation. The used barcodes were selected in such a way that they differ in at least two positions.
+
+In total, three padlock probe gene panels were used, marker/oncology gene-, mutation- (one specifically designed for each case) and immune- expression panels. Padlock probes were ordered as ultramer DNA oligos from Integrated DNA Technologies (IDT, Leuven, Belgium) with 5'-phosphorylation modification and were reconstituted in Tris/EDTA buffer.
+
+\subsection{Mutation panel design}
+
+Two separate case-specific mutation panels were designed as detailed in \cref{tab:basiss-padlock-probes-P1,tab:basiss-padlock-probes-P1}. For wildtype- and mutation-specific padlock probes, the sequence upstream of the mutated site resembles the 3' arm of the padlock probe, with the wildtype or mutant nucleotide at the 3' end, whereas the sequence downstream of the mutated site resembles the 5' arm. The target recognition arm lengths were adjusted to have a similar melting temperature of $\sim$55°C. For each mutation site, one wild-type and one mutation-specific padlock probe was designed. For P1, in addition to the anchor and barcode sequences a 20-nucleotide sequence used for a hybridization cycle was added in the padlock probe linker sequence. Specific primers were used for the in situ reverse transcription and were designed as the reverse complement sequence of the 5’ target recognition arm. Primers were ordered as DNA oligos from Integrated DNA Technologies (IDT) and were reconstituted in Tris/EDTA buffer. In P1, we included 3 mutations that were not assigned to a cluster/ branch by DPclust of WGS data. In accordance with this, \ac{BaSISS} signals reporting these mutations were found to be non-specific and uninformative, probably relating to them existing at loci with variable copy number states, and they were dropped from further downstream analyses. 
+
+{
+\footnotesize
+\begin{longtable}{c c c c c c c}
+    \tabcap{basiss-padlock-probes-P1}{\acs{BaSISS} padlock probes for the P1 case}{Padlock probes targeted specific sequence variants based on \ac{WGS} and DPclust clone discovery results. The last column indicates if the probe was included in the clone mapping analysis \pcref{sec:chapter-basiss-model}. CDS = coding sequence; HK = housekeeping} \\
+    \toprule
+    Branch & Gene & Target Name & CDS & Type & Barcode & Included? \\
+    \midrule
+    P1-blue & \gene{CKAP5} & CKAP5mut & c.1895G>A & mut. & ACCGG & Y \\
+    P1-blue & \gene{CKAP5} & CKAP5wt & c.1895G>A & wt.. & CCACC & Y \\
+    P1-green & \gene{KIAA0652} & KIAA0652mut & c.176C>G & mut. & GACAA & Y \\
+    P1-green & \gene{KIAA0652} & KIAA0652wt & c.176C>G & wt.. & ACCAC & Y \\
+    P1-grey & \gene{AP3B2} & AP3B22mut & c.1852+5G>C & mut. & CCCAC & Y \\
+    P1-grey & \gene{AP3B2} & AP3B22wt & c.1852+5G>C & wt.. & AAGAG & Y \\
+    P1-grey & \gene{ARHGEF28} & ARHGEF28mut & c.1084C>G & mut. & AGAAG & Y \\
+    P1-grey & \gene{ARHGEF28} & ARHGEF28wt & c.1084C>G & wt.. & GCGGC & Y \\
+    P1-grey & \gene{CCDC105} & CCDC105mut & c.1227C>A & mut. & GCAAA & Y \\
+    P1-grey & \gene{CCDC105} & CCDC105wt & c.1227C>A & wt. & GAACA & Y \\
+    P1-grey & \gene{CREBBP} & CREBBPmut & c.2827C>T & mut. & AGGCC & Y \\
+    P1-grey & \gene{CREBBP} & CREBBPwt & c.2827C>T & wt. & GGGAA & Y \\
+    P1-grey & \gene{DENND1A} & DENND1Amut & c.2960C>T & mut. & AACAA & Y \\
+    P1-grey & \gene{DENND1A} & DENND1Awt & c.2960C>T & wt. & CAAGG & Y \\
+    P1-grey & \gene{KCNT1} & KCNT1mut & c.3409C>A & mut. & CACAA & Y \\
+    P1-grey & \gene{KCNT1} & KCNT1wt & c.3409C>A & wt. & GAAGG & Y \\
+    P1-grey & \gene{NOB1} & NOB1mut & c.503A>G & mut. & GCACC & Y \\
+    P1-grey & \gene{NOB1} & NOB1wt & c.503A>G & wt. & AACCC & Y \\
+    P1-grey & \gene{OXSM} & OXSMmut & c.1268A>G & mut. & AGAGA & Y \\
+    P1-grey & \gene{OXSM} & OXSMwt & c.1268A>G & wt. & ACGGC & Y \\
+    P1-grey & \gene{PQLC2} & PQLC2mut & c.627G>A & mut. & CGGAA & Y \\
+    P1-grey & \gene{PQLC2} & PQLC2wt & c.627G>A & wt. & CGAGA & Y \\
+    P1-grey & \gene{RELA} & RELAmut & c.341A>T & mut. & CCCGG & Y \\
+    P1-grey & \gene{RELA} & RELAwt & c.341A>T & wt. & AAGGA & Y \\
+    P1-grey & \gene{SF3B1} & SF3B1mut & c.2098A>G & mut. & AGGAA & Y \\
+    P1-grey & \gene{SF3B1} & SF3B1wt & c.2098A>G & wt. & CGCCG & Y \\
+    P1-grey & \gene{STUB1} & STUB1mut & c.478G>A & mut. & ACACC & Y \\
+    P1-grey & \gene{STUB1} & STUB1wt & c.478G>A & wt. & GAGAG & Y \\
+    P1-orange & \gene{LRP1B} & LRP1Bmut & c.10533G>A & mut. & GGCCG & Y \\
+    P1-orange & \gene{LRP1B} & LRP1Bwt & c.10533G>A & wt. & GGAAG & Y \\
+    P1-purple & \gene{AMZ1} & AMZ1mut & c.208C>T & mut. & CCGGC & Y \\
+    P1-purple & \gene{AMZ1} & AMZ1wt & c.208C>T & wt. & AAAGG & Y \\
+    P1-purple & \gene{EMILIN2} & EMILIN2mut & c.1896T>C & mut. & ACAAA & Y \\
+    P1-purple & \gene{EMILIN2} & EMILIN2wt & c.1896T>C & wt. & AAACA & Y \\
+    P1-purple & \gene{FZD4} & FZD4mut & c.356G>C & mut. & GCCGG & Y \\
+    P1-purple & \gene{FZD4} & FZD4wt & c.356G>C & wt. & CAGGA & Y \\
+    P1-purple & \gene{PTEN} & PTEN1mut & c.388C>T & mut. & CGGCC & Y \\
+    P1-purple & \gene{PTEN} & PTEN1wt & c.388C>T & wt. & CGCGC & Y \\
+    P1-purple & \gene{TMEM8A} & TMEM8Amut & c.735G>A & mut. & GCCAC & Y \\
+    P1-purple & \gene{TMEM8A} & TMEM8Awt & c.735G>A & wt. & CAGAG & Y \\
+    not assigned & \gene{AP3} & ACTB & -- & HK & GCGCG & N \\
+    not assigned & \gene{FGFR1} & FGFR1expNew & -- & exp. & CAAAC & N \\
+    not assigned & \gene{DSEL} & DSELmut & c.1701G>A & mut. & CCAAA & Y \\
+    not assigned & \gene{DSEL} & DSELwt & c.1701G>A & wt. & CAACA & Y \\
+    not assigned & \gene{KIF14} & KIF14mut & c.573G>A & mut. & AGCGC & Y \\
+    not assigned & \gene{KIF14} & KIF14wt & c.573G>A & wt. & GGAGA & Y \\
+    not assigned & \gene{PLXNA2} & PLXNA2mut & c.100G>A & mut. & GGCGC & Y \\
+    not assigned & \gene{PLXNA2} & PLXNA2wt & c.100G>A & wt. & CGAAG & Y \\
+    \bottomrule
+\end{longtable}
+}
+
+{
+\footnotesize
+\begin{longtable}{c c c c c c c}
+    \tabcap{basiss-padlock-probes-P2}{\acs{BaSISS} padlock probes for the P2 case}{Padlock probes targeted specific sequence variants, fusions, and gene expressions based on \ac{WGS}.}\\
+    \toprule
+    Sample & Gene & Target Name & RNA & Type & Barcode & Included? \\
+    \midrule
+    \addlinespace[1ex]
+    \multicolumn{7}{c}{\textbf{Single Nucleotide Variants}} \\
+    \addlinespace[1ex]
+    All & \gene{COX19} & COX19wt & r.394c>g & wt. & GGCC & Y \\
+    All & \gene{COX19} & COX19mut & - & mut. & GGAA & Y \\
+    P2-LN1 & \gene{ERBB2} & ERBB2wt & r.4370g>u & wt. & GCGC & Y \\
+    P2-LN1 & \gene{ERBB2} & ERBB2mut & - & mut. & GCCG & Y \\
+    - & \gene{RPL37A} & RPL37Awt & r.985g>c & wt. & GAGA & Y \\
+    P2-TN1 & \gene{RPL37A} & RPL37Amut & - & mut. & GAAG & Y \\
+    - & \gene{TP53} & TP53wt & r.728g>u & wt. & CGGC & Y \\
+    All & \gene{TP53} & TP53mut & - & mut. & AAGG & Y \\
+    - & \gene{PLXNA1} & PLXNA1wt & r.7031c>u & wt. & CCGG & Y \\
+    P2-TN1/TN2 & \gene{PLXNA1} & PLXNA1mut & - & mut. & AACA & Y \\
+    \addlinespace[1ex]
+    \multicolumn{7}{c}{\textbf{Fusions}} \\
+    \addlinespace[1ex]
+    P2-LN1 & \gene{CACNB1} & CACNB1ex9-intr10 & - & Splice & AGAG & N \\
+    P2-LN1 & \gene{CACNB1} & CACNB1intr10-ex10 & - & Splice & ACCC & Y \\
+    - & \gene{CACNB1} & CACNB1ex9-ex10wt & - & wt. & ACAA & Y \\
+    - & \gene{CARTPT}-\gene{PID1} & CARTPT-PID1 & - &  Fusion & CCAC & N \\
+    - & \gene{ZNF652}:\gene{SNHG5} & ZNF652:SNHG5 & - & Fusion & CACC & N \\
+    \addlinespace[1ex]
+    \multicolumn{7}{c}{\textbf{Gene Expression}} \\
+    \addlinespace[1ex]
+    P2-TN2/TN1 & \gene{CDK6} & CDK6exp & - & Amplified & CAAA & N \\
+    P2-LN1 & \gene{ERBB2} & ERBB2exp & - & Amplified & AGGA & Y \\
+    - & \gene{ACTB} & ACTB & - & HK & CGCG & N \\
+    \bottomrule
+\end{longtable}
+}
+
+
+\subsection{Immune panel design}
+
+Large scale probe design was facilitated using an in-house Python software package as described previously (Ref PMID 31740815) which utilises ClustalW and BLAST+ to ensure probe specificity. Each padlock probe of the immune panel was designed to contain two 20 nucleotide long target recognition arms. Only target fragments with melting temperature between 65°C and 75°C were considered. Probes were selected aiming to obtain a distribution along the whole length of the transcript. 
+
+Overall, five padlock probes were selected per target gene with the exception of \gene{HLA-DRB1}, where only two specific probes could be designed. For the T cell specific genes \gene{CD8A}, \gene{FOXP3}, \gene{EOMES}, \gene{CD4} and \gene{IFNG} 20 probes were selected in order to increase the detection efficiency for these target genes. All padlock probe sequences of the immune panel are shown in Supplementary Table 1.
+
+A combination of random decamer primers (IDT, Leuven Belgium) and specific primers were used for in situ reverse transcription. Specific primers were designed to hybridise to the mRNA 15-20 nucleotides downstream of the target sequence. Primers were ordered as DNA oligos from Integrated DNA Technologies (IDT) and were reconstituted in Tris/EDTA buffer.
+
+Target genes for the immune panel were selected to cover a broad range of immune cell subtype markers with special emphasis on T cell subsets and their regulation (Supplementary Table 1).
+
+\subsection{Oncology gene panel design}
+
+The oncology gene panel has previously been published and includes genes involved in proliferation, EMT, invasiveness, stemness, angiogenesis as well as genes for breast cancer subtyping and oncotypeDX recurrence scoring9. The target recognition arms were designed to capture most splice variants of the gene transcripts and blasted to confirm their specificity. Each target recognition sequence had a GC content of 50-55\% and a melting temperature of $\sim$55°C. In this older design, the panel included one padlock probe per gene target and the barcodes used were only differing in one position. For the marker gene panel, random decamer primers were used for in-situ reverse transcription (IDT, Leuven Belgium).
+
+\subsection{\acl{ISS}}
+
+ISS was performed as described by Ke et al.10 and modified according to Svedlund et al.9 , and was used to spatially resolve oncology panel-, mutation panel- and immune panel- gene expression profiles on consecutive sections from the breast tumour tissue blocks. 
+
+The ISS library preparation and sequencing is described in detail at protocols.io.bb2giqbw, the steps in the protocol that were modified for breast cancer tissues are indicated below. In brief, library preparation included fixation of tissue sections with 4\% PFA for 30 min (step 2) followed by permeabilized with 0.1 mg/ml pepsin (Sigma) in 0.1 M HCl 37°C for 90 s (step 4). SecureSeal™ reaction chambers were mounted on top of the tissues (Grace Biolabs, Bend, United States) and cDNA was synthesised in situ using specific DNA primers (125nM for mutation panel, 5nM for immune panel) and/or random decamer primers (5µM for immune and marker gene panels) (step 10) (IDT, Leuven Belgium, sequences are listed in Supplementary Table 1). Rnase H was used to generate single-stranded cDNA that the padlock probes could hybridise to. Hybridized padlock probes (10nM of each in immune panel, 0nM of each in mutation and marker gene panel, step 15) (IDT, Leuven Belgium, sequences are listed in Supplementary Table 1) were ligated using Tth ligase, a highly specific DNA ligase that can discriminate correct base-pairing at the single nucleotide level. Only completely target-complementary padlock probes become ligated, forming closed circles that could then be amplified through rolling circle amplification (RCA). Of note, for P1, the experimental conditions for the first replica of ISS differed slightly with a diverse Phi29 buffer (Thermo Fisher 10X reaction buffer: 330 mM Tris-acetate (pH 7.9 at 37°C), 100 mM Mg-acetate, 660 mM K-acetate, 1\% Tween 20 and 10 mM DTT) and no Exonuclease 1 in the rolling circle amplification step.
+
+The four-five nucleotide target-specific barcodes included in the padlock probe linker sequence were clonally amplified in the RCA products allowing identification through sequencing by ligation (according to Dermat et al.) of anchor primer and fluorophore-labelled interrogation probes 9. Nuclei were stained with 4',6-diamidino-2-phenylindole (DAPI). The target-specific barcodes were sequenced with four sequencing and imaging rounds. For case 1, the mutation panel was sequenced with one hybridization cycle in addition to the four sequencing by ligation cycles. After the \ac{ISS} analysis, the tissue sections were stained with PanCK, CD45 or HER2 antibody.
+
+\subsection{Imaging}
+
+Images were acquired with an automated Zeiss Axioplan II epifluorescence microscope (Zeiss, Oberkochen, Germany) using a z-stack of 0.49$\mu$m$ \times$ 11 and a tile overlap of 1\%. Images were scanned with a 20X objective. For the first base sequenced, the exposure times were calibrated so that the signal intensity values were similar for all sequencing channels (A–Cy5, G-Cy3, C-Texas Red and T-AF488), the calibrated exposure times were then kept constant for all remaining sequencing cycles. Orthogonal projections and stitching of tiles were done with the ZEN software (Zeiss).
+
+\subsubsection*{Image stitching}
+
+From a total of 51 image sets, 43 were stitched with Carl-Zeiss ZEN software (version 3.1), and the other 8 failed image sets were stitched using BigStitcher (version 0.9)11.
+
+\section{Image data processing}
+\label{sec:protocol-suppl-image-processing}
+
+\subsection{Image registration}
+
+The registration across imaging cycles was performed in two steps: affine registration on DAPI channel and subsequently local warping on anchor channel. For both steps we used algorithms provided in libraries OpenCV-contrib (version 4.3.0)12 and scikit-image (version 0.17)13. In all imaging cycles, before the registration, both DAPI and anchor channels were maximum intensity projected across the image z-stack.
+
+During the affine registration step, we coarsely align images of all cycles to the first one based on the DAPI channel. Firstly, we detect key points in the images of each cycle using the FAST feature detector. Secondly, for each key point, its surrounding area is described with histograms of oriented gradients using the DAISY feature descriptor. After that, using the key points and their descriptors, the FLANN-based matcher finds correspondences between pairs of key points from reference and moving images and filters out unreliable points. Lastly, the remaining key points are processed using the RANSAC-based algorithm that aligns them and estimates affine transformation parameters with 4 degrees of freedom.
+
+The second registration step aligns imaging cycles sequentially using the anchor channel (fluorophore Cy7). We applied the Farneback optical flow algorithm to achieve more accurate registration by warping the images locally, so that RNA spots of different channels can be better aligned despite the presence of nuclei swelling, imperfect stitching and sample distortion. In both steps, we optimised the algorithm by performing computation on the tiled images to reduce memory consumption and accelerate the transformation parameters estimation.
+
+\subsection{Serial tissue image signal alignment}
+\label{sec:protocol-suppl-image-align}
+
+Analysis of sample P2-LN required \ac{IHC} signal projection performed on a consecutive slide back to \ac{BaSISS} slide. To achieve this, we performed a spline-based elastic registration implemented in ImageJ package UnwarpJ14. 
+
+\subsection{\ac{ISS} signal deconvolution}
+\label{sec:protocol-suppl-image-deconvolution}
+
+After registration of images from different sequencing rounds, we locate RNA spots by applying the circular Hough transform to the reference anchor channel of the first round, which is implemented in MATLAB's function 'imfindcircles'. At the detected coordinates, image values are extracted from top-hat filtered coding channels across all sequencing rounds. We then perform decoding of the extracted image values via a Gaussian Mixture Model, where each mixture corresponds to one of the possible barcodes encoded via an experimental design. Finally, once the mixture model is fitted to the extracted image values, each detected spot is assigned to the most likely barcode15. In addition to on-target barcodes, there is an infeasible class which represents RNA spots to which barcodes could not be assigned. In Supplementary Table 4 we present QC metric of our datasets as a proportions of RNA spots with assigned barcodes ($p$ > 0.6) to the total number of spots. 
+
+\section{\acs{LCM}-\acs{WGS} Validation}
+\label{sec:protocol-suppl-lcm-wgs}
+
+Residual frozen tissue blocks from P1 samples P1-D1, P1-D2, P1-ER1 and P1-ER2 were accessed to perform laser capture microdissection (LCM) and low input library whole genome sequencing as previously reported26. Ten micrometre thick sections were generated at -20 °C and mounted on poly-ethylene naphtholate (PEN)-membrane slides (Leica), fixed with 70\% ethanol for 2 minutes followed by serial immersion in the following: deionised water (1 minute), Gill’s haematoxylin (10 seconds), tap water (20 seconds, twice), eosin (5 seconds), tap water (20 seconds), ethanol 70\% (20 seconds, twice), ethanol 100\% (20 seconds, twice), xylene (20 seconds, twice). 
+
+Using a laser-capture microscope (Leica LMD7), breast tissue architecture in relation to existing mapped clones (where feasible) was first visualised, then regions of approximately 13,000-180,000um2 were dissected (power 55, aperture 2) and collected into the individual wells of a 96-well plate. Samples were then processed as described by Ellis et al.26. Briefly, individual steps include cell lysis and digestion using Arcturus PicoPure Protease buffer and thermal cycling in a sealed plate (60 °C for 3 h, 75 °C for 30 min, hold at 4 °C), gDNA purification using Agencourt AMPure beads, enzymatic DNA library construction (NEBNext Ultra II FS DNA Library Prep Kit for Illumina (New England Biolabs, cat. no. E7805L)), adapter ligation and amplification. Genomic libraries with concentrations of >5ng/ul DNA (total volume = 20ul) were selected for NovaSeq 6000 paired end sequencing. A bulk whole genome library was also generated from whole blood derived DNA and sequenced in the same way. As described above for bulk WGS analysis, point mutations were called using CaVEMan and copy number using ASCAT and Battenberg algorithms and mutation clusters identified using DPclust v2.2.8 (Supplementary Data Table 5). 
+
+\section{Mutation timing estimates}
+\label{sec:protocol-suppl-timing}
+
+We report that there is evidence of early divergence of the subclones detected in P1 (prior to 50\% of in m time). Evolutionary timing estimates can be sought for P1 but are not attempted for P2 due to relatively low purity.  Based on the assumption of a relatively constant mutation rate within a given genetic lineage, subclone divergence as a percentage of evolutionary time can be calculated from the number of mutations accumulated up to the branching point (branch lengths) divided by the longest series of branches within that lineage. Mutation rates particularly in cancers might be greatly altered by hypermutator states, however, we confirmed that in P1 virtually all mutations in this case are derived from clock-like mutational processes using our previously published approaches (Signature 1, 5 and 40) (Supplementary Table 3)27. 
