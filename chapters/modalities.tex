@@ -41,15 +41,15 @@ In summary, a nuanced understanding of cancer necessitates the integration of mu
 Knowing the spatial distribution of clonal densities with the BaSISS model described in \cref{sec:chapter-basiss-model}, one may characterise the clones phenotypically based on additional spatially matched data. These include:
 
 \begin{itemize}
-    \item Histopathological phenotype
-    \item \ac{IHC} staining
-    \item \ac{ISS} expression signals assigned to nuclei
-    \item Cell type annotations
+    \item Histopathological phenotype, \cref{sec:modalities-histopath}
+    \item \ac{IHC} staining \cref{sec:modalities-ihc}
+    \item \ac{ISS} expression signals assigned to nuclei, \cref{sec:modalities-iss}
+    \item Cell type annotations, \cref{sec:modalities-schierarchy,sec:modalities-celltype}
 \end{itemize}
 
 \explain{}{\marginfig{side-plot-tissue-block.pdf} The tissue block undergoes sectioning to yield material for the designated experiment. Subsequently, the various data modalities are spatially aligned. The thickness of each slide measures 10 $\mu$m.}
 
-The modalities of spatially resolved information exist across multiple consecutive tissue slides. These slides exhibit spatial deformations from one layer to another, complicating the registration process. To integrate information across all modalities, a trained pathologist, \acf{hege}, manually annotated regions of breast tissue. These annotations targeted areas with similar histopathological phenotypes, which should be in close physical proximity on the z-stack.
+The modalities of spatially resolved information exist across multiple consecutive tissue slides. These slides exhibit spatial deformations from one layer to another, complicating the registration process. To integrate information across all modalities, a trained pathologist, \acf{hege}, manually annotated regions of breast tissue. These annotations targeted areas with similar histopathological phenotypes, which should be in close physical proximity on the z-stack. After integrating the data, I applied statistical tests specifically designed for this dataset to characterise cancer biology \pcref{sec:modalities-glmm}.
 
 \subsection{Histopathological phenotype}
 \label{sec:modalities-histopath}
