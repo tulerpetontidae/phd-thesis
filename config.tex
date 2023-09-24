@@ -15,7 +15,7 @@
 \usepackage[table]{xcolor} % e.g. for black!50
 \usepackage{pdflscape}
 \usepackage{rotating}
-
+\usepackage{tabularx}
 
 \definecolor{darkorange}{RGB}{255,140,0}
 \definecolor{orangered}{RGB}{255,69,0}
@@ -375,6 +375,16 @@
         \includegraphics[width=\textwidth,center]{#2}%
         \appfigcap{#3}{#4}{#5}
     \end{figure}
+}
+
+\newcommand*\appendixfigurefloatside[5][!htp]{%                       <- figuretextwidth [4]
+    \label{appfig:#2}
+    \begin{sidewaysfigure}[#1]
+        % \refstepcounter{appfigcounter}
+        \captionsetup{type=appfig}
+        \includegraphics[width=\textwidth,center]{#2}%
+        \appfigcap{#3}{#4}{#5}
+    \end{sidewaysfigure}
 }
 
 \DeclareCaptionType[fileext=lof, placement={!ht}, within=chapter, name=Appendix Figure, listname={List of Figures}]{appfig}
