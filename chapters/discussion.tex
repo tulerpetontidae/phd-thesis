@@ -1,2 +1,69 @@
 \chapter{Discussion}
 \label{sec:chapter-discussion}
+
+Cancer in inherently a spatial disease. why why why. However, we are technologically limited in understanding the extent to which subclones interact with microenvironment as spatial technologies targeting genome are limited in their spatial resolution, or using indirect methods that allow to capture only limited subtype of genomic rearrangement makign phylogenetic inference - hard.
+
+In this thesis, I developed a Bayesian model to generate quantitative maps of cancer clones from sparse BaSISS data
+
+Integrated multiple data modalities, including ISS, IHC, and histology to phenotype clones
+
+Applied approach to multifocal breast cancers, gaining insights into ductal, invasive, and metastatic disease.
+
+\section{Current limitaitons and future technologies}
+
+Like with any technology, inherent limitations and suboptimal decisions often occur during its development. These leave room for improvement, enhancing the resolution and detail with which cancer evolution can be characterised.
+
+\subsection{Spatial lineage tracing with \ac{BaSISS}}
+
+\subsubsection*{experimental limitations}
+
+The \ac{BaSISS} is a targeted method requiring prior knowledge of mutations. This contrasts with certain Visium-based methods, which do not require such information. In theory, one could design probes targeting a set of expressed genes distributed throughout the genome to generate copy number profiles. However, adopting this strategy would sacrifice BaSISS's key advantage: the ability to detect point mutations.
+
+For the initial detection of subclones and tree resolution, we employed multi-region sequencing. Although this method is not highly sensitive, particularly in the case of P2-LN1 where the \ac{CCF} was low, it served as a starting point. An alternative approach to improve point mutation detection and tree resolution would involve techniques like single-cell \ac{WGS} or \ac{LCM} followed by sequencing targeted cancer regions. For an illustration of the additional details that can be revealed through such methods, refer to \ref{fig:applications-evolution-tree}.
+
+The number of probes defining evolutionary branches is critical for accurate subclone resolution. For instance, the P1-green clone was defined solely by a point mutation in the \gene{KIAA0652} gene. Fortunately, this gene was highly expressed, mitigating the risk of failing to resolve this particular clone. During probe design, we considered gene expression levels. However, predicting the gene's expression pattern can be challenging, especially if it varies non-linearly due to copy number changes (see Section \ref{sec:basiss-model-assumptions} for details). Additionally, it is difficult to forecast the efficacy of padlock probes, such as their specificity. Therefore, it is crucial to include as many expressible genomic alterations as possible in the probe design.
+
+\explain{}{explain this with figure}
+A fundamental limitation of the BaSISS approach, and any other method targeting RNA, is the inability to trace clones not defined by mutations in the coding region. Enhancing tree resolution could partially mitigate this issue by allowing the mapping of smaller clonal expansions that may possess their own coding mutations. In doing so, one could at least partially allocate the undefined parent clonal expansion. Hypermutative tumours, which contain a significantly higher number of mutations than usual (see link for details), may be particularly well-suited for investigations using BaSISS.
+
+When there is a need to trace hundreds of mutations, the task should be relatively straightforward. The 56 probes we used to map the P1 clone are not a technological limitation for the \ac{ISS} method. Modern \ac{ISS} experiments can resolve up to 300 genes, which, in the context of \ac{BaSISS}, equates to the detection of 150 allelic variants plus an additional 150 reference alleles.
+
+A significant drawback of the BaSISS protocol implementation discussed in this thesis is its low sensitivity, which arises from two main factors: inefficient sequencing-by-ligation chemistry and limited targetable material. Unlike standard FISH technologies, where probes can target multiple regions of the same gene to enhance sensitivity, \ac{BaSISS} can target \acp{SNV} and structural variants with exactly one probe.
+
+However, there is room for improving the sequencing chemistry, as evidenced by advancements in \ac{ISS} protocols. For instance, hybridisation-based \ac{ISS} (HybISS) \parencite{Gyllborg2020-uq} and direct RNA-targeted \ac{ISS} (dRNA-HybISS) \parencite{Lee2022-ha} offer improvements. The first one excahnges ineficient sequencing by ligation with a more efficient hybridisation step. The latter bypasses the need for reverse transcription required for cDNA generation. Nevertheless, it is essential to consider that RNA ligases used in these improved methods may have different substrate specificities, which could impact ligation accuracy and the off-target effect.
+
+Standardisation of the \ac{BaSISS} protocol could substantially enhance its utility and reproducibility across different laboratories. \ac{BaSISS} protocol involves a diverse array of equipment, reagents, and computational infrastructure, all of which must be meticulously coordinated. Additionally, trained personnel are required to execute each stage with minimal variability. Even within the scope of this thesis, where the same individuals conducted the experiments, I observed considerable variability in signal detection between slides. Attempts to replicate the experiments in a different facility have highlighted the challenges associated with even minor issues, such as imperfect glass slide alignment under the microscope between reaction cycles. These seemingly trivial errors took months to identify and led to a significant degradation in data quality. Transitioning the protocol to industrial-standard machines, similar to those used in Xenium technology, could make the method more reproducible and accessible to a broader research community.
+
+The model I developed, detailed in \cref{sec:chapter-basiss-model}, along with the accompanying infrastructure code, is designed to handle moderately noisy \ac{BaSISS} data in future experiments. This model is capable of mapping an arbitrary number of clones across centimetres of tissue, assuming each clone possesses at least one well-behaved, clone-specific mutation. While there is room for improvement, as discussed in Section \cref{sec:basiss-model-assumptions}, the current model will likely become obsolete as experimental methods advance to offer single-cell-level resolution. Such advancements will necessitate substantial changes to the model's structure. Although the data generation process will share many similarities with the current approach, future data sets will likely not require binning or \ac{GP} to manage sparsity. I anticipate that future models will employ clustering approaches similar to Bayesor \parencite{Petukhov2022-pv} or pciSeq \parencite{Qian2020-mp}.
+
+\subsection{Phenotype and microenvironment characterisation}
+
+The methods are by far suboptimal.
+
+
+Already example of better strategies for phenotype characterisation 
+
+
+\section{Future perspectives}
+
+\subsection{Technological advances}
+
+\subsection{Breast cancer}
+
+Larger cohorts needed to generalize findings
+
+Investigate mechanisms underlying DCIS growth patterns
+
+Examine role of microenvironment in invasion and metastasis
+
+Study therapeutic implications of clonal heterogeneity
+
+\subsection{Spatial cancer research}
+
+Create tumor ecosystem atlases across cancer types
+
+Elucidate general principles of spatial ecology
+
+Develop prognostic and predictive biomarkers
+
+Identify vulnerabilities for ecological therapy
