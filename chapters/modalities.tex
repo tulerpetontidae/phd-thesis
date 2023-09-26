@@ -1,4 +1,4 @@
-\chapter{Data Integration: Biological Insights from  Multiple Data Modalities}
+\chapter{Spatial Data Integration: Biological Insights from  Multiple Data Modalities}
 \label{sec:chapter-basiss-multimodal}
 
 \section*{Declaration}
@@ -11,11 +11,11 @@ The work I present here is primarily my own contribution. I developed and implem
 
 I analysed and interpreted the data, and drafted the original article and figures, again under the supervision of \ac{moritz} and \ac{lucy}. You can find all the code on \href{https://github.com/gerstung-lab/BaSISS}{Github}. The code for hierarchical logistic regression I wrote together with \ac{vitalii}. It is available at \href{https://github.com/dissatisfaction-ai/scHierarchy}{scHierarchy} repo.
 
-Another first author of this paper, \ac{jessica}, in collaboration with \ac{peter}, \ac{mats}, and \ac{lucy}, designed the initial study of \acs{BaSISS} and \acs{ISS}. \ac{jessica}, \ac{mats}, and \ac{carina} conducted \acs{BaSISS}, \acs{ISS} and \acs{IHC} experiments and provided the raw data. \ac{junsung}, \ac{vasyl}, \ac{tong}, and \ac{milana} preprocessed and decoded \acs{ISS} and \acs{BaSISS} data. I had access to the decoded \acs{ISS} and \acs{BaSISS} data. \ac{hege} provided histopathological description of the microregions.
+Another first author of this paper, \ac{jessica}, in collaboration with \ac{peter}, \ac{mats}, and \ac{lucy}, designed the initial study of \acs{BaSISS} and \acs{ISS}. \ac{jessica}, \ac{mats}, and \ac{carina} conducted \acs{BaSISS}, \acs{ISS} and \acs{IHC} experiments and provided the raw data. \ac{junsung}, \ac{vasyl}, \ac{tong}, and \ac{milana} preprocessed and decoded \acs{ISS} and \acs{BaSISS} data. I had access to the decoded \acs{ISS} and \acs{BaSISS} data. \ac{hege} provided histopathological description of the microregions. \ac{sandro}, \ac{andrea}, \ac{sarah} contributed histopathological expertise.
 
 The Introductory \cref{sec:modalities-multimodal-intro}, Data Characterisation \cref{sec:modalities-iss}, Hierarchical Logistic Regression \cref{sec:modalities-schierarchy}, Multimodal Visualisation \cref{sec:modalities-cancerclonemaps} and Summary \cref{sec:modalities-summary} are original. I borrowed the rest of the sections from the original manuscript and reworked them to fit the thesis format, rewording, expanding and illustrating them for clarity. All the main and margin figures are original except \cref{fig:multimodal-iss} and \cref{fig:multimodal-markers}, which I reproduced from the original paper with stylistic and compositional adjustements. 
 
-\section{Multimodal Analsis}
+\section{Background on multimodal analsis}
 
 \label{sec:modalities-multimodal-intro}
 
@@ -54,7 +54,7 @@ The modalities of spatially resolved information exist across multiple consecuti
 \subsection{Histopathological phenotype}
 \label{sec:modalities-histopath}
 
-In our study, histology served dual purposes: it helped define micro-anatomical and cellular features, and designate microregions for feature projection across consecutive slides and assays \pcref{sec:intro-histology}. \acl{hege} and \acf{lucy} annotated microregions on \acf{H\&E} stained fresh-frozen samples, uninfluenced by prior knowledge of the sample's genetic clonal structure.
+In our study, histology served dual purposes: it helped define micro-anatomical and cellular features, and designate microregions for feature projection across consecutive slides and assays \pcref{sec:intro-histology}. \acl{hege} annotated microregions on \acf{H\&E} stained fresh-frozen samples, uninfluenced by prior knowledge of the sample's genetic clonal structure.
 
 For \acf{DCIS} cases, annotation focused on regions presumed to be myoepithelially enclosed, as indicated by \ac{H\&E} or other histological images (refer to \cref{fig:applications-breast-structure} for details). Due to the limitations imposed by fresh freezing, certain features like mitotic activity and chromatin structure were difficult to assess. Consequently, nuclear grade (see \cref{sec:applications-breast-intro}) in \ac{DCIS} relied mainly on nuclear size. \acs{hege} assessed the presence or absence of nuclear vacuoles using a 20\% cut-off criterion. Challenges in identifying \ac{TDLU} and ducts were resolved by considering the presence of branches in morphology \pcref{fig:applications-breast-structure}.
 

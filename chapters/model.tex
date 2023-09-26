@@ -1,4 +1,4 @@
-\chapter{From Noisy Spots to Accurate Clonal Maps: A Bayesian Approach}
+\chapter{Spatial Genomics: From Noisy Signals to Accurate Clonal Maps}
 \label{sec:chapter-basiss-model}
 
 \section*{Contributions}
@@ -129,7 +129,7 @@ In addition to advancements in inference algorithms, contemporary machine learni
 
 \ac{BaSISS} profiles extensive areas of tissue, encompassing hundreds of thousands of cells. The underlying processes that generate the final data are complex. Therefore, defining a statistical approach becomes unfeasible without the utilisation of cutting-edge inference approaches and frameworks capable of handling this complexity.
 
-\section{A bayesian model to localise cancer clones in tissue}
+\section{A Bayesian model to localise cancer clones in tissue}
 \subsection{BaSISS data characterisation}
 \label{sec:bassis-data-brief}
 
@@ -161,7 +161,7 @@ The maps $\mathbf{M}$, on the other hand, offer insight into the relative preval
 
 Since all three matrices are non-negative, the problem can be categorised as a \emph{non-negative matrix factorisation} problem. It is a known characteristic of such problems that they typically do not have unique solutions. Therefore, additional constraints, guided by biological reasoning, are required to ensure the identifiability of the solution. While the matrix $\mathbf{G}$ possesses a clear biological interpretation and is essentially fixed, the spatual nature of matrix $\mathbf{M}$, being a latent variable, must be carefully defined.
 
-\subsection{Latent Gaussian Process}
+\subsection{Latent Gaussian process}
 
 Since the matrix $\mathbf{M}$ is designed to represent a spatially continuous map, we can utilise the inherent assumptions about spatial locality present within the data. Specifically, it is logically consistent to anticipate that points that are spatially closer to one another should display higher similarity than those further apart. This expectation not only arises from a general consideration of spatial smoothness but also finds roots in biological rationale. Considering the process of \explain{cancer growth}{can be effectively modelled using the RBF kernel, as the cohesion in many tumours causes descendant cells to stay close together, mirroring the localised similarity patterns that this kernel captures \marginfig{side-plot-cancer-growth-cartoon.pdf}}, for example, dividing cells are typically situated near their parent cells, which further accentuates local similarity. This concept of spatial locality can be mathematically articulated using a Radial Basis kernel function:
 
