@@ -1,24 +1,25 @@
-\chapter{Discussion}
+\chapter{Outlook}
 \label{sec:chapter-discussion}
 
-Cancer in inherently a spatial disease. why why why. However, we are technologically limited in understanding the extent to which subclones interact with microenvironment as spatial technologies targeting genome are limited in their spatial resolution, or using indirect methods that allow to capture only limited subtype of genomic rearrangement makign phylogenetic inference - hard.
+Cancer is fundamentally a spatial disease as its origin and progression are linked to specific anatomical locations and microenvironments within the body. These spatial relationships between cancer cells and adjacent tissues offer key insights into tumour onset, evolution, and treatment response \pcref{sec:chapter-introduction}. Despite this importance, current technologies constrain our understanding of the interactions between subclones and the microenvironment. Existing spatial technologies targeting the genome either suffer from limited spatial resolution or employ indirect methods based on a limited subset of genomic changes, thereby complicating phylogenetic inference.
 
-In this thesis, I developed a Bayesian model to generate quantitative maps of cancer clones from sparse BaSISS data
+In this thesis, I developed the key computation components of the first method to chart cancer evolution in tissue space \pcref{sec:chapter-basiss-model}. 
+I design algorithms that integrate clonal maps with various types of auxiliary data, including \ac{ISS}, \ac{IHC}, and histology, to provide a comprehensive characterisation of clones and the tumour microenvironment \pcref{sec:chapter-basiss-multimodal}
 
-Integrated multiple data modalities, including ISS, IHC, and histology to phenotype clones
+Applying this methodology to multifocal breast cancers, I charted the spatial organisation of clones through three stages of cancer progression: ductal carcinoma in situ (\ac{DCIS}), invasive carcinoma, and lymph node metastasis \pcref{sec:chapter-basiss-applications}. This study revealed a remarkable degree of segregation among histologically distinct cancer clones within the breast's ductal system. It tracked the phenotypical changes accompanying progression to the invasive stage and confirmed that genetically indistinguishable clones can exist in both invasive and in situ states. The study also showed how cancer clones adapt to unique ecological niches within the lymph node, suggesting likely interactions with the immune system. Across all three stages examined, the territories occupied by different clones exhibited distinct transcriptional and histological features, as well as diverse microenvironments.
 
-Applied approach to multifocal breast cancers, gaining insights into ductal, invasive, and metastatic disease.
+These results demonstrate the utility of spatial genomics to elucidate the mechanisms that govern cancer evolution and spatial enecology.
 
 \section{Current apporach limitaitons and future technologies}
 
-As with any technology, the outlined approach possesses inherent limitations that restrict its applicability and the range of biological questions it can address. While some of these limitations are fundamental and intrinsic to the technology, others could see improvement at the current technological stage. Such enhancements would increase both the resolution and the level of detail with which cancer evolution can be characterised.
+As with any technology, the outlined approach possesses inherent limitations that restrict its applicability and the range of biological questions it can address. Some limitations are fundamental to the technology itself, such as its focus on mutations in the coding region and its requirement for prior phylogenetic reconstruction. Others, including the lack of detailed phylogeny, low signal yield, and standardisation issues, could be improved with current technology. Addressing these limitations would enhance both the resolution and the detail with which we can characterise cancer evolution.
 
-\subsection{Spatial lineage tracing with \ac{BaSISS}}
+\subsection{Spatial lineage tracing with \acs{BaSISS}}
 
-The \ac{BaSISS} is a targeted method requiring prior knowledge of mutations and requires a panel redesign for every idividual cancer cases drasticly increasing the cost of experiments. This contrasts with certain spatial sequencing methods \parencite{Zhao2022-xd,Erickson2022-zh}, which do not require such information and infer clone maps based on copy number profiles. In theory, one could design probes targeting a set of expressed genes distributed throughout the genome to generate copy number profiles. However, adopting this strategy would sacrifice \ac{BaSISS}'s key advantage: the ability to detect point mutations.
+The \ac{BaSISS} is a targeted method requiring prior knowledge of mutations and requires a panel redesign for every idividual cancer cases drasticly increasing the cost of experiments. This contrasts with certain spatial sequencing methods \parencite{Zhao2022-xd,Erickson2022-zh}, which do not require such information and infer clone maps based on copy number profiles. In theory, one could design probes targeting a set of expressed genes distributed throughout the genome to generate copy number profiles. While it is possible to adopt this strategy for \ac{BaSISS}, focusing just on \acp{CNA} would sacrifice \ac{BaSISS}'s key advantage: the ability to detect point mutations.
 
 \subsubsection*{Prior phylogeny reconstruction}
-Initial detection of subclones and tree reconstruction was done based on multi-region sequencing data. This method is not highly sensitive, particularly in the case of P2-LN1 where the \ac{CCF} was low. An alternative approach to improve point mutation detection and tree resolution could involve techniques like single-cell \ac{WGS}. Currently, \ac{LCM} might offer an even better option, owing to its superior ability to detect point mutations.
+Initial detection of subclones and tree reconstruction was done based on multi-region sequencing data. This method is not highly sensitive, particularly in cases where the \ac{CCF} is low. An alternative approach to improve point mutation detection and tree resolution could involve techniques like single-cell \ac{WGS}. Currently, \ac{LCM} might offer an even better option, owing to its superior ability to detect point mutations.
 
 Utilising \ac{LCM} would slightly modify the research workflow. Instead of first inferring genomic landscapes and subsequently exploring their association with histology, histological features would guide the selection of \ac{LCM} regions for genotyping. Although this approach introduces a degree of bias, it could be more powerful in elucidating the relationship between histology and genomics. The \ac{BaSISS} could then extend genotyping capabilities to regions not characterised by \ac{LCM}. For an illustration of the additional phylogenetic details that can be revealed through such methods, refer to \cref{fig:applications-evolution-tree}.
 
@@ -26,15 +27,15 @@ Utilising \ac{LCM} would slightly modify the research workflow. Instead of first
 The number of probes defining evolutionary branches is critical for accurate subclone resolution. For instance, the P1-green clone was defined solely by a point mutation in the \gene{KIAA0652} gene. Fortunately, this gene was highly expressed, mitigating the risk of failing to resolve this particular clone. During probe design, we considered gene expression levels. However, predicting the gene's expression pattern can be challenging, especially if it varies non-linearly due to copy number changes (see \cref{sec:basiss-model-assumptions} for details). Additionally, it is difficult to forecast the efficacy of padlock probes, such as their specificity. Therefore, it is crucial to include as many expressible genomic alterations as possible in the probe design.
 
 \explain{}{explain this with figure}
-A fundamental limitation of the \ac{BaSISS} approach, and any other method targeting RNA, is the inability to trace clones not defined by mutations in the coding region. Enhancing tree resolution could partially mitigate this issue by allowing the mapping of smaller clonal expansions that may possess their own coding mutations. In doing so, one could at least partially allocate the undefined parent clonal expansion. Hypermutative tumours, which contain a significantly higher number of mutations than usual (see link for details), may be particularly well-suited for investigations using \ac{BaSISS}.
+A fundamental limitation of the \ac{BaSISS} approach, and any other method targeting RNA, is the inability to trace clones not defined by mutations in the coding region. Enhancing tree resolution could partially mitigate this issue by allowing the mapping of smaller clonal expansions that may possess their own coding mutations. In doing so, one could at least partially allocate the undefined parent clonal expansion. Hypermutant tumours \parencite{Alexandrov2020-uo}, which contain a significantly higher number of mutations than usual, may be particularly well-suited for investigations using \ac{BaSISS}.
 
 When there is a need to trace hundreds of mutations, the task should be relatively straightforward. The 56 probes we used to map the P1 clone are not a technological limitation for the \ac{ISS} method. Modern \ac{ISS} experiments can resolve up to 300 genes, which, in the context of \ac{BaSISS}, equates to the detection of 150 allelic variants plus an additional 150 reference alleles.
 
-\subsubsection*{Sensitivity}
+\subsubsection*{Signal yield}
 
-A significant drawback of the \ac{BaSISS} protocol implementation discussed in this thesis is its low sensitivity, which arises from two main factors: inefficient sequencing-by-ligation chemistry and limited targetable material. Unlike standard FISH technologies, where probes can target multiple regions of the same gene to enhance sensitivity, \ac{BaSISS} can target \acp{SNV} and structural variants with exactly one probe.
+A significant drawback of the \ac{BaSISS} protocol is its low yield of signals, which arises from two main factors: inefficient sequencing-by-ligation chemistry and limited targetable material. Unlike standard FISH technologies, where probes can target multiple regions of the same gene to enhance detection, \ac{BaSISS} can target \acp{SNV} and structural variants with exactly one probe.
 
-However, there is room for improving the sequencing chemistry, as evidenced by advancements in \ac{ISS} protocols. For instance, hybridisation-based \ac{ISS} (HybISS) \parencite{Gyllborg2020-uq} and direct RNA-targeted \ac{ISS} (dRNA-HybISS) \parencite{Lee2022-ha} offer improvements. The first one excahnges ineficient sequencing by ligation with a more efficient hybridisation step. The latter bypasses the need for reverse transcription required for cDNA generation. Nevertheless, it is essential to consider that RNA ligases used in these improved methods may have different substrate specificities, which could impact ligation accuracy and the off-target effect.
+However, there is room for improving the sequencing chemistry, as evidenced by advancements in \ac{ISS} protocols. For instance, hybridisation-based \ac{ISS} (HybISS) \parencite{Gyllborg2020-uq} and direct RNA-targeted \ac{ISS} (dRNA-HybISS) \parencite{Lee2022-ha} offer improvements. The first one excahnges sequencing by ligation with a more efficient hybridisation step. The latter bypasses the need for reverse transcription required for cDNA generation. Nevertheless, it is essential to consider that RNA ligases used in these improved methods may have different substrate specificities, which could impact ligation accuracy and the off-target effect.
 
 \subsubsection*{Standartisation}
 
@@ -47,7 +48,7 @@ Is this tehcnology a silver bullet that solved the challenges of spatial genomic
 
 However, I envisage that \ac{BaSISS} could serve as a valuable supplement to other spatial genomics tools like \ac{LCM} \pcref{box:technologies}, particularly for deeply investigating the evolutionary history of hypermutated cancers.
 
-The model I developed, detailed in \cref{sec:chapter-basiss-model}, along with the accompanying infrastructure code, is designed to handle moderately noisy \ac{BaSISS} data in future experiments. This model is capable of mapping an arbitrary number of clones across centimetres of tissue, assuming each clone possesses at least one well-behaved, clone-specific mutation. While there is room for improvement, as discussed in Section \cref{sec:basiss-model-assumptions}, the current model will likely become obsolete as experimental methods advance to offer single-cell-level resolution. Such advancements will invite substantial changes to the model's structure. Although the data generation process will share many similarities with the current approach, future data sets will likely not require binning or \ac{GP} to manage sparsity. I anticipate that future models will employ clustering approaches similar to Bayesor \parencite{Petukhov2022-pv} or pciSeq \parencite{Qian2020-mp}.
+The model I developed, detailed in \cref{sec:chapter-basiss-model}, along with the accompanying infrastructure code, is designed to handle moderately noisy \ac{BaSISS} data in future experiments. This model is capable of mapping an arbitrary number of clones across centimetres of tissue, assuming each clone possesses at least one well-behaved, clone-specific mutation. While there is room for improvement, as discussed in Section \cref{sec:basiss-model-assumptions}, further amendments will be neede as experimental methods advance to offer single-cell-level resolution. Such advancements will invite substantial changes to the model's structure. Although the data generation process will share many similarities with the current approach, future data sets will likely not require binning or \ac{GP} to manage sparsity. I anticipate that future models will employ clustering approaches similar to Bayesor \parencite{Petukhov2022-pv} or pciSeq \parencite{Qian2020-mp}.
 
 \subsection{Phenotype and microenvironment characterisation}
 
@@ -76,38 +77,58 @@ The statistical models outlined in \pcref{sec:modalities-glmm} serve to delineat
 However, richer multimodal single-cell data enable more refined statistical approaches for modelling interactions between intrinsic and extrinsic cellular components. Graph-based representations preserve spatial relationships and offer a framework for modelling intercellular communication, as demonstrated by the NCEM method \parencite{Fischer2023-go}. While fully mechanistic modelling of cellular components poses significant challenges, neural network-based approximations could partly represent cell behaviour. I anticipate that the integration of multi-modal data within a graph-based model, which explicitly considers cell phenotypes as functions of both their intrinsic characteristics and local neighbourhood, will advance our understanding of the roles of genome and microenvironment in cancer cell behaviour and cellular plasticity.
 \explain{}{add NCEM-like figure}
 
-\section{Spatial genomics and cancer}
+\section{Spatial genomics and breast cancer}
 
-How could we use basiss or other spatial genomics methods overlayed with phenotype characterisation to better understand cancer.
+The study detailed in \cref{sec:chapter-basiss-applications} demonstrates a surprising degree of spatial organisation among cancer clones. This work highlights the efficacy of cancer lineage tracing technology in establishing links between evolutionary lineages, their phenotypes, and their microenvironments. This technology thus offers valuable insights into cancer cell plasticity from an evolutionary perspective. While most of the findings are discussed in \cref{sec:application-discussion}, this section aims to situate these results within the broader context of unresolved questions concerning breast cancer progression, closer to the one listed in \cref{sec:application-open-questions}.
 
-\subsection{Breast cancer}
+\explain{}{draw a picture, how evolutionary framework helps making right comparisons}
 
-Main problems outlined at the end of \cref{sec:chapter-basiss-applications}
+\subsubsection*{Mammary gland development and ductal system colonisation}
 
-Larger cohorts needed to generalize findings:
+Understanding early evolution and clonal dynamics within the ductal system is crucial for grasping how breast cancer develops its malignant potential. Previous studies have reported extensive heterogeneity of \acf{CIS}, however did not study their precise spatial distribution at large tissue areas \parencite{Casasent2018-gx,Nishimura2023-mk,Yates2015-xk}. 
 
-1. branching parallel evolution withing the DCIS
+The observed patchwork pattern of microscopic clonal sweeps within the ductal carcinoma in situ (\ac{DCIS}) is striking and prompts questions about its formation. Several explanations for these growth patterns exist, including clonal co-operation and genetic drift, as discussed in \cref{sec:application-discussion} \parencite{Janiszewska2019-zq,Turajlic2019-sr}.
 
-2. a tight link between clone and environment, especially in the lymph node
+This observed pattern also aligns with simulations conducted by \textcite{West2021-ar}, which predict that local clonal sweeps arise due to the spatial constraints inherent in the fine branches of the ductal system. However, this model considers the mammary gland as a static system, neglecting its dynamic nature and life-long remodelling \pcref{sec:applications-normal-breast-development}. Developmental processes within the mammary gland could play a role in clone spread.
 
-Investigate mechanisms underlying DCIS growth patterns
+The first detected clonal expansion in this case roughly coincides with puberty, a period of active ductal system formation. This expansion could have been facilitated by such developmental processes, stimulating cancer cells to proliferate and disseminate throughout the newly formed ductal and lobular units. Subsequent expansions may also align with other periods of breast remodelling, such as pregnancy, although we lack data for the P1 case in this context.
 
-Examine role of microenvironment in invasion and metastasis
+Within the \ac{DCIS}, we observed a distinct frontline between cancer clones, without evidence of intermingling. This observation is intriguing from a clonal dynamics standpoint and raises questions as to what extend a `fitter' clone may outcompete others colonising ductal system and why do we observe complete local sweeps. The human breast continues to develop acini with each menstrual cycle \parencite{Javed2013-ew}, providing additional space for proximal clones to expand. Once colonised, lobules may become inaccessible to other clones, a phenomenon observed in bacterial colonisation of porous landscapes \parencite{Conwill2022-sp}.
 
-\subsection{Cancer grand challenges}
+Determining the extent to which this pattern results from cancer spreading within a static system, versus the role of natural breast development, is challenging based on a static 2D snapshot of a dynamic 3D structure. However, the \ac{BaSISS} approach can be applied to consecutively capture the three-dimensional structure of clonal distribution. Such data should clarify the degree of clonal mixing at a global level, thereby providing a foundation for future evolutionary simulations. Additional genomic studies of individual lobules, e.g. with \ac{LCM} may help dissect clonal dinamic further and understand local patterns of colonisation. 
 
-ageing and cancer?
+\subsubsection*{Cancer plasticity and invasion}
 
-cancer cell plasticity?
+Prior research suggests that genetically identical clones can coexist in both carcinoma in situ (\ac{CIS}) and invasive states \parencite{Casasent2018-gx}. Moreover, the microenvironment plays a role in initiating invasion \parencite{Sinha2021-mf,Risom2022-uw} \pcref{fig:applications-epithelial-plasticity}. Nonetheless, it is evident that not all clones possess the capacity for invasion, and specific genetic backgrounds may be required for this capability.
 
+The invasive growth patterns discussed in \cref{sec:chapter-basiss-applications} support this model. Invasive clones occupy the ductal system, occasionally co-localising with non-invasive clones \pcref{fig:applications-maps-PBC-P1}. While the absence of direct experimental evidence makes it challenging to assert that non-invasive clones lack invasive potential, statistical analysis across large cohorts could reveal correlations between the genetic backgrounds of invasive and non-invasive lineages. Such analysis could also quantify associated changes in cell phenotype.
 
+It is plausible that \ac{CIS} clones correlate with specific microenvironment types, as their histological features differ significantly. Unfortunately, the cell-typing analysis was not sufficiently sensitive to detail the functional differences between the niches associated with invasive and non-invasive clones, such as those proposed for neutrophils \parencite{Sinha2021-mf} and desmoplastic stroma \parencite{Risom2022-uw}. Future studies, leveraging advancements in spatial transcriptomics and proteomics profiling, should elucidate these microenvironmental differences.
 
-Create tumor ecosystem atlases across cancer types
+\subsubsection*{Lymph node metastasis and environment interactions}
 
-Elucidate general principles of spatial ecology
+While lymph nodes (\acfp{LN}) actively execute adaptive immune responses, their role in cancer progression remains ambiguous, in part due to the challenges posed by the low cancer purity in the diffuse infiltration of these structures. Genomic studies have reported extensive heterogeneity among cancer cells within \acp{LN} \parencite{Pal2021-rf,Barry2018-el,Bao2018-kj}, however they lacked spatial details to functionally link genetic heterogeneity to tumour microenvironment.
 
-Develop prognostic and predictive biomarkers
+The clonal patterns discussed in \cref{sec:applications-LN} suggest ongoing evolution within the \acp{LN}. However, given that \ac{LN} metastases have been reported to originate from minor clones at primary sites \parencite{Bao2018-kj}, these patterns could result from polyseeding by under-sampled clones in the primary tumour.
 
-Identify vulnerabilities for ecological therapy
+A striking observation presented in \cref{sec:applications-LN} is the specialisation of clones in fostering specific ecosystems. One clone is mostly avoiding immune presence within the sinuses, while another consistently clusters around B-cell aggregates. This indicates clone-specific interactions with the adaptive immune response. To the best of my knowledge, the phenomenon of cancer clones encircling B-cell clusters has not been reported previously. These observations suggest that clone-immune interactions within the \ac{LN} could influence immune cell behaviour at primary sites, either by attracting immune attention or by contributing to immune evasion.
 
-\section{Conclusive remarks}
+\explain{}{cartoon of the structure}
+
+Future spatial studies involving appropriately paired cohorts should further clarify the nature of cancer-immune interactions within both the \ac{LN} and primary tumours.
+
+\section{Conclusive remarks and Cancer Grand Challenges}
+
+The primary aim of this thesis was to enhance existing spatial omics methods, with a focus on the genomic component. This focus addresses a gap in current technology, despite the genomic component's critical role in cancer development. Additionally, the thesis serves as a proof-of-concept study, integrating multiple modalities to elucidate cancer biology using the genomic component as a pivot element. 
+
+Would this approach offer utility in the near future for the global field of cancer research? I argue that several priority directions identified in the \href{https://cancergrandchallenges.org/}{Cancer Grand Challenges} would benefit from this methodology. Specifically, the approach could advance research areas focused on tumour cell plasticity, the genome-phenotype link, distinguishing lethal from non-lethal cancer evolutionary branches, and the role of ageing in cancer onset.
+
+\textbf{Cancer cell plasticity.} Cancer cells exhibit poorly understood plasticity, enabling transcriptional program switching and resistance to therapy. This plasticity originates from a complex interplay between genetic, epigenetic, and environmental factors. However, the distinction between intrinsic, heritable components and environmentally influenced aspects remains unclear. Profiling these factors simultaneously will likely provide valuable insights.
+
+\textbf{Normal phenotype.} The relationship among morphology, histology, and genetic evolution remains unclear. For instance, tumour cells with driver genes can still exhibit phenotypically normal characteristics, as illustrated in \cref{fig:applications-evolution-tree}. Genetics alone is insufficient to account for the emergence of malignant phenotypes. Therefore, interactions between cancer clones with known genetic backgrounds and the \ac{TME} warrant further investigation.
+
+\textbf{Lethal vs non-lethal cancers.} Current screening methods frequently lead to over-diagnosis and subsequent over-treatment of cancers. Given the heterogeneity of cancer and our incomplete understanding of the interactions among the genome, phenotype, and cancer plasticity, predicting disease progression remains challenging. Spatial omics techniques not only refine existing histology-based biomarkers but also enable the discovery of new biomarkers.
+
+\textbf{Cancer and ageing.} Existence is inherently tumourigenic, as no repair mechanisms are flawless and the accumulation of mutations, coupled with global tissue dysregulation, is inevitable. Cancer development may be considered a facet of the global ageing process. However, the mechanisms of ageing that lead to tumourigenesis vary depending on the organ and tissue context. Conducting multimodal spatial studies across various tissues and cancer types could elucidate the complex impact of ageing on cancer promotion and enhance our understanding of normal tissue ageing.
+
+To fully understand the intricate process of tumour development within its microenvironment, a multimodal approach that profiles both genetic and phenotypic components is essential. Implementing this approach across various cancer types promises to substantially advance our grasp of the fundamental challenges in cancer development.
