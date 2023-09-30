@@ -324,10 +324,12 @@
   \setcounter{tempsubsection}{\value{subsection}}
   \setcounter{tempsubsubsection}{\value{subsubsection}}
 
-
   % Your infobox code
   \clearpage
   \stepcounter{boxcounter}
+  \phantomsection % To ensure correct hyperlinks
+  \addcontentsline{toc}{section}{Box \arabic{boxcounter}: #3} % Add to TOC if needed
+  \refstepcounter{boxcounter} % Make boxcounter the current referable item
   \label{#2}
   \pagecolor{infoboxcolor}
   \KOMAoptions{BCOR=8.5mm, DIV=14}
@@ -346,7 +348,6 @@
   \setcounter{section}{\value{tempsection}} % Restore section counter
   \setcounter{subsection}{\value{tempsubsection}}
   \setcounter{subsubsection}{\value{tempsubsubsection}}
-
 }
 
 

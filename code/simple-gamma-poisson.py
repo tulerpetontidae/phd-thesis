@@ -9,22 +9,23 @@ from matplotlib.lines import Line2D
 
 
 # Path to the Neo Euler font file
-font_path = '/Users/b450-admin/Library/Fonts/NeoEuler-VGO00.otf'
+font_path_math = '/Users/b450-admin/Library/Fonts/NeoEuler-VGO00.otf'
+font_path_text = '/Users/b450-admin/Library/Fonts/SourceSansPro-Regular.ttf'
 
 # Add the font to the font manager
-fm.fontManager.addfont(font_path)
+fm.fontManager.addfont(font_path_math)
+fm.fontManager.addfont(font_path_text)
+
 
 # Load the font
-euler_font_properties = fm.FontProperties(fname=font_path)
-
-# Get the name of the font
-font_name = euler_font_properties.get_name()
+euler_font_properties = fm.FontProperties(fname=font_path_math)
+sans_font_properties = fm.FontProperties(fname=font_path_text)
 
 # Update the custom font settings
 plt.rcParams['mathtext.fontset'] = 'custom'
-plt.rcParams['mathtext.it'] = font_name
-plt.rcParams['mathtext.rm'] = font_name
-plt.rcParams['font.family'] = font_name
+plt.rcParams['mathtext.it'] = euler_font_properties.get_name()
+plt.rcParams['mathtext.rm'] = euler_font_properties.get_name()
+plt.rcParams['font.family'] = sans_font_properties.get_name()
 plt.rcParams['font.size'] = 15
 
 output_pdf_path='fig/simple-gamma-poisson.pdf'
