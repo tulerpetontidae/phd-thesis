@@ -138,7 +138,7 @@ In addition to advancements in inference algorithms, contemporary machine learni
 \label{sec:bassis-data-brief}
 
 \figuretextwidth{basiss-data-raw.pdf}{basiss-data-raw}
-    {Raw \ac{BaSISS} data for three samples from P1 (P1-ER1, P1-ER2, and P1-D1)}
+    {Raw \acs{BaSISS} data for three samples from P1 (P1-ER1, P1-ER2, and P1-D1)}
     {Selected targets are coloured by the clonal origin of the mutated allelic variant. \ac{WGS} estimated \acl{CCF} and clonal phylogeny are shown on the top. The bottom panel presents the link between clone genotypes and \ac{BaSISS} signal density. Scale bar = 2.5 mm}
 
 Before diving into the model design, let's first examine the raw \ac{BaSISS} data for three samples from P1 (P1-ER1, P1-ER2, and P1-D1). Detailed descriptions of these samples and the associated experimental procedures can be found in \cref{sec:applications-cohort-introduction} and \cref{sec:supplement-chapter-method}.  In brief, the multi-region \ac{WGS} identified six clonal expansions, and 51 padlock probes were designed to track them on tissue slides targeting mutant and wild-type allelic variants \pcref{sec:protocol-suppl-mutation-panel,tab:basiss-padlock-probes-P1}. In total, these three samples contain approximately 1,000,000 cells, spanning 245 mm\textsuperscript{2} of tissue \pcref{tab:sample-descsription}, and roughly 1,000,000 detected \ac{BaSISS} signals, 25\% of which target mutant variants.
@@ -178,7 +178,7 @@ Since the matrix $\mathbf{M}$ is designed to represent a spatially continuous ma
 Here, $x$ and $x'$ denote spatial coordinates, and $l$ is a length scale hyperparameter that governs the smoothness.
 
 \figuretextwidth{gp-prior-samples.pdf}{gp-prior-samples}
-    {Samples from a softmax transformed \ac{GP} under different $\tau$}
+    {Samples from a softmax transformed \acs{GP} under different $\tau$}
     {Samples from a softmax transformed \ac{GP} under different $\tau$. The \ac{GP} is defined by a squared exponential kernel with length scale $l=0.1$. The samples are transformed using a softmax transformation with different temperatures $\tau$. The temperature hyperparameter controls the level of intermixing between the clones}
 
 
@@ -316,7 +316,7 @@ Over-dispersion $\alpha_a$ is sampled from Gamma distribution where distribution
 \end{equation} 
 
 \figuretextwidth{conceptual-bassis-model.pdf}{conceptual-bassis-model}
-    {Mathematical modelling \ac{BaSISS} data}
+    {Mathematical modelling \acs{BaSISS} data}
     {Mathematical model for generating quantitative clone maps. The essential idea is that the \ac{BaSISS} signals count matrix $\mathbf{D}$ is decomposed into maps of clones $\mathbf{M}$ each with
     a distinct genotype $\mathbf{G}$ (grey shading), accounting for multiple sources of variability.}
 
