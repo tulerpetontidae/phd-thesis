@@ -326,10 +326,10 @@
 
   % Your infobox code
   \clearpage
-  \stepcounter{boxcounter}
+%   \stepcounter{boxcounter}
+  \refstepcounter{boxcounter} % Make boxcounter the current referable item
   \phantomsection % To ensure correct hyperlinks
   \addcontentsline{toc}{section}{Box \arabic{boxcounter}: #3} % Add to TOC if needed
-  \refstepcounter{boxcounter} % Make boxcounter the current referable item
   \label{#2}
   \pagecolor{infoboxcolor}
   \KOMAoptions{BCOR=8.5mm, DIV=14}
